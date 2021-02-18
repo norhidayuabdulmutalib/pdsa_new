@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_listprop.html
+ * 	Bulleted List dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Bulleted List Properties</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+// Gets the document DOM
+var oDOM = oEditor.FCK.EditorDocument ;
+
+var oActiveEl = oEditor.FCKSelection.MoveToAncestorNode( 'UL' ) ;
+var oActiveSel ;
+
+window.onload = function()
+{
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	if ( oActiveEl )
+		oActiveSel = GetE('selBulleted') ;
+	else
+	{
+		oActiveEl = oEditor.FCKSelection.MoveToAncestorNode( 'OL' ) ;
+		if ( oActiveEl )
+			oActiveSel = GetE('selNumbered') ;
+	}
+
+	oActiveSel.style.display = '' ;
+
+	if ( oActiveEl )
+	{
+		if ( oActiveEl.getAttribute('type') )
+			oActiveSel.value = oActiveEl.getAttribute('type').toLowerCase() ;
+	}
+
+	window.parent.SetOkButton( true ) ;
+}
+
+function Ok()
+{
+	if ( oActiveEl )
+		SetAttribute( oActiveEl, 'type'	, oActiveSel.value ) ;
+
+	return true ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no>
+<TABLE height="100%" width="100%">
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 align=center border=0>
+        <TBODY>
+        <TR>
+          <TD><SPAN fckLang="DlgLstType">List Type</SPAN><BR><SELECT 
+            id=selBulleted style="DISPLAY: none"> <OPTION value="" 
+              selected></OPTION> <OPTION value=circle 
+              fckLang="DlgLstTypeCircle">Circle</OPTION> <OPTION value=disc 
+              fckLang="DlgLstTypeDisc">Disc</OPTION> <OPTION value=square 
+              fckLang="DlgLstTypeSquare">Square</OPTION></SELECT> <SELECT 
+            id=selNumbered style="DISPLAY: none"> <OPTION value="" 
+              selected></OPTION> <OPTION value=1 
+              fckLang="DlgLstTypeNumbers">Numbers (1, 2, 3)</OPTION> <OPTION 
+              value=a fckLang="DlgLstTypeLCase">Lowercase Letters (a, b, 
+              c)</OPTION> <OPTION value=A fckLang="DlgLstTypeUCase">Uppercase 
+              Letters (A, B, C)</OPTION> <OPTION value=i 
+              fckLang="DlgLstTypeSRoman">Small Roman Numerals (i, ii, 
+              iii)</OPTION> <OPTION value=I fckLang="DlgLstTypeLRoman">Large 
+              Roman Numerals (I, II, III)</OPTION></SELECT> &nbsp; 
+      </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

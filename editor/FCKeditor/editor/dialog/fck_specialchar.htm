@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_specialchar.html
+ * 	Special Chars Selector dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD>
+<META content="noindex, nofollow" name=robots>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<STYLE type=text/css>.Hand {
+	CURSOR: hand
+}
+.Sample {
+	FONT-SIZE: 24px
+}
+</STYLE>
+
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+var oSample ;
+
+function insertChar(charValue)
+{
+	oEditor.FCK.InsertHtml( charValue || "" ) ;
+	window.parent.Cancel() ;
+}
+
+function over(td)
+{
+	oSample.innerHTML = td.innerHTML ;
+	td.className = 'LightBackground SpecialCharsOver Hand' ;
+}
+
+function out(td)
+{
+	oSample.innerHTML = "&nbsp;" ;
+	td.className = 'DarkBackground SpecialCharsOut Hand' ;
+}
+
+function setDefaults()
+{
+	// Gets the sample placeholder.
+	oSample = document.getElementById("SampleTD") ;
+
+	// First of all, translates the dialog box texts.
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY scroll=no onload=setDefaults()>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD width="100%">
+      <TABLE height="100%" cellSpacing=1 cellPadding=1 width="100%" align=center 
+      border=0>
+        <SCRIPT type=text/javascript>
+var aChars = ["!","&quot;","#","$","%","&amp;","\\'","(",")","*","+","-",".","/","0","1","2","3","4","5","6","7","8","9",":",";","&lt;","=","&gt;","?","@","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","[","]","^","_","`","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","{","|","}","~","&euro;","&lsquo;","&rsquo;","&rsquo;","&ldquo;","&rdquo;","&ndash;","&mdash;","&iexcl;","&cent;","&pound;","&curren;","&yen;","&brvbar;","&sect;","&uml;","&copy;","&ordf;","&laquo;","&not;","&reg;","&macr;","&deg;","&plusmn;","&sup2;","&sup3;","&acute;","&micro;","&para;","&middot;","&cedil;","&sup1;","&ordm;","&raquo;","&frac14;","&frac12;","&frac34;","&iquest;","&Agrave;","&Aacute;","&Acirc;","&Atilde;","&Auml;","&Aring;","&AElig;","&Ccedil;","&Egrave;","&Eacute;","&Ecirc;","&Euml;","&Igrave;","&Iacute;","&Icirc;","&Iuml;","&ETH;","&Ntilde;","&Ograve;","&Oacute;","&Ocirc;","&Otilde;","&Ouml;","&times;","&Oslash;","&Ugrave;","&Uacute;","&Ucirc;","&Uuml;","&Yacute;","&THORN;","&szlig;","&agrave;","&aacute;","&acirc;","&atilde;","&auml;","&aring;","&aelig;","&ccedil;","&egrave;","&eacute;","&ecirc;","&euml;","&igrave;","&iacute;","&icirc;","&iuml;","&eth;","&ntilde;","&ograve;","&oacute;","&ocirc;","&otilde;","&ouml;","&divide;","&oslash;","&ugrave;","&uacute;","&ucirc;","&uuml;","&uuml;","&yacute;","&thorn;","&yuml;","&OElig;","&oelig;","&sbquo;","&#8219;","&bdquo;","&hellip;","&trade;","&#9658;","&bull;","&rarr;","&rArr;","&hArr;","&diams;","&asymp;"] ;
+
+var cols = 20 ;
+
+var i = 0 ;
+while (i < aChars.length)
+{
+	document.write("<TR>") ;
+	for(var j = 0 ; j < cols ; j++) 
+	{
+		if (aChars[i])
+		{
+			document.write('<TD width="1%" class="DarkBackground SpecialCharsOut Hand" align="center" onclick="insertChar(\'' + aChars[i].replace(/&/g, "&amp;") + '\')" onmouseover="over(this)" onmouseout="out(this)">') ;
+			document.write(aChars[i]) ;
+		}
+		else
+			document.write("<TD class='DarkBackground SpecialCharsOut'>&nbsp;") ;
+		document.write("<\/TD>") ;
+		i++ ;
+	}
+	document.write("<\/TR>") ;
+}
+						</SCRIPT>
+
+        <TBODY></TBODY></TABLE></TD>
+    <TD noWrap>&nbsp;&nbsp;&nbsp;&nbsp;</TD>
+    <TD vAlign=top>
+      <TABLE cellSpacing=0 cellPadding=0 width=40 border=0>
+        <TBODY>
+        <TR>
+          <TD class="DarkBackground SpecialCharsOut Sample" id=SampleTD 
+          align=middle width=40 
+  height=40>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

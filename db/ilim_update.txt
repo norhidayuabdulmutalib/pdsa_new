@@ -1,0 +1,73 @@
+Discussion pada 18/01/2013 - 4-5pm
+
+jika ada perubahan kepada jadual kurus (tarikh) paparkan di laman utama setelah masuk ke dalam sistem (page depan). - OK
+biasanya kursus yg tiada pensyarah - OK
+alert ke email - kalau ada staff yg attach ke kursus tsb. optional - OK
+penanguhan kursus & batal kena ada email atau notifikasi - OK
+
+
+reminder - jadual kursus - Kos Kursus @ Kos Makan/Minum(RM) - * mandatori - OK
+kos penceramah - kos anggaran - OK
+selepas 5 hari tamat kursus - pegawai kena update kos kursus sebenar - (medan lain) - OK
+kos penceramah sebenar - OK
+- reminder kepada penyelaras - 5 hari, 10 hari ??? - OK - email
+semua laporan berkaitan dgn kos (keluarkan kos sebenar sahaja) -OK
+
+
+asingkan kursus yg telah dilaksanakan dgn belum dilaksanakan - OK
+buat filter kepada senarai - belum dilaksanakan / telah dilaksanakan - OK
+
+pada laporan penilaian, buatkan satu %an bagi keseluruhan pandangan peserta
+skala 1 - 5
+cth:
+jumlah / jumlah penilaian
+(4 + 3 + 2 + 4) / 4
+
+
+maklumat penilaian kursus bagi penceramah - OK
+
+
+paparan
+senarai jumlah pemohon - laman utama
+senarai pemohona kursus - laman utama
+senarai berdasarkan pusat (selepas login)
+
+
+UPDATE database
+-----------------------------------------------------------------------------------
+ALTER TABLE `_tbl_peserta` ADD `f_peserta_grp` SMALLINT NULL AFTER `f_peserta_nama` ;
+ALTER TABLE `_tbl_kursus_jadual_peserta` ADD `is_selected` TINYINT( 1 ) NULL DEFAULT '0';
+
+UPDATE `_tbl_kursus_jadual_peserta`  SET `is_selected`=1 WHERE 1;
+
+ALTER TABLE `_tbl_kursus_jadual` ADD `jumkceramah` DECIMAL( 10, 2 ) NULL DEFAULT NULL AFTER `jumkos` ,
+ADD `jumkos_sebenar` DECIMAL( 10, 2 ) NULL DEFAULT NULL AFTER `jumkceramah` ,
+ADD `jumkceramah_sebenar` DECIMAL( 10, 2 ) NULL DEFAULT NULL AFTER `jumkos_sebenar` ;
+
+ALTER TABLE `_tbl_kursus_jadual` ADD `penyelaras_email` VARCHAR( 128 ) NULL AFTER `penyelaras_notel` ;
+
+ALTER TABLE `_ref_laporan` ADD `status` TINYINT( 1 ) NOT NULL DEFAULT '0';
+UPDATE `db_ilim`.`_ref_laporan` SET `status` = '1' WHERE `_ref_laporan`.`id` =10;
+UPDATE `db_ilim`.`_ref_laporan` SET `status` = '1' WHERE `_ref_laporan`.`id` =11;
+
+CREATE TABLE IF NOT EXISTS `_tbl_kursus_jadual_tukar` (
+  `kjt_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_jadual_kursus` varchar(32) NOT NULL,
+  `tkh_mula` date DEFAULT NULL,
+  `tkh_akhir` date DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`kjt_id`),
+  KEY `id_jadual_kursus` (`id_jadual_kursus`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE `_tbl_kursus_jadual_tukar` ADD `new_tkh_mula` DATE NULL AFTER `status` ,
+ADD `new_tkh_akhir` DATE NULL AFTER `new_tkh_mula` ,
+ADD `create_by` VARCHAR( 32 ) NULL AFTER `new_tkh_akhir` ,
+ADD `create_dt` DATETIME NULL AFTER `create_by` ;
+
+ALTER TABLE `_tbl_kursus_jadual_tukar` ADD `kat_perubahan` TINYINT( 1 ) NULL DEFAULT '0';
+
+ALTER TABLE `_tbl_kursus_jadual_peserta` ADD `jawatan_ketuajabatan` VARCHAR( 128 ) NULL AFTER `email_ketuajabatan`; 
+
+
+N1008769

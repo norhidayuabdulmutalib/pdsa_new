@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_tablecell.html
+ * 	Cell properties dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Table Cell Properties</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+// Gets the document DOM
+var oDOM = oEditor.FCK.EditorDocument ;
+
+// Array of selected Cells
+var aCells = oEditor.FCKTableHandler.GetSelectedCells() ;
+
+window.onload = function()
+{
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage( document ) ;
+
+	SetStartupValue() ;
+
+	window.parent.SetOkButton( true ) ;
+	window.parent.SetAutoSize( true ) ;
+}
+
+function SetStartupValue()
+{
+	if ( aCells.length > 0 )
+	{
+		var oCell = aCells[0] ;
+		var iWidth = GetAttribute( oCell, 'width' ) ;
+
+		if ( iWidth.indexOf && iWidth.indexOf( '%' ) >= 0 )
+		{
+			iWidth = iWidth.substr( 0, iWidth.length - 1 ) ;
+			GetE('selWidthType').value = 'percent' ;
+		}
+
+		if ( oCell.attributes['noWrap'] != null && oCell.attributes['noWrap'].specified )
+			GetE('selWordWrap').value = !oCell.noWrap ;
+
+		GetE('txtWidth').value			= iWidth ;
+		GetE('txtHeight').value			= GetAttribute( oCell, 'height' ) ;
+		GetE('selHAlign').value			= GetAttribute( oCell, 'align' ) ;
+		GetE('selVAlign').value			= GetAttribute( oCell, 'vAlign' ) ;
+		GetE('txtRowSpan').value		= GetAttribute( oCell, 'rowSpan' ) ;
+		GetE('txtCollSpan').value		= GetAttribute( oCell, 'colSpan' ) ;
+		GetE('txtBackColor').value		= GetAttribute( oCell, 'bgColor' ) ;
+		GetE('txtBorderColor').value	= GetAttribute( oCell, 'borderColor' ) ;
+//		GetE('cmbFontStyle').value		= oCell.className ;
+	}
+}
+
+// Fired when the user press the OK button
+function Ok()
+{
+	for( i = 0 ; i < aCells.length ; i++ )
+	{
+		if ( GetE('txtWidth').value.length > 0 )
+			aCells[i].width	= GetE('txtWidth').value + ( GetE('selWidthType').value == 'percent' ? '%' : '') ;
+		else
+			aCells[i].removeAttribute( 'width', 0 ) ;
+
+		if ( GetE('selWordWrap').value == 'false' )
+			aCells[i].noWrap = true ;
+		else
+			aCells[i].removeAttribute( 'noWrap' ) ;
+
+		SetAttribute( aCells[i], 'height'		, GetE('txtHeight').value ) ;
+		SetAttribute( aCells[i], 'align'		, GetE('selHAlign').value ) ;
+		SetAttribute( aCells[i], 'vAlign'		, GetE('selVAlign').value ) ;
+		SetAttribute( aCells[i], 'rowSpan'		, GetE('txtRowSpan').value ) ;
+		SetAttribute( aCells[i], 'colSpan'		, GetE('txtCollSpan').value ) ;
+		SetAttribute( aCells[i], 'bgColor'		, GetE('txtBackColor').value ) ;
+		SetAttribute( aCells[i], 'borderColor'	, GetE('txtBorderColor').value ) ;
+//		SetAttribute( aCells[i], 'className'	, GetE('cmbFontStyle').value ) ;
+	}
+
+	return true ;
+}
+
+function SelectBackColor( color )
+{
+	if ( color && color.length > 0 )
+		GetE('txtBackColor').value = color ;
+}
+
+function SelectBorderColor( color )
+{
+	if ( color && color.length > 0 )
+		GetE('txtBorderColor').value = color ;
+}
+
+function SelectColor( wich )
+{
+	oEditor.FCKDialog.OpenDialog( 'FCKDialog_Color', oEditor.FCKLang.DlgColorTitle, 'dialog/fck_colorselector.html', 400, 330, wich == 'Back' ? SelectBackColor : SelectBorderColor, window ) ;
+}
+
+	</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=1 cellPadding=1 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellWidth">Width</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit();" id=txtWidth 
+                  maxLength=4 size=3 name=txtWidth>&nbsp;<SELECT id=selWidthType 
+                  name=selWidthType> <OPTION value=pixels selected 
+                    fcklang="DlgCellWidthPx">pixels</OPTION> <OPTION 
+                    value=percent 
+                  fcklang="DlgCellWidthPc">percent</OPTION></SELECT></TD></TR>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellHeight">Height</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit();" id=txtHeight 
+                  maxLength=4 size=3 name=txtHeight>&nbsp;<SPAN 
+                  fcklang="DlgCellWidthPx">pixels</SPAN></TD></TR>
+              <TR>
+                <TD>&nbsp;</TD>
+                <TD>&nbsp;</TD></TR>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellWordWrap">Word 
+Wrap</SPAN>:</TD>
+                <TD>&nbsp;<SELECT id=selWordWrap name=selAlignment> <OPTION 
+                    value=true selected 
+                    fcklang="DlgCellWordWrapYes">Yes</OPTION> <OPTION 
+                    value=false 
+              fcklang="DlgCellWordWrapNo">No</OPTION></SELECT></TD></TR>
+              <TR>
+                <TD>&nbsp;</TD>
+                <TD>&nbsp;</TD></TR>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellHorAlign">Horizontal 
+                  Alignment</SPAN>:</TD>
+                <TD>&nbsp;<SELECT id=selHAlign name=selAlignment> <OPTION 
+                    value="" selected fcklang="DlgCellHorAlignNotSet">&lt;Not 
+                    set&gt;</OPTION> <OPTION value=left 
+                    fcklang="DlgCellHorAlignLeft">Left</OPTION> <OPTION 
+                    value=center fcklang="DlgCellHorAlignCenter">Center</OPTION> 
+                    <OPTION value=right 
+                    fcklang="DlgCellHorAlignRight">Right</OPTION></SELECT></TD></TR>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellVerAlign">Vertical 
+                  Alignment</SPAN>:</TD>
+                <TD>&nbsp;<SELECT id=selVAlign name=selAlignment> <OPTION 
+                    value="" selected fcklang="DlgCellVerAlignNotSet">&lt;Not 
+                    set&gt;</OPTION> <OPTION value=top 
+                    fcklang="DlgCellVerAlignTop">Top</OPTION> <OPTION 
+                    value=middle fcklang="DlgCellVerAlignMiddle">Middle</OPTION> 
+                    <OPTION value=bottom 
+                    fcklang="DlgCellVerAlignBottom">Bottom</OPTION> <OPTION 
+                    value=baseline 
+                    fcklang="DlgCellVerAlignBaseline">Baseline</OPTION></SELECT></TD></TR></TBODY></TABLE></TD>
+          <TD>&nbsp;&nbsp;&nbsp;</TD>
+          <TD align=right>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellRowSpan">Rows Span</SPAN>:</TD>
+                <TD>&nbsp; <INPUT onkeypress="return IsDigit();" id=txtRowSpan 
+                  maxLength=3 size=2 name=txtRows></TD>
+                <TD></TD></TR>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellCollSpan">Columns 
+                Span</SPAN>:</TD>
+                <TD>&nbsp; <INPUT onkeypress="return IsDigit();" 
+                  id=txtCollSpan maxLength=2 size=2 name=txtColumns></TD>
+                <TD></TD></TR>
+              <TR>
+                <TD>&nbsp;</TD>
+                <TD>&nbsp;</TD>
+                <TD>&nbsp;</TD></TR>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellBackColor">Background 
+                  Color</SPAN>:</TD>
+                <TD>&nbsp;<INPUT id=txtBackColor size=8 
+name=txtCellSpacing></TD>
+                <TD>&nbsp; <INPUT onclick="SelectColor( 'Back' )" type=button value=Select... fcklang="DlgCellBtnSelect"></TD></TR>
+              <TR>
+                <TD noWrap><SPAN fcklang="DlgCellBorderColor">Border 
+                  Color</SPAN>:</TD>
+                <TD>&nbsp;<INPUT id=txtBorderColor size=8 
+                name=txtCellPadding></TD>
+                <TD>&nbsp; <INPUT onclick="SelectColor( 'Border' )" type=button value=Select... fcklang="DlgCellBtnSelect"></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

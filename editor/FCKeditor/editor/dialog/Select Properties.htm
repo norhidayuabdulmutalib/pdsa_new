@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_select.html
+ * 	Select dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Select Properties</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+// Gets the document DOM
+var oDOM = oEditor.FCK.EditorDocument ;
+
+var oActiveEl = oEditor.FCKSelection.GetSelectedElement() ;
+
+var oListText ;
+var oListValue ;
+
+window.onload = function()
+{
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	oListText	= document.getElementById( 'cmbText' ) ;
+	oListValue	= document.getElementById( 'cmbValue' ) ;
+
+	if ( oActiveEl && oActiveEl.tagName == 'SELECT' )
+	{
+		GetE('txtName').value		= oActiveEl.name ;
+		GetE('txtSelValue').value	= oActiveEl.value ;
+		GetE('txtLines').value		= GetAttribute( oActiveEl, 'size' ) ;
+		GetE('chkMultiple').checked	= oActiveEl.multiple ;
+
+		// Load the actual options
+		for ( var i = 0 ; i < oActiveEl.options.length ; i++ )
+		{
+			var sText	= oActiveEl.options[i].innerHTML ;
+			var sValue	= oActiveEl.options[i].value ;
+
+			AddComboOption( oListText, sText, sText ) ;
+			AddComboOption( oListValue, sValue, sValue ) ;
+		}
+	}
+	else
+		oActiveEl = null ;
+
+	window.parent.SetOkButton( true ) ;
+}
+
+function Ok()
+{
+	var sSize = GetE('txtLines').value ;
+	if ( sSize == null || isNaN( sSize ) || sSize <= 1 )
+		sSize = '' ;
+
+	if ( !oActiveEl )
+	{
+		oActiveEl = oEditor.FCK.EditorDocument.createElement( 'SELECT' ) ;
+		oActiveEl = oEditor.FCK.InsertElementAndGetIt( oActiveEl ) ;
+	}
+
+	SetAttribute( oActiveEl, 'name'	, GetE('txtName').value ) ;
+	SetAttribute( oActiveEl, 'size'	, sSize ) ;
+	oActiveEl.multiple = ( sSize.length > 0 && GetE('chkMultiple').checked ) ;
+
+	// Remove all options.
+	while ( oActiveEl.options.length > 0 )
+		oActiveEl.remove(0) ;
+
+	// Add all available options.
+	for ( var i = 0 ; i < oListText.options.length ; i++ )
+	{
+		var sText	= oListText.options[i].value ;
+		var sValue	= oListValue.options[i].value ;
+		if ( sValue.length == 0 ) sValue = sText ;
+
+		var oOption = AddComboOption( oActiveEl, sText, sValue, oDOM ) ;
+
+		if ( sValue == GetE('txtSelValue').value )
+		{
+			SetAttribute( oOption, 'selected', 'selected' ) ;
+			oOption.selected = true ;
+		}
+	}
+
+	return true ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no>
+<TABLE height="100%" width="100%">
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE width="100%">
+        <TBODY>
+        <TR>
+          <TD noWrap><SPAN fckLang="DlgSelectName">Name</SPAN>&nbsp;</TD>
+          <TD width="100%" colSpan=2><INPUT id=txtName 
+        style="WIDTH: 100%"></TD></TR>
+        <TR>
+          <TD noWrap><SPAN fckLang="DlgSelectValue">Value</SPAN>&nbsp;</TD>
+          <TD width="100%" colSpan=2><INPUT id=txtSelValue 
+            style="WIDTH: 100%; BACKGROUND-COLOR: buttonface" readOnly></TD></TR>
+        <TR>
+          <TD noWrap><SPAN fckLang="DlgSelectSize">Size</SPAN>&nbsp;</TD>
+          <TD noWrap><INPUT id=txtLines size=2>&nbsp;<SPAN 
+            fckLang="DlgSelectLines">lines</SPAN></TD>
+          <TD noWrap align=right><INPUT id=chkMultiple type=checkbox 
+            name=chkMultiple><LABEL for=chkMultiple 
+            fckLang="DlgSelectChkMulti">Allow multiple 
+        selections</LABEL></TD></TR></TBODY></TABLE><BR>
+      <HR style="POSITION: absolute">
+      <SPAN class=BackColor 
+      style="LEFT: 10px; POSITION: relative; TOP: -7px">&nbsp;<SPAN 
+      fckLang="DlgSelectOpAvail">Available Options</SPAN>&nbsp;</SPAN> 
+      <TABLE width="100%">
+        <TBODY>
+        <TR>
+          <TD width="50%"><SPAN 
+            fckLang="DlgSelectOpText">Text</SPAN><BR><INPUT id=txtText 
+            style="WIDTH: 100%" name=txtText> </TD>
+          <TD width="50%"><SPAN 
+            fckLang="DlgSelectOpValue">Value</SPAN><BR><INPUT id=txtValue 
+            style="WIDTH: 100%" name=txtValue> </TD>
+          <TD vAlign=bottom><INPUT onclick=Add(); type=button value=Add fckLang="DlgSelectBtnAdd"></TD>
+          <TD vAlign=bottom><INPUT onclick=Modify(); type=button value=Modify fckLang="DlgSelectBtnModify"></TD></TR>
+        <TR>
+          <TD rowSpan=2><SELECT id=cmbText style="WIDTH: 100%" 
+            onchange="GetE('cmbValue').selectedIndex = this.selectedIndex;Select(this);" 
+            size=5 name=cmbText></SELECT> </TD>
+          <TD rowSpan=2><SELECT id=cmbValue style="WIDTH: 100%" 
+            onchange="GetE('cmbText').selectedIndex = this.selectedIndex;Select(this);" 
+            size=5 name=cmbValue></SELECT> </TD>
+          <TD vAlign=top colSpan=2></TD></TR>
+        <TR>
+          <TD vAlign=bottom colSpan=2><INPUT style="WIDTH: 100%" onclick=Move(-1); type=button value=Up fckLang="DlgSelectBtnUp"> 
+            <BR><INPUT style="WIDTH: 100%" onclick=Move(1); type=button value=Down fckLang="DlgSelectBtnDown"> 
+          </TD></TR>
+        <TR>
+          <TD vAlign=bottom colSpan=4><INPUT onclick=SetSelectedValue(); type=button value="Set as selected value" fckLang="DlgSelectBtnSetValue">&nbsp;&nbsp; 
+<INPUT onclick=Delete(); type=button value=Delete fckLang="DlgSelectBtnDelete"></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

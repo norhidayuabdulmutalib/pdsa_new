@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_document_preview.html
+ * 	Preview shown in the "Document Properties" dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Document Properties - Preview</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT language=javascript>
+
+var eBase = parent.FCK.EditorDocument.getElementsByTagName( 'BASE' ) ;
+if ( eBase.length > 0 && eBase[0].href.length > 0 )
+{
+	document.write( '<base href="' + eBase[0].href + '">' ) ;
+}
+
+window.onload = function()
+{
+	if ( typeof( parent.OnPreviewLoad ) == 'function' )
+		parent.OnPreviewLoad( window, document.body ) ;
+}
+
+function SetBaseHRef( baseHref )
+{
+	var eBase = document.createElement( 'BASE' ) ;
+	eBase.href = baseHref ;
+
+	var eHead = document.getElementsByTagName( 'HEAD' )[0] ;
+	eHead.appendChild( eBase ) ;
+}
+
+function SetLinkColor( color )
+{
+	if ( color && color.length > 0 )
+		document.getElementById('eLink').style.color = color ;
+	else
+		document.getElementById('eLink').style.color = window.document.linkColor ;
+}
+
+function SetVisitedColor( color )
+{
+	if ( color && color.length > 0 )
+		document.getElementById('eVisited').style.color = color ;
+	else
+		document.getElementById('eVisited').style.color = window.document.vlinkColor ;
+}
+
+function SetActiveColor( color )
+{
+	if ( color && color.length > 0 )
+		document.getElementById('eActive').style.color = color ;
+	else
+		document.getElementById('eActive').style.color = window.document.alinkColor ;
+}
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=center align=middle>Normal Text </TD>
+    <TD id=eLink vAlign=center align=middle><U>Link Text</U> </TD></TR>
+  <TR>
+    <TD id=eVisited vAlign=center align=middle><U>Visited Link</U> </TD>
+    <TD id=eActive vAlign=center align=middle><U>Active Link</U> 
+</TD></TR></TBODY></TABLE><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR><BR></BODY></HTML>

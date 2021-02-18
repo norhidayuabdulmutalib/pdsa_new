@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_table.html
+ * 	Table dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Table Properties</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+// Gets the document DOM
+var oDOM = oEditor.FCK.EditorDocument ;
+
+// Gets the table if there is one selected.
+var table ;
+var e = oEditor.FCKSelection.GetSelectedElement() ;
+
+if ( ( !e && document.location.search.substr(1) == 'Parent' ) || ( e && e.tagName != 'TABLE' ) )
+	e = oEditor.FCKSelection.MoveToAncestorNode( 'TABLE' ) ;
+
+if ( e && e.tagName == "TABLE" )
+	table = e ;
+
+// Fired when the window loading process is finished. It sets the fields with the
+// actual values if a table is selected in the editor.
+window.onload = function()
+{
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	if (table)
+	{
+		document.getElementById('txtRows').value    = table.rows.length ;
+		document.getElementById('txtColumns').value = table.rows[0].cells.length ;
+
+		// Gets the value from the Width or the Style attribute
+		var iWidth  = (table.style.width  ? table.style.width  : table.width ) ;
+		var iHeight = (table.style.height ? table.style.height : table.height ) ;
+
+		if (iWidth.indexOf('%') >= 0)			// Percentual = %
+		{
+			iWidth = parseInt( iWidth.substr(0,iWidth.length - 1) ) ;
+			document.getElementById('selWidthType').value = "percent" ;
+		}
+		else if (iWidth.indexOf('px') >= 0)		// Style Pixel = px
+		{																										  //
+			iWidth = iWidth.substr(0,iWidth.length - 2);
+			document.getElementById('selWidthType').value = "pixels" ;
+		}
+		
+		if (iHeight && iHeight.indexOf('px') >= 0)		// Style Pixel = px
+			iHeight = iHeight.substr(0,iHeight.length - 2);
+		
+		document.getElementById('txtWidth').value		= iWidth ;
+		document.getElementById('txtHeight').value		= iHeight ;
+		document.getElementById('txtBorder').value		= table.border ;
+		document.getElementById('selAlignment').value	= table.align ;
+		document.getElementById('txtCellPadding').value	= table.cellPadding	;
+		document.getElementById('txtCellSpacing').value	= table.cellSpacing	;
+		document.getElementById('txtSummary').value     = table.summary;
+//		document.getElementById('cmbFontStyle').value	= table.className ;
+
+		if (table.caption) document.getElementById('txtCaption').value = table.caption.innerHTML ;
+		
+		document.getElementById('txtRows').disabled    = true ;
+		document.getElementById('txtColumns').disabled = true ;
+	}
+	
+	window.parent.SetOkButton( true ) ;	
+	window.parent.SetAutoSize( true ) ;	
+}
+
+// Fired when the user press the OK button
+function Ok()
+{
+	var bExists = ( table != null ) ;
+	
+	if ( ! bExists )
+	{
+		table = oEditor.FCK.EditorDocument.createElement( "TABLE" ) ;
+	}
+
+	// Removes the Width and Height styles
+	if ( bExists && table.style.width )		table.style.width = null ; //.removeAttribute("width") ;
+	if ( bExists && table.style.height )	table.style.height = null ; //.removeAttribute("height") ;
+	
+	table.width			= document.getElementById('txtWidth').value + ( document.getElementById('selWidthType').value == "percent" ? "%" : "") ;
+	table.height		= document.getElementById('txtHeight').value ;
+	table.border		= document.getElementById('txtBorder').value ;
+	table.align			= document.getElementById('selAlignment').value ;
+	table.cellPadding	= document.getElementById('txtCellPadding').value ;
+	table.cellSpacing	= document.getElementById('txtCellSpacing').value ;
+	table.summary       = document.getElementById('txtSummary').value ;
+//	table.className		= cmbFontStyle.value ;
+	
+	if ( document.getElementById('txtCaption').value != '')
+	{
+		if (! table.caption) table.createCaption() ;
+		table.caption.innerHTML = document.getElementById('txtCaption').value ;
+	}
+	else if ( bExists && table.caption )
+	{
+		if ( document.all )
+			table.caption.innerHTML = '' ;	// TODO: It causes an IE internal error if using removeChild.
+		else
+			table.caption.parentNode.removeChild( table.caption ) ;
+	}
+		
+	if (! bExists)
+	{
+		var iRows = document.getElementById('txtRows').value ;
+		var iCols = document.getElementById('txtColumns').value ;
+		
+		for ( var r = 0 ; r < iRows ; r++ )
+		{
+			var oRow = table.insertRow(-1) ;
+			for ( var c = 0 ; c < iCols ; c++ )
+			{
+				var oCell = oRow.insertCell(-1) ;
+				if ( oEditor.FCKBrowserInfo.IsGecko )
+					oCell.innerHTML = '<br _moz_editor_bogus_node="TRUE">' ;
+				//oCell.innerHTML = "&nbsp;" ;
+			}
+		}
+		
+		oEditor.FCKUndo.SaveUndoStep() ;
+		
+		// START iCM MODIFICATIONS	
+		// Amended to ensure that newly inserted tables are not incorrectly nested in P tags, etc
+		// We insert the table first and then rectify any nestings afterwards so we can re-use the
+		// FCKTablesProcessor function that corrects tables on SetHTML()
+		/*
+		table = oEditor.FCK.InsertElementAndGetIt( table ) ;
+		if ( !oEditor.FCKConfig.UseBROnCarriageReturn )
+		{
+			oEditor.FCKTablesProcessor.CheckTableNesting( table ) ;
+		}
+		*/
+		// END iCM MODIFICATIONS	
+		
+		oEditor.FCK.InsertElement( table ) ;
+	}
+	
+	return true ;
+}
+
+function IsDigit( e )
+{
+	e = e || event ;
+	var iCode = ( e.keyCode || e.charCode ) ;
+	return 
+		(
+			( iCode >= 48 && iCode <= 57 )		// Numbers
+			|| (iCode >= 37 && iCode <= 40)		// Arrows
+			|| iCode == 8		// Backspace
+			|| iCode == 46		// Delete
+		) ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" bottomMargin=5 leftMargin=5 topMargin=5 scroll=no 
+rightMargin=5>
+<TABLE id=otable height="100%" cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=1 cellPadding=1 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD><SPAN fckLang="DlgTableRows">Rows</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit(event);" 
+                  id=txtRows maxLength=3 size=2 value=3 name=txtRows></TD></TR>
+              <TR>
+                <TD><SPAN fckLang="DlgTableColumns">Columns</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit(event);" 
+                  id=txtColumns maxLength=2 size=2 value=2 
+name=txtColumns></TD></TR>
+              <TR>
+                <TD>&nbsp;</TD>
+                <TD>&nbsp;</TD></TR>
+              <TR>
+                <TD><SPAN fckLang="DlgTableBorder">Border size</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit(event);" 
+                  id=txtBorder maxLength=2 size=2 value=1 name=txtBorder></TD></TR>
+              <TR>
+                <TD><SPAN fckLang="DlgTableAlign">Alignment</SPAN>:</TD>
+                <TD>&nbsp;<SELECT id=selAlignment name=selAlignment> <OPTION 
+                    value="" selected fckLang="DlgTableAlignNotSet">&lt;Not 
+                    set&gt;</OPTION> <OPTION value=left 
+                    fckLang="DlgTableAlignLeft">Left</OPTION> <OPTION 
+                    value=center fckLang="DlgTableAlignCenter">Center</OPTION> 
+                    <OPTION value=right 
+                    fckLang="DlgTableAlignRight">Right</OPTION></SELECT></TD></TR></TBODY></TABLE></TD>
+          <TD>&nbsp;&nbsp;&nbsp;</TD>
+          <TD vAlign=top align=right>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD><SPAN fckLang="DlgTableWidth">Width</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit(event);" 
+                  id=txtWidth maxLength=4 size=3 value=200 name=txtWidth></TD>
+                <TD>&nbsp;<SELECT id=selWidthType name=selWidthType> <OPTION 
+                    value=pixels selected 
+                    fckLang="DlgTableWidthPx">pixels</OPTION> <OPTION 
+                    value=percent 
+                  fckLang="DlgTableWidthPc">percent</OPTION></SELECT></TD></TR>
+              <TR>
+                <TD><SPAN fckLang="DlgTableHeight">Height</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit(event);" 
+                  id=txtHeight maxLength=4 size=3 name=txtHeight></TD>
+                <TD>&nbsp;<SPAN fckLang="DlgTableWidthPx">pixels</SPAN></TD></TR>
+              <TR>
+                <TD>&nbsp;</TD>
+                <TD>&nbsp;</TD>
+                <TD>&nbsp;</TD></TR>
+              <TR>
+                <TD noWrap><SPAN fckLang="DlgTableCellSpace">Cell 
+                  spacing</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit(event);" 
+                  id=txtCellSpacing maxLength=2 size=2 value=1 
+                  name=txtCellSpacing></TD>
+                <TD>&nbsp;</TD></TR>
+              <TR>
+                <TD noWrap><SPAN fckLang="DlgTableCellPad">Cell 
+                padding</SPAN>:</TD>
+                <TD>&nbsp;<INPUT onkeypress="return IsDigit(event);" 
+                  id=txtCellPadding maxLength=2 size=2 value=1 
+                  name=txtCellPadding></TD>
+                <TD>&nbsp;</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0><!--
+						<tr>
+						<td nowrap>
+						<span fcklang="DlgClassName">Class Name</span>:</td>
+							<td>&nbsp;</td>
+										<td>
+										<script type="text/javascript">
+//											var tbstyles = new TBCombo( "FontStyle"		, "null"			, "", oEditor.config.StyleNames, oEditor.config.StyleValues, 'CheckStyle("cmbFontStyle")');
+//											document.write(tbstyles.GetHTML());
+										</script></td>
+						</tr>
+					-->
+        <TBODY>
+        <TR>
+          <TD noWrap><SPAN fckLang="DlgTableCaption">Caption</SPAN>:</TD>
+          <TD>&nbsp;</TD>
+          <TD noWrap width="100%">&nbsp; <INPUT id=txtCaption 
+            style="WIDTH: 100%"></TD></TR>
+        <TR>
+          <TD noWrap><SPAN fckLang="DlgTableSummary">Summary</SPAN>:</TD>
+          <TD>&nbsp;</TD>
+          <TD noWrap width="100%">&nbsp; <INPUT id=txtSummary 
+            style="WIDTH: 100%"></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

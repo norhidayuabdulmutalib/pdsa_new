@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_universalkey.html
+ * 	Unicode Keyboard dialog window.
+ * 
+ * File Authors:
+ * 		Abdul-Aziz Al-Oraij (top7up@hotmail.com)
+ * 		Michel Staelens
+ * 		Bernadette Cierzniak
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Universal Keyboard</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots><LINK 
+href="fck_universalkey/fck_universalkey.css" type=text/css rel=stylesheet>
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+window.onload = function()
+{
+	document.body.style.padding = '0px' ;
+
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	window.parent.SetOkButton( true ) ;
+	window.parent.SetAutoSize( true ) ;	
+}
+
+function Ok()
+{
+	var oArea = document.getElementById( 'uni_area' ) ;
+
+	if ( oArea.value.length > 0 )
+		oEditor.FCK.InsertHtml( oArea.value ) ;
+
+	return true ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no><TEXTAREA id=uni_area style="WIDTH: 100%; HEIGHT: 60px" rows=4 cols=40></TEXTAREA>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT src="" type=text/javascript></SCRIPT>
+ </BODY></HTML>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: frmresourcetype.html
+ * 	This page shows the list of available resource types.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"><LINK 
+href="frmresourcetype_files/browser.css" type=text/css rel=stylesheet>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript>
+
+function SetResourceType( type )
+{
+	window.parent.frames["frmFolders"].SetResourceType( type ) ;
+}
+
+var aTypes = [
+	['File','File'],
+	['Image','Image'],
+	['Flash','Flash'],
+	['Media','Media']
+] ;
+
+window.onload = function()
+{
+	for ( var i = 0 ; i < aTypes.length ; i++ )
+	{
+		if ( oConnector.ShowAllTypes || aTypes[i][0] == oConnector.ResourceType )
+			AddSelectOption( document.getElementById('cmbType'), aTypes[i][1], aTypes[i][0] ) ;
+	}
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY bottomMargin=0 topMargin=0>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD noWrap>Resource Type<BR><SELECT id=cmbType style="WIDTH: 100%" 
+      onchange=SetResourceType(this.value);></SELECT> 
+</TD></TR></TBODY></TABLE></BODY></HTML>

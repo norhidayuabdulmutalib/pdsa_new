@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><LINK 
+href="spellerStyle.css" type=text/css rel=stylesheet>
+<SCRIPT src=""></SCRIPT>
+
+<SCRIPT>
+var spellerObject;
+var controlWindowObj;
+
+if( parent.opener ) {
+	spellerObject = parent.opener.speller;
+}
+
+function ignore_word() {
+	if( spellerObject ) {
+		spellerObject.ignoreWord();
+	}
+}
+
+function ignore_all() {
+	if( spellerObject ) {
+		spellerObject.ignoreAll();
+	}
+}
+
+function replace_word() {
+	if( spellerObject ) {
+		spellerObject.replaceWord();
+	}
+}
+
+function replace_all() {
+	if( spellerObject ) {
+		spellerObject.replaceAll();
+	}
+}
+
+function end_spell() {
+	if( spellerObject ) {
+		spellerObject.terminateSpell();
+	}
+}
+
+function undo() {
+	if( spellerObject ) {
+		spellerObject.undo();
+	}
+}
+
+function suggText() {
+	if( controlWindowObj ) {
+		controlWindowObj.setSuggestedText();
+	}
+}
+
+var FCKLang = window.parent.parent.FCKLang ;	// by FredCK
+
+function init_spell() {
+	// By FredCK (fckLang attributes have been added to the HTML source of this page)
+	window.parent.parent.OnSpellerControlsLoad( this ) ;
+
+	var controlForm = document.spellcheck;
+
+	// create a new controlWindow object
+ 	controlWindowObj = new controlWindow( controlForm );
+
+	// call the init_spell() function in the parent frameset
+	if( parent.frames.length ) {
+		parent.init_spell( controlWindowObj );
+	} else {
+		alert( 'This page was loaded outside of a frameset. It might not display properly' );
+	}
+}
+
+</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY class=controlWindowBody style="OVERFLOW: hidden" scroll=no 
+onload=init_spell();><!-- by FredCK -->
+<FORM name=spellcheck>
+<TABLE cellSpacing=0 cellPadding=0 align=center border=0>
+  <TBODY>
+  <TR>
+    <TD class=normalLabel colSpan=3><SPAN fckLang="DlgSpellNotInDic">Not in 
+      dictionary:</SPAN></TD></TR>
+  <TR>
+    <TD colSpan=3><INPUT class=readonlyInput readOnly name=misword></TD></TR>
+  <TR>
+    <TD colSpan=3 height=5></TD></TR>
+  <TR>
+    <TD class=normalLabel><SPAN fckLang="DlgSpellChangeTo">Change 
+  to:</SPAN></TD></TR>
+  <TR vAlign=top>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD class=normalLabel><INPUT class=textDefault name=txtsugg> </TD></TR>
+        <TR>
+          <TD><SELECT class=suggSlct ondblclick=replace_word(); 
+            onchange=suggText(); size=7 name=sugg> <OPTION></OPTION></SELECT> 
+        </TD></TR></TBODY></TABLE></TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD><INPUT class=buttonDefault onclick=ignore_word(); type=button value=Ignore fckLang="DlgSpellBtnIgnore"> 
+          </TD>
+          <TD>&nbsp;&nbsp;</TD>
+          <TD><INPUT class=buttonDefault onclick=ignore_all(); type=button value="Ignore All" fckLang="DlgSpellBtnIgnoreAll"> 
+          </TD></TR>
+        <TR>
+          <TD colSpan=3 height=5></TD></TR>
+        <TR>
+          <TD><INPUT class=buttonDefault onclick=replace_word(); type=button value=Replace fckLang="DlgSpellBtnReplace"> 
+          </TD>
+          <TD>&nbsp;&nbsp;</TD>
+          <TD><INPUT class=buttonDefault onclick=replace_all(); type=button value="Replace All" fckLang="DlgSpellBtnReplaceAll"> 
+          </TD></TR>
+        <TR>
+          <TD colSpan=3 height=5></TD></TR>
+        <TR>
+          <TD><INPUT class=buttonDefault disabled onclick=undo(); type=button value=Undo name=btnUndo fckLang="DlgSpellBtnUndo"> 
+          </TD>
+          <TD>&nbsp;&nbsp;</TD>
+          <TD><!-- by FredCK
+									<input class="buttonDefault" type="button" value="Close" onClick="end_spell();">
+									--></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></FORM></BODY></HTML>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: frmcreatefolder.html
+ * 	Page used to create new folders in the current folder.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8"><LINK 
+href="frmcreatefolder_files/browser.css" type=text/css rel=stylesheet>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript>
+
+function SetCurrentFolder( resourceType, folderPath )
+{
+	oConnector.ResourceType = resourceType ;
+	oConnector.CurrentFolder = folderPath
+}
+
+function CreateFolder()
+{
+	var sFolderName ;
+	
+	while ( true ) 
+	{
+		sFolderName = prompt( 'Type the name of the new folder:', '' ) ;
+	
+		if ( sFolderName == null )
+			return ;
+		else if ( sFolderName.length == 0 )
+			alert( 'Please type the folder name' ) ;
+		else
+			break ;
+	}
+	
+	oConnector.SendCommand( 'CreateFolder', 'NewFolderName=' + escape( sFolderName) , CreateFolderCallBack ) ;
+}
+
+function CreateFolderCallBack( fckXml )
+{
+	if ( oConnector.CheckError( fckXml ) == 0 )
+		window.parent.frames['frmResourcesList'].Refresh() ;
+	
+	/*
+	// Get the current folder path.
+	var oNode = fckXml.SelectSingleNode( 'Connector/Error' ) ;
+	var iErrorNumber = parseInt( oNode.attributes.getNamedItem('number').value ) ;
+	
+	switch ( iErrorNumber )
+	{
+		case 0 :
+			window.parent.frames['frmResourcesList'].Refresh() ;
+			break ;
+		case 101 :
+			alert( 'Folder already exists' ) ;
+			break ;
+		case 102 :
+			alert( 'Invalid folder name' ) ;
+			break ;
+		case 103 :
+			alert( 'You have no permissions to create the folder' ) ;
+			break ;
+		case 110 :
+			alert( 'Unknown error creating folder' ) ;
+			break ;
+		default :
+			alert( 'Error creating folder. Error number: ' + iErrorNumber ) ;
+			break ;
+	}
+	*/
+}
+
+window.onload = function()
+{
+	window.top.IsLoadedCreateFolder = true ;
+}
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY bottomMargin=0 topMargin=0>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><BUTTON style="WIDTH: 100%" onclick=CreateFolder();>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD><IMG height=16 alt="" src="" width=16></TD>
+          <TD>&nbsp;</TD>
+          <TD noWrap>Create New Folder</TD></TR></TBODY></TABLE></BUTTON> 
+  </TD></TR></TBODY></TABLE></BODY></HTML>

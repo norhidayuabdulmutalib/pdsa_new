@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_flash.html
+ * 	Flash Properties dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Flash Properties</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT src="" type=text/javascript></SCRIPT>
+<LINK href="common/fck_dialog_common.css" type=text/css rel=stylesheet>
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no>
+<DIV id=divInfo>
+<TABLE cellSpacing=1 cellPadding=1 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD width="100%"><SPAN fckLang="DlgImgURL">URL</SPAN> </TD>
+          <TD id=tdBrowse style="DISPLAY: none" noWrap rowSpan=2>&nbsp; <INPUT id=btnBrowse onclick=BrowseServer(); type=button value="Browse Server" fckLang="DlgBtnBrowseServer"> 
+          </TD></TR>
+        <TR>
+          <TD vAlign=top><INPUT id=txtUrl onblur=UpdatePreview(); 
+            style="WIDTH: 100%"> </TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD noWrap><SPAN fckLang="DlgImgWidth">Width</SPAN><BR><INPUT 
+            class=FCK__FieldNumeric id=txtWidth size=3> </TD>
+          <TD>&nbsp;</TD>
+          <TD><SPAN fckLang="DlgImgHeight">Height</SPAN><BR><INPUT 
+            class=FCK__FieldNumeric id=txtHeight size=3> 
+  </TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD vAlign=top>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top width="100%">
+            <TABLE cellSpacing=0 cellPadding=0 width="100%">
+              <TBODY>
+              <TR>
+                <TD><SPAN fckLang="DlgImgPreview">Preview</SPAN></TD></TR>
+              <TR>
+                <TD class=FlashPreviewArea id=ePreviewCell vAlign=top><IFRAME 
+                  marginWidth=0 marginHeight=0 
+                  src="res://C:\WINDOWS\System32\shdoclc.dll/dnserror.htm" 
+                  frameBorder=0></IFRAME></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+<DIV id=divUpload style="DISPLAY: none">
+<FORM id=frmUpload onsubmit="return CheckUpload();" action="" method=post 
+target=UploadWindow encType=multipart/form-data><SPAN 
+fckLang="DlgLnkUpload">Upload</SPAN><BR><INPUT id=txtUploadFile 
+style="WIDTH: 100%" type=file size=40 name=NewFile><BR><BR><INPUT id=btnUpload type=submit value="Send it to the Server" fckLang="DlgLnkBtnUpload"> 
+<IFRAME style="DISPLAY: none" name=UploadWindow 
+src="res://C:\WINDOWS\System32\shdoclc.dll/dnserror.htm"></IFRAME></FORM></DIV>
+<DIV id=divAdvanced style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 border=0>
+  <TBODY>
+  <TR>
+    <TD noWrap><SPAN fckLang="DlgFlashScale">Scale</SPAN><BR><SELECT 
+      id=cmbScale> <OPTION value="" selected></OPTION> <OPTION value=showall 
+        fckLang="DlgFlashScaleAll">Show all</OPTION> <OPTION value=noborder 
+        fckLang="DlgFlashScaleNoBorder">No Border</OPTION> <OPTION 
+        value=exactfit fckLang="DlgFlashScaleFit">Exact Fit</OPTION></SELECT></TD>
+    <TD>&nbsp;&nbsp;&nbsp; &nbsp; </TD>
+    <TD vAlign=bottom>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD><INPUT id=chkAutoPlay type=checkbox CHECKED></TD>
+          <TD><LABEL for=chkAutoPlay fckLang="DlgFlashChkPlay" nowrap>Auto 
+            Play</LABEL>&nbsp;&nbsp;</TD>
+          <TD><INPUT id=chkLoop type=checkbox CHECKED></TD>
+          <TD><LABEL for=chkLoop fckLang="DlgFlashChkLoop" 
+            nowrap>Loop</LABEL>&nbsp;&nbsp;</TD>
+          <TD><INPUT id=chkMenu type=checkbox CHECKED></TD>
+          <TD><LABEL for=chkMenu fckLang="DlgFlashChkMenu" nowrap>Enable Flash 
+            Menu</LABEL></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE><BR>&nbsp; 
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="50%"><SPAN fckLang="DlgGenId">Id</SPAN><BR><INPUT 
+      id=txtAttId style="WIDTH: 100%"> </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD vAlign=top noWrap><SPAN fckLang="DlgGenClass">Stylesheet 
+      Classes</SPAN><BR><INPUT id=txtAttClasses style="WIDTH: 100%"> </TD>
+    <TD>&nbsp;&nbsp;</TD>
+    <TD vAlign=top noWrap width="50%">&nbsp;<SPAN 
+      fckLang="DlgGenTitle">Advisory Title</SPAN><BR><INPUT id=txtAttTitle 
+      style="WIDTH: 100%"> </TD></TR></TBODY></TABLE><SPAN 
+fckLang="DlgGenStyle">Style</SPAN><BR><INPUT id=txtAttStyle style="WIDTH: 100%"> 
+</DIV></BODY></HTML>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_spellerpages.html
+ * 	Spell Check dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Spell Check</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src=""></SCRIPT>
+
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+var FCKLang = oEditor.FCKLang ;
+
+window.onload = function()
+{
+	document.getElementById('txtHtml').value = oEditor.FCK.EditorDocument.body.innerHTML ;
+
+	var oSpeller = new spellChecker( document.getElementById('txtHtml') ) ;
+	oSpeller.OnFinished = oSpeller_OnFinished ;
+	oSpeller.openChecker() ;
+}
+
+function OnSpellerControlsLoad( controlsWindow )
+{
+	// Translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage( controlsWindow.document ) ;
+}
+
+function oSpeller_OnFinished( numberOCorrections )
+{
+	if ( numberOCorrections > 0 )
+		oEditor.FCK.SetHTML( document.getElementById('txtHtml').value ) ;
+	window.parent.Cancel() ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY 
+style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; OVERFLOW: hidden; PADDING-TOP: 0px" 
+scroll=no><INPUT id=txtHtml type=hidden> <IFRAME id=frmSpell name=spellchecker 
+src="res://C:\WINDOWS\System32\shdoclc.dll/dnserror.htm" frameBorder=0 
+width="100%" height="100%"></IFRAME></BODY></HTML>

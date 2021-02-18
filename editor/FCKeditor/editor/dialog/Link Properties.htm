@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_link.html
+ * 	Link dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Link Properties</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no>
+<DIV id=divInfo style="DISPLAY: none"><SPAN fckLang="DlgLnkType">Link 
+Type</SPAN><BR><SELECT id=cmbLinkType onchange=SetLinkType(this.value);> 
+  <OPTION value=url selected fckLang="DlgLnkTypeURL">URL</OPTION> <OPTION 
+  value=anchor fckLang="DlgLnkTypeAnchor">Anchor in this page</OPTION> <OPTION 
+  value=email fckLang="DlgLnkTypeEMail">E-Mail</OPTION></SELECT> <BR><BR>
+<DIV id=divLinkTypeUrl>
+<TABLE dir=ltr cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD noWrap><SPAN fckLang="DlgLnkProto">Protocol</SPAN><BR><SELECT 
+      id=cmbLinkProtocol> <OPTION value=http:// selected>http://</OPTION> 
+        <OPTION value=https://>https://</OPTION> <OPTION 
+        value=ftp://>ftp://</OPTION> <OPTION value=news://>news://</OPTION> 
+        <OPTION value="" 
+      fckLang="DlgLnkProtoOther">&lt;other&gt;</OPTION></SELECT> </TD>
+    <TD noWrap>&nbsp;</TD>
+    <TD noWrap width="100%"><SPAN fckLang="DlgLnkURL">URL</SPAN><BR><INPUT 
+      id=txtUrl onkeyup=OnUrlChange(); style="WIDTH: 100%" 
+      onchange=OnUrlChange();> </TD></TR></TBODY></TABLE><BR>
+<DIV id=divBrowseServer><INPUT onclick=BrowseServer(); type=button value="Browse Server" fckLang="DlgBtnBrowseServer"> 
+</DIV></DIV>
+<DIV id=divLinkTypeAnchor style="DISPLAY: none" align=center>
+<DIV id=divSelAnchor style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 width="70%" border=0>
+  <TBODY>
+  <TR>
+    <TD colSpan=3><SPAN fckLang="DlgLnkAnchorSel">Select an Anchor</SPAN> 
+  </TD></TR>
+  <TR>
+    <TD width="50%"><SPAN fckLang="DlgLnkAnchorByName">By Anchor 
+      Name</SPAN><BR><SELECT id=cmbAnchorName style="WIDTH: 100%" 
+      onchange="GetE('cmbAnchorId').value='';"> <OPTION value="" 
+        selected></OPTION></SELECT> </TD>
+    <TD>&nbsp;&nbsp;&nbsp;</TD>
+    <TD width="50%"><SPAN fckLang="DlgLnkAnchorById">By Element 
+      Id</SPAN><BR><SELECT id=cmbAnchorId style="WIDTH: 100%" 
+      onchange="GetE('cmbAnchorName').value='';"> <OPTION value="" 
+        selected></OPTION></SELECT> </TD></TR></TBODY></TABLE></DIV>
+<DIV id=divNoAnchor style="DISPLAY: none"><SPAN fckLang="DlgLnkNoAnchors">&lt;No 
+anchors available in the document&gt;</SPAN> </DIV></DIV>
+<DIV id=divLinkTypeEMail style="DISPLAY: none"><SPAN 
+fckLang="DlgLnkEMail">E-Mail Address</SPAN><BR><INPUT id=txtEMailAddress 
+style="WIDTH: 100%"><BR><SPAN fckLang="DlgLnkEMailSubject">Message 
+Subject</SPAN><BR><INPUT id=txtEMailSubject style="WIDTH: 100%"><BR><SPAN 
+fckLang="DlgLnkEMailBody">Message Body</SPAN><BR><TEXTAREA id=txtEMailBody style="WIDTH: 100%" rows=3></TEXTAREA> 
+</DIV></DIV>
+<DIV id=divUpload style="DISPLAY: none">
+<FORM id=frmUpload onsubmit="return CheckUpload();" action="" method=post 
+target=UploadWindow encType=multipart/form-data><SPAN 
+fckLang="DlgLnkUpload">Upload</SPAN><BR><INPUT id=txtUploadFile 
+style="WIDTH: 100%" type=file size=40 name=NewFile><BR><BR><INPUT id=btnUpload type=submit value="Send it to the Server" fckLang="DlgLnkBtnUpload"> 
+<IFRAME style="DISPLAY: none" name=UploadWindow 
+src="res://C:\WINDOWS\System32\shdoclc.dll/dnserror.htm"></IFRAME></FORM></DIV>
+<DIV id=divTarget style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD noWrap><SPAN fckLang="DlgLnkTarget">Target</SPAN><BR><SELECT 
+      id=cmbTarget onchange=SetTarget(this.value);> <OPTION value="" selected 
+        fckLang="DlgGenNotSet">&lt;not set&gt;</OPTION> <OPTION value=frame 
+        fckLang="DlgLnkTargetFrame">&lt;frame&gt;</OPTION> <OPTION value=popup 
+        fckLang="DlgLnkTargetPopup">&lt;popup window&gt;</OPTION> <OPTION 
+        value=_blank fckLang="DlgLnkTargetBlank">New Window (_blank)</OPTION> 
+        <OPTION value=_top fckLang="DlgLnkTargetTop">Topmost Window 
+        (_top)</OPTION> <OPTION value=_self fckLang="DlgLnkTargetSelf">Same 
+        Window (_self)</OPTION> <OPTION value=_parent 
+        fckLang="DlgLnkTargetParent">Parent Window (_parent)</OPTION></SELECT> </TD>
+    <TD>&nbsp;</TD>
+    <TD id=tdTargetFrame noWrap width="100%"><SPAN 
+      fckLang="DlgLnkTargetFrameName">Target Frame Name</SPAN><BR><INPUT 
+      id=txtTargetFrame onkeyup=OnTargetNameChange(); style="WIDTH: 100%" 
+      onchange=OnTargetNameChange();> </TD>
+    <TD id=tdPopupName style="DISPLAY: none" noWrap width="100%"><SPAN 
+      fckLang="DlgLnkPopWinName">Popup Window Name</SPAN><BR><INPUT 
+      id=txtPopupName style="WIDTH: 100%"> </TD></TR></TBODY></TABLE><BR>
+<TABLE id=tablePopupFeatures style="DISPLAY: none" cellSpacing=0 cellPadding=0 
+align=center border=0>
+  <TBODY>
+  <TR>
+    <TD><SPAN fckLang="DlgLnkPopWinFeat">Popup Window Features</SPAN><BR>
+      <TABLE cellSpacing=0 cellPadding=0 border=0>
+        <TBODY>
+        <TR>
+          <TD vAlign=top noWrap width="50%"><INPUT id=chkPopupResizable 
+            type=checkbox value=resizable name=chkFeature><LABEL 
+            for=chkPopupResizable 
+            fckLang="DlgLnkPopResize">Resizable</LABEL><BR><INPUT 
+            id=chkPopupLocationBar type=checkbox value=location 
+            name=chkFeature><LABEL for=chkPopupLocationBar 
+            fckLang="DlgLnkPopLocation">Location Bar</LABEL><BR><INPUT 
+            id=chkPopupManuBar type=checkbox value=menubar 
+            name=chkFeature><LABEL for=chkPopupManuBar 
+            fckLang="DlgLnkPopMenu">Menu Bar</LABEL><BR><INPUT 
+            id=chkPopupScrollBars type=checkbox value=scrollbars 
+            name=chkFeature><LABEL for=chkPopupScrollBars 
+            fckLang="DlgLnkPopScroll">Scroll Bars</LABEL> </TD>
+          <TD></TD>
+          <TD vAlign=top noWrap width="50%"><INPUT id=chkPopupStatusBar 
+            type=checkbox value=status name=chkFeature><LABEL 
+            for=chkPopupStatusBar fckLang="DlgLnkPopStatus">Status 
+            Bar</LABEL><BR><INPUT id=chkPopupToolbar type=checkbox value=toolbar 
+            name=chkFeature><LABEL for=chkPopupToolbar 
+            fckLang="DlgLnkPopToolbar">Toolbar</LABEL><BR><INPUT 
+            id=chkPopupFullScreen type=checkbox value=fullscreen 
+            name=chkFeature><LABEL for=chkPopupFullScreen 
+            fckLang="DlgLnkPopFullScrn">Full Screen (IE)</LABEL><BR><INPUT 
+            id=chkPopupDependent type=checkbox value=dependent 
+            name=chkFeature><LABEL for=chkPopupDependent 
+            fckLang="DlgLnkPopDependent">Dependent (Netscape)</LABEL> </TD></TR>
+        <TR>
+          <TD vAlign=top noWrap width="50%">&nbsp;</TD>
+          <TD></TD>
+          <TD vAlign=top noWrap width="50%"></TD></TR>
+        <TR>
+          <TD vAlign=top>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD noWrap><SPAN fckLang="DlgLnkPopWidth">Width</SPAN></TD>
+                <TD>&nbsp;<INPUT id=txtPopupWidth maxLength=4 size=4></TD></TR>
+              <TR>
+                <TD noWrap><SPAN fckLang="DlgLnkPopHeight">Height</SPAN></TD>
+                <TD>&nbsp;<INPUT id=txtPopupHeight maxLength=4 
+              size=4></TD></TR></TBODY></TABLE></TD>
+          <TD>&nbsp;&nbsp;</TD>
+          <TD vAlign=top>
+            <TABLE cellSpacing=0 cellPadding=0 border=0>
+              <TBODY>
+              <TR>
+                <TD noWrap><SPAN fckLang="DlgLnkPopLeft">Left 
+                Position</SPAN></TD>
+                <TD>&nbsp;<INPUT id=txtPopupLeft maxLength=4 size=4></TD></TR>
+              <TR>
+                <TD noWrap><SPAN fckLang="DlgLnkPopTop">Top Position</SPAN></TD>
+                <TD>&nbsp;<INPUT id=txtPopupTop maxLength=4 
+              size=4></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+<DIV id=divAttribs style="DISPLAY: none">
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="50%"><SPAN fckLang="DlgGenId">Id</SPAN><BR><INPUT 
+      id=txtAttId style="WIDTH: 100%"> </TD>
+    <TD width=1></TD>
+    <TD vAlign=top>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+        <TBODY>
+        <TR>
+          <TD width="60%"><SPAN fckLang="DlgGenLangDir">Language 
+            Direction</SPAN><BR><SELECT id=cmbAttLangDir style="WIDTH: 100%"> 
+              <OPTION value="" selected fckLang="DlgGenNotSet">&lt;not 
+              set&gt;</OPTION> <OPTION value=ltr fckLang="DlgGenLangDirLtr">Left 
+              to Right (LTR)</OPTION> <OPTION value=rtl 
+              fckLang="DlgGenLangDirRtl">Right to Left (RTL)</OPTION></SELECT> </TD>
+          <TD width="1%">&nbsp;&nbsp;&nbsp;</TD>
+          <TD noWrap><SPAN fckLang="DlgGenAccessKey">Access 
+            Key</SPAN><BR><INPUT id=txtAttAccessKey style="WIDTH: 100%" 
+            maxLength=1 size=1> </TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><SPAN 
+      fckLang="DlgGenName">Name</SPAN><BR><INPUT id=txtAttName 
+      style="WIDTH: 100%"> </TD>
+    <TD width=1></TD>
+    <TD vAlign=top>
+      <TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+        <TBODY>
+        <TR>
+          <TD width="60%"><SPAN fckLang="DlgGenLangCode">Language 
+            Code</SPAN><BR><INPUT id=txtAttLangCode style="WIDTH: 100%"> </TD>
+          <TD width="1%">&nbsp;&nbsp;&nbsp;</TD>
+          <TD noWrap><SPAN fckLang="DlgGenTabIndex">Tab Index</SPAN><BR><INPUT 
+            id=txtAttTabIndex style="WIDTH: 100%" maxLength=5 size=5> 
+        </TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%">&nbsp;</TD>
+    <TD width=1></TD>
+    <TD vAlign=top></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><SPAN fckLang="DlgGenTitle">Advisory 
+      Title</SPAN><BR><INPUT id=txtAttTitle style="WIDTH: 100%"> </TD>
+    <TD width=1>&nbsp;&nbsp;&nbsp;</TD>
+    <TD vAlign=top><SPAN fckLang="DlgGenContType">Advisory Content 
+      Type</SPAN><BR><INPUT id=txtAttContentType style="WIDTH: 100%"> </TD></TR>
+  <TR>
+    <TD vAlign=top><SPAN fckLang="DlgGenClass">Stylesheet 
+      Classes</SPAN><BR><INPUT id=txtAttClasses style="WIDTH: 100%"> </TD>
+    <TD></TD>
+    <TD vAlign=top><SPAN fckLang="DlgGenLinkCharset">Linked Resource 
+      Charset</SPAN><BR><INPUT id=txtAttCharSet style="WIDTH: 100%"> 
+  </TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD><SPAN fckLang="DlgGenStyle">Style</SPAN><BR><INPUT id=txtAttStyle 
+      style="WIDTH: 100%"> </TD></TR></TBODY></TABLE></DIV></BODY></HTML>

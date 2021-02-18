@@ -1,0 +1,130 @@
+CREATE TABLE IF NOT EXISTS `_ref_jabatan` (
+  `jabatan_id` int(11) NOT NULL AUTO_INCREMENT,
+  `jabatan_nama` varchar(64) NOT NULL,
+  `jabatan_status` tinyint(1) DEFAULT '0',
+  `is_deleted` tinyint(1) DEFAULT '0',
+  `delete_by` varchar(32) DEFAULT NULL,
+  `delete_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`jabatan_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+INSERT INTO `_ref_jabatan` (`jabatan_id`, `jabatan_nama`, `jabatan_status`, `is_deleted`, `delete_by`, `delete_dt`) VALUES
+(1, 'Pusat Bahasa', 0, 0, NULL, NULL),
+(2, 'Pusat Islam', 0, 0, NULL, NULL);
+
+
+INSERT INTO `_ref_kumpulan_kerja` (`f_kk_id`, `f_kk_desc`, `f_kk_status`) VALUES
+(1, 'Kumpulan Pengurusan Tertinggi', 0),
+(2, 'Kumpulan Pengurusan dan Profesional', 0),
+(3, 'Kumpulan Sokongan', 0);
+
+ALTER TABLE  `_ref_laporan` ADD  `status` TINYINT( 1 ) NULL DEFAULT  '0';
+INSERT INTO `_ref_laporan` (`id`, `tajuk`, `href`, `targets`, `types`, `status`) VALUES
+(10, 'Laporan Senarai Penceramah', 'laporana/senarai_penceramah.php', '_blank', 'A', 1),
+(11, 'Laporan Ikut Bulan', 'laporana/laporan_bulan.php', '_blank', 'A', 1),
+(12, 'Laporan Berdasarkan  Bidang & Penceramah', 'laporana/senarai_penceramah_bidang.php', '_blank', 'A', 0),
+(13, 'Laporan Penceramah Dan Bidang', 'laporana/senarai_penceramah_bidang1.php', '_blank', 'A', 0),
+(14, 'Laporan Kursus - Peserta Tak Hadir', 'laporana/peserta_tidak_hadir.php', '_self', 'A', 0);
+
+CREATE TABLE IF NOT EXISTS `_ref_pusat` (
+  `pusat_code` varchar(10) NOT NULL,
+  `pusat` varchar(64) NOT NULL,
+  `pusat_status` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE  `_tbl_instructor` ADD  `passwd` VARCHAR( 64 ) NULL AFTER  `insid`;
+
+ALTER TABLE  `_tbl_kursus` ADD  `objektif` TEXT NULL AFTER  `SubCategoryCd` ,
+ADD  `kandungan` TEXT NULL AFTER  `objektif` ,
+ADD  `ksasar` TEXT NULL AFTER  `kandungan`;
+
+ALTER TABLE  `_tbl_kursus_jadual` ADD  `jumkceramah` DECIMAL( 10, 2 ) NULL AFTER  `jumkos` ,
+ADD  `jumkos_sebenar` DECIMAL( 10, 2 ) NULL AFTER  `jumkceramah` ,
+ADD  `jumkceramah_sebenar` DECIMAL( 10, 2 ) NULL AFTER  `jumkos_sebenar`;
+
+ALTER TABLE  `_tbl_kursus_jadual` ADD  `penyelaras_email` VARCHAR( 128 ) NULL AFTER `penyelaras_notel`;
+
+ALTER TABLE  `_tbl_kursus_jadual_peserta` ADD  `jawatan_ketuajabatan` VARCHAR( 64 ) NULL AFTER  `email_ketuajabatan`;
+
+ALTER TABLE  `_tbl_kursus_jadual_peserta` ADD  `surat_tawaran` LONGTEXT NULL AFTER  `surat` ,
+ADD  `surat_jawapan` LONGTEXT NULL AFTER  `surat_tawaran` ,
+ADD  `approve_ilim` TINYINT( 1 ) NULL DEFAULT  '0' AFTER  `surat_jawapan` ,
+ADD  `approve_dt` DATETIME NULL AFTER  `approve_ilim` ,
+ADD  `approve_by` VARCHAR( 32 ) NULL AFTER  `approve_dt`;
+
+ALTER TABLE  `_tbl_kursus_jadual_peserta` ADD  `delete_dt` DATETIME NULL ,
+ADD  `delete_by` VARCHAR( 32 ) NULL ,
+ADD  `is_selected` TINYINT( 1 ) NULL DEFAULT  '0';
+
+CREATE TABLE IF NOT EXISTS `_tbl_kursus_jadual_tukar` (
+  `kjt_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_jadual_kursus` varchar(32) NOT NULL,
+  `tkh_mula` date DEFAULT NULL,
+  `tkh_akhir` date DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `new_tkh_mula` date DEFAULT NULL,
+  `new_tkh_akhir` date DEFAULT NULL,
+  `create_by` varchar(32) DEFAULT NULL,
+  `create_dt` datetime DEFAULT NULL,
+  `kat_perubahan` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`kjt_id`),
+  KEY `id_jadual_kursus` (`id_jadual_kursus`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+INSERT INTO `_tbl_menu` (`menu_id`, `grp_id`, `menu_name`, `menu_link`, `menu_status`, `sub_menu`, `sort`) VALUES
+(86, 2, 'Pendaftaran Kursus Luar', 'user;peserta/peserta_list_kluar.php;peserta;kluar', 0, 'kluar', 5),
+(87, 8, 'Rujukan Pusat Kursus', 'user;maintenance/pusat_list.php;admin;pusat', 0, 'pusat', 0),
+(88, 4, 'Maklumat Permohonan Kursus', 'user;kursus/kursus_mohon_list.php;kursus;peserta', 0, 'peserta', 0);
+
+ALTER TABLE  `_tbl_peserta` ADD  `f_peserta_grp` SMALLINT NULL AFTER  `f_peserta_nama`;
+
+CREATE TABLE IF NOT EXISTS `_tbl_surat` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `peserta_icno` varchar(32) NOT NULL,
+  `EventId` varchar(32) NOT NULL,
+  `surat_jenis` varchar(5) NOT NULL,
+  `surat_tarikh` date DEFAULT NULL,
+  `surat` text,
+  `create_by` varchar(32) DEFAULT NULL,
+  `create_dt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 1;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 2;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 3;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 4;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 5;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 6;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 9;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 10;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 11;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 13;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 19;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 20;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 21;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 22;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 23;
+DELETE FROM `_tbl_kursus_catsub` WHERE `_tbl_kursus_catsub`.`id` = 24;
+
+INSERT INTO `_tbl_kursus_catsub` (`id`, `SubCategoryCd`, `f_category_code`, `CategoryId`, `SubCategoryNm`, `SubCategoryDesc`, `f_status`, `f_updatedt`, `f_updateby`, `is_deleted`, `f_deletedt`, `f_deleteby`) VALUES
+(1, 'S0001', 1, 'C0001', 'PPSD', 'PPSD', 0, NULL, NULL, 0, NULL, NULL),
+(2, 'S0002', 1, 'C0001', 'PPKI', 'PPKI', 0, NULL, NULL, 0, NULL, NULL),
+(3, 'S0005', 1, 'C0001', 'PPUI', 'PPUI', 0, NULL, NULL, 0, NULL, NULL),
+(4, 'S0006', 1, 'C0001', 'PQIT', 'Pusat Qualiti IT', 0, NULL, NULL, 0, NULL, NULL),
+(5, 'S0008', 1, 'C0001', 'PB', 'Pusat Bahasa', 0, NULL, NULL, 0, NULL, NULL),
+(6, 'SC001', 2, 'C0002', 'Certification Courses', 'Certification Courses', 0, NULL, NULL, 0, NULL, NULL),
+(9, 'S0009', 1, 'C0001', 'PTM', 'Pusat Teknologi Maklumat', 0, NULL, NULL, 0, NULL, NULL),
+(10, 'S0010', 1, 'C0001', 'SEMINAR & MUHADHARAH', 'SEMINAR & MUHADHARAH', 0, NULL, NULL, 0, NULL, NULL),
+(11, 'S0011', 1, 'C0001', 'PEKI', 'PEKI', 0, NULL, NULL, 0, NULL, NULL),
+(13, '10000', 1, 'C0001', 'UPLP', 'UPLP', 0, NULL, NULL, 0, NULL, NULL),
+(20, '', 2, '', 'BENGKEL', 'BENGKEL', 0, NULL, NULL, 0, NULL, NULL),
+(19, '', 2, '', 'SEMINAR', 'SEMINAR/MUHADHARAH', 0, NULL, NULL, 0, NULL, NULL),
+(21, '', 2, '', 'KURSUS', 'KURSUS', 0, NULL, NULL, 0, NULL, NULL),
+(22, '', 2, '', 'MESYUARAT', 'MESYUARAT', 0, NULL, NULL, 0, NULL, NULL),
+(23, '', 2, '', 'PROGRAM', 'PROGRAM', 0, NULL, NULL, 0, NULL, NULL),
+(24, '', 2, '', 'SIJIL', 'SIJIL', 0, NULL, NULL, 0, NULL, NULL);
+
+update `_tbl_kursus_jadual_peserta` set is_selected=1;
+

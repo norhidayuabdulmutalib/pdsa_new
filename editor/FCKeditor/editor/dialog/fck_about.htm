@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_about.html
+ * 	"About" dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT language=javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+var FCKLang	= oEditor.FCKLang ;
+
+window.parent.AddTab( 'About', FCKLang.DlgAboutAboutTab ) ;
+window.parent.AddTab( 'License', FCKLang.DlgAboutLicenseTab ) ;
+window.parent.AddTab( 'BrowserInfo', FCKLang.DlgAboutBrowserInfoTab ) ;
+
+// Function called when a dialog tag is selected.
+function OnDialogTabChange( tabCode )
+{
+	ShowE('divAbout', ( tabCode == 'About' ) ) ;
+	ShowE('divLicense', ( tabCode == 'License' ) ) ;
+	ShowE('divInfo'	, ( tabCode == 'BrowserInfo' ) ) ;
+}
+
+function SendEMail()
+{
+	var eMail = 'mailto:' ;
+	eMail += 'fredck' ;
+	eMail += '@' ;
+	eMail += 'fckeditor' ;
+	eMail += '.' ;
+	eMail += 'net' ;
+
+	window.location = eMail ;
+}
+
+window.onload = function()
+{
+	// Translate the dialog box texts.
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	window.parent.SetAutoSize( true ) ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no>
+<DIV id=divAbout>
+<TABLE height="100%" cellSpacing=0 cellPadding=0 width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD><IMG height=41 alt="" src="" width=236 align=left> 
+      <TABLE cellSpacing=0 cellPadding=5 width=80 align=right bgColor=#ffffff 
+      border=0>
+        <TBODY>
+        <TR>
+          <TD 
+          style="BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; BORDER-LEFT: #000000 1px solid; BORDER-BOTTOM: #000000 1px solid" 
+          noWrap align=middle><SPAN fckLang="DlgAboutVersion">version</SPAN> 
+            <BR><B>2.3.1</B><BR>Build 1062</TD></TR></TBODY></TABLE></TD></TR>
+  <TR height="100%">
+    <TD align=middle>&nbsp;<BR><SPAN dir=ltr style="FONT-SIZE: 14px">Support 
+      <B>Open Source</B> software.<BR><B><A 
+      title="Click to go to the donation page" 
+      href="http://www.fckeditor.net/donate/?about" target=_blank>What about a 
+      donation today?</A></B> </SPAN><BR><BR><BR><SPAN 
+      fckLang="DlgAboutInfo">For further information go to</SPAN> <A 
+      href="http://www.fckeditor.net/?About" 
+      target=_blank>http://www.fckeditor.net/?About</A>. <BR>Copyright © 
+      2003-2006 <A onclick=SendEMail(); 
+      href="file:///C:/Documents%20and%20Settings/admin2/Local%20Settings/Temp/fck_about.html#">Frederico 
+      Caldeira Knabben</A> </TD></TR>
+  <TR>
+    <TD align=middle><IMG height=36 alt="" src="" width=87> 
+</TD></TR></TBODY></TABLE></DIV>
+<DIV id=divLicense style="DISPLAY: none">
+<TABLE height="100%" width="100%">
+  <TBODY>
+  <TR>
+    <TD><SPAN fckLang="DlgAboutLicense">Licensed under the terms of the GNU 
+      Lesser General Public License</SPAN> <BR><A 
+      href="http://www.opensource.org/licenses/lgpl-license.php" 
+      target=_blank>http://www.opensource.org/licenses/lgpl-license.php</A> 
+    <BR></TD></TR>
+  <TR>
+    <TD height="100%"><IFRAME 
+      src="res://C:\WINDOWS\System32\shdoclc.dll/dnserror.htm" width="100%" 
+      height="100%"></IFRAME></TD></TR></TBODY></TABLE></DIV>
+<DIV id=divInfo dir=ltr style="DISPLAY: none">
+<TABLE width="80%" align=center border=0>
+  <TBODY>
+  <TR>
+    <TD>
+      <SCRIPT language=javascript>
+<!--
+document.write( '<b>User Agent<\/b><br>' + window.navigator.userAgent + '<br><br>' ) ;
+document.write( '<b>Browser<\/b><br>' + window.navigator.appName + ' ' + window.navigator.appVersion + '<br><br>' ) ;
+document.write( '<b>Platform<\/b><br>' + window.navigator.platform + '<br><br>' ) ;
+
+var sUserLang = '?' ;
+
+if ( window.navigator.language )
+	sUserLang = window.navigator.language.toLowerCase() ;
+else if ( window.navigator.userLanguage )
+	sUserLang = window.navigator.userLanguage.toLowerCase() ;
+
+document.write( '<b>User Language<\/b><br>' + sUserLang ) ;
+//-->
+						</SCRIPT>
+    </TD></TR></TBODY></TABLE></DIV></BODY></HTML>

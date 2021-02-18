@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_smiley.html
+ * 	Smileys (emoticons) dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<STYLE type=text/css>.HandIE {
+	CURSOR: hand
+}
+.HandMozilla {
+	CURSOR: pointer
+}
+</STYLE>
+
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+window.onload = function ()
+{
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+}
+
+function InsertSmiley( url )
+{
+	var oImg = oEditor.FCK.CreateElement( 'IMG' ) ;
+	oImg.src = url ;
+	oImg.setAttribute( '_fcksavedurl', url ) ;
+
+	window.parent.Cancel() ;
+}
+
+function over(td)
+{
+	td.className = 'LightBackground HandIE HandMozilla' ;
+}
+
+function out(td)
+{
+	td.className = 'DarkBackground HandIE HandMozilla' ;
+}
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY scroll=no>
+<TABLE height="100%" cellSpacing=2 cellPadding=2 width="100%" align=center 
+border=0>
+  <SCRIPT type=text/javascript>
+<!--
+var FCKConfig = oEditor.FCKConfig ;
+
+var sBasePath = FCKConfig.SmileyPath ;
+var aImages   = FCKConfig.SmileyImages ;
+var cols      = FCKConfig.SmileyColumns ;
+
+var i = 0 ;
+while (i < aImages.length)
+{
+	document.write("<TR>") ;
+	for(var j = 0 ; j < cols ; j++)
+	{
+		if (aImages[i])
+		{
+			var sUrl = sBasePath + aImages[i] ;
+			document.write("<TD width='1%' align='center' class='DarkBackground HandIE HandMozilla' onclick='InsertSmiley(\"" + sUrl.replace(/"/g, '\\"' ) + "\")' onmouseover='over(this)' onmouseout='out(this)'>") ;
+			document.write("<img src='" + sUrl + "' border='0'>") ;
+		}
+		else
+			document.write("<TD width='1%' class='DarkBackground'>&nbsp;") ;
+		document.write("<\/TD>") ;
+		i++ ;
+	}
+	document.write("<\/TR>") ;
+}
+//-->
+			</SCRIPT>
+
+  <TBODY></TBODY></TABLE></BODY></HTML>

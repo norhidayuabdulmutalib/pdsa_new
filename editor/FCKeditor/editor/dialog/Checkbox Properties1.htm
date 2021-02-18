@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fck_form.html
+ * 	Checkbox dialog window.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+--><HTML><HEAD><TITLE>Checkbox Properties</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<META content="noindex, nofollow" name=robots>
+<SCRIPT src="" type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+// Gets the document DOM
+var oDOM = oEditor.FCK.EditorDocument ;
+
+var oActiveEl = oEditor.FCKSelection.MoveToAncestorNode( 'FORM' ) ;
+
+window.onload = function()
+{
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	if ( oActiveEl ) 
+	{
+		GetE('txtName').value	= oActiveEl.name ;
+		GetE('txtAction').value	= oActiveEl.action ;
+		GetE('txtMethod').value	= oActiveEl.method ;
+	}
+	else
+		oActiveEl = null ;
+
+	window.parent.SetOkButton( true ) ;
+}
+
+function Ok()
+{
+	if ( !oActiveEl )
+	{
+		oActiveEl = oEditor.FCK.EditorDocument.createElement( 'FORM' ) ;
+		oActiveEl = oEditor.FCK.InsertElementAndGetIt( oActiveEl ) ;
+		oActiveEl.innerHTML = '&nbsp;' ;
+	}
+	
+	oActiveEl.name = GetE('txtName').value ;
+	SetAttribute( oActiveEl, 'action'	, GetE('txtAction').value ) ;
+	oActiveEl.method = GetE('txtMethod').value ;
+
+	return true ;
+}
+
+		</SCRIPT>
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>
+<BODY style="OVERFLOW: hidden" scroll=no>
+<TABLE height="100%" width="100%">
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE cellSpacing=0 cellPadding=0 width="80%" align=center border=0 
+      valign="top">
+        <TBODY>
+        <TR>
+          <TD><SPAN fckLang="DlgFormName">Name</SPAN><BR><INPUT id=txtName 
+            style="WIDTH: 100%"> </TD></TR>
+        <TR>
+          <TD><SPAN fckLang="DlgFormAction">Action</SPAN><BR><INPUT 
+            id=txtAction style="WIDTH: 100%"> </TD></TR>
+        <TR>
+          <TD><SPAN fckLang="DlgFormMethod">Method</SPAN><BR><SELECT 
+            id=txtMethod> <OPTION value=get selected>GET</OPTION> <OPTION 
+              value=post>POST</OPTION></SELECT> 
+</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

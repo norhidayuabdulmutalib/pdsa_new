@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	line-height: 16px;
+	/*background-image:url(img/background_master.jpg);*/
+	/*background-image:url(../img/line_bg.jpg);*/
+	margin-top: 0; 
+	margin-bottom: 0; 
+	margin: 0;
+	padding: 2px 2px 0;
+	line-height: 100%;
+	border-radius: 2em;
+	/*background-color:#999999*/
+
+	/*-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);*/
+
+	background: #8b8b8b; /* for non-css3 browsers */
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff999999', endColorstr='#ffffffff'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#ffffff)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #999999,  #ffffff); /* for firefox 3.6+ */
+	border: solid 1px #6d6d6d;
+}
+.table {
+	background-image:url(../images/banner/gray_tgh.jpg);
+	background-position:center;
+	background-repeat:no-repeat;
+	top:0px;
+	height:110px;
+}
+.textLogo {
+	position:relative;
+	margin:0px auto 0px;
+	z-index:9999px;
+	text-align:center;
+}
+.bgRight {
+	position:absolute;
+	top:0px;
+	right:0px;
+	z-index:0px;
+}
+.bgLeft {
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:0px;
+}

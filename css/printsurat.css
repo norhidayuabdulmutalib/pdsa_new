@@ -1,0 +1,490 @@
+FONT{FONT-SIZE: 12px;FONT-FAMILY: Arial;COLOR: #000000}
+TD{FONT-SIZE: 12px;FONT-FAMILY: Arial;COLOR: #000000}
+BODY{FONT-SIZE: 12px;FONT-FAMILY: Arial;COLOR: #000000;width:800px;}
+P{FONT-SIZE: 12px;FONT-FAMILY: Arial;COLOR: #000000}
+DIV{FONT-SIZE: 12px;FONT-FAMILY: Arial;COLOR: #000000}
+INPUT{FONT-SIZE: 12px;FONT-FAMILY: Arial;BACKGROUND-COLOR: #ffffff;COLOR: #000000}
+TEXTAREA{FONT-SIZE: 12px;FONT-FAMILY: Arial;BACKGROUND-COLOR: #ffffcc;COLOR: #000000}
+FORM
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Arial
+}
+SELECT
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Arial
+}
+A:link
+{
+    TEXT-DECORATION: none
+}
+A:link
+{
+    COLOR: #000000
+}
+A:visited
+{
+    TEXT-DECORATION: none
+}
+A:visited
+{
+    COLOR: #000000
+}
+A:active
+{
+    TEXT-DECORATION: none
+}
+A:hover
+{
+    TEXT-DECORATION: underline
+}
+A:hover
+{
+    COLOR: red
+}
+.title
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #000000;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.storytitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #363636;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.boxtitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #363636;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.option
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #000000;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.storycat
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #000000;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: underline
+}
+.tiny
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #000000;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.content
+{
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #000000;
+    FONT-FAMILY: Arial
+}
+.boxcontent
+{
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #000000;
+    FONT-FAMILY: Arial
+}
+.sideboxtitle
+{
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #a52d2d;
+    FONT-FAMILY: Arial
+}
+.sideboxtitle2
+{
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #ffffff;
+    FONT-FAMILY: Arial
+}
+.storyboxtitle
+{
+    FONT-SIZE: 12px;
+    BACKGROUND: none transparent scroll repeat 0% 0%;
+    COLOR: #ffffff;
+    FONT-FAMILY: Arial
+}
+.tablebg
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #eeeeee
+}
+H3
+{
+    COLOR: #526ba5
+}
+H4
+{
+    COLOR: #526ba5
+}
+.Issue
+{
+    BACKGROUND-COLOR: #c6c6ce
+}
+.NormalField
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    COLOR: red;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: #ffffff
+}
+.NormalFieldTwo
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    BACKGROUND: #e4e4e4;
+    COLOR: red;
+    FONT-FAMILY: Verdana
+}
+.NormalFieldThree
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    BACKGROUND: #0c79b4;
+    COLOR: yellow;
+    FONT-FAMILY: Verdana;
+    TEXT-ALIGN: center
+}
+.NormalFieldFour
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    BACKGROUND: black;
+    COLOR: yellow;
+    FONT-FAMILY: Verdana;
+    TEXT-ALIGN: center
+}
+.NormalFieldFive
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    COLOR: navy;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: #ffffff
+}
+.NormalFieldSix
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #526ba5;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #ffffff
+}
+.NormalFieldSeven
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    BACKGROUND: #e8e8e8;
+    COLOR: #526ba5;
+    FONT-FAMILY: Arial
+}
+.Menulink
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt
+}
+.Tabletitle
+{
+    FONT-WEIGHT: bold;
+    COLOR: white;
+    FONT-FAMILY: Verdana;
+    BACKGROUND-COLOR: midnightblue
+}
+.TableText
+{
+    FONT-SIZE: 8pt;
+    COLOR: black;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: white
+}
+.TableBorder
+{
+    BORDER-LEFT-COLOR: black;
+    BORDER-BOTTOM-COLOR: black;
+    BORDER-TOP-COLOR: black;
+    BORDER-RIGHT-COLOR: black
+}
+.NormalTable
+{
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #184997
+}
+.tablebg
+{
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #184997
+}
+.tabletop
+{
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #003366
+}
+.title
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 9pt;
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #184997
+}
+.tiny
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 9pt;
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #184997
+}
+.sideboxtitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 9pt;
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #000037
+}
+.NormalTableTwo
+{
+    FONT-SIZE: 8pt;
+    BACKGROUND-IMAGE: url(../images/top_divider.gif)
+}
+.NormalTablemenu
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #eae637
+}
+.rightBG
+{
+    BACKGROUND-IMAGE: url(../images/bgright_menu.gif)
+}
+.UsePageBG
+{
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #184997
+}
+.marqueBG
+{
+    COLOR: #ffffff;
+    BACKGROUND-COLOR: #000037
+}
+.UseMenuBG
+{
+    BACKGROUND-COLOR: #000000
+}
+.bgtopmenu
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    BACKGROUND-IMAGE: url(../images/bgheader_line.gif);
+    COLOR: #ffffff;
+    FONT-FAMILY: Verdana
+}
+.bgheader
+{
+    BACKGROUND-IMAGE: url(../images/bgheader.gif)
+}
+.bgmainheader
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    BACKGROUND-COLOR: #ffcc00
+}
+.UseMenuBGaa
+{
+    BACKGROUND-COLOR: #ffff66
+}
+.UseTableBG
+{
+    BACKGROUND-COLOR: #eed317
+}
+.UseDialogBG
+{
+    BACKGROUND-IMAGE: url(../Graphics/Images/DialogBackGround.gif)
+}
+.ReadOnlyField
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #526000;
+    FONT-FAMILY: Arial
+}
+.InternalHeader
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #000000;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #6699cc
+}
+.AttachedFiles
+{
+    COLOR: black;
+    BACKGROUND-COLOR: #99ccff
+}
+.SpecialAnchor
+{
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+UNKNOWN
+{
+    FONT-WEIGHT: lighter;
+    FONT-SIZE: 8pt;
+    TEXT-TRANSFORM: capitalize;
+    COLOR: navy;
+    FONT-STYLE: normal;
+    FONT-FAMILY: 'Arial', Times New Roman, Verdana;
+    FONT-VARIANT: normal;
+    TEXT-DECORATION: underline
+}
+.SearchResults
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 8pt;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.MandatoryFields
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 10pt;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.tab-above-heading
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12pt;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+.textareaLabel
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 9pt;
+    COLOR: #526ba5;
+    FONT-FAMILY: Arial;
+    BACKGROUND-COLOR: #cccccc
+}
+.Label
+{
+    FONT-WEIGHT: bolder;
+    FONT-SIZE: 9pt;
+    COLOR: #526ba5;
+    FONT-FAMILY: Arial;
+}
+
+.linkStyle
+{
+    FONT-SIZE: 10pt;
+    TEXT-TRANSFORM: capitalize;
+    COLOR: white;
+    FONT-FAMILY: Arial, 'Courier New', 'MS Sans Serif', 'Times New Roman';
+    BACKGROUND-COLOR: transparent
+}
+.PageTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 16pt;
+    COLOR: #526ba5;
+    FONT-FAMILY: Tahoma
+}
+.smallfont
+{
+    FONT-SIZE: 7.5pt;
+    COLOR: #000000;
+    FONT-FAMILY: Arial
+}
+.smallestfont
+{
+    FONT-SIZE: 5pt;
+    COLOR: #000000;
+    FONT-FAMILY: Arial
+}
+A.NormalDay:link
+{
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none
+}
+A.SelectedDay:visited
+{
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: underline
+}
+.listData
+{
+    FONT-SIZE: 9pt;
+    FONT-FAMILY: Arial, 'Courier New', 'MS Sans Serif', 'Times New Roman'
+}
+.listHeader
+{
+    FONT-SIZE: 10pt;
+    FONT-FAMILY: Arial, 'Courier New', 'MS Sans Serif', 'Times New Roman'
+}
+.inputSubmit
+{
+    BORDER-RIGHT: 1px solid;
+    BORDER-TOP: 1px solid;
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: 1px solid;
+    COLOR: #000000;
+    BORDER-BOTTOM: 1px solid;
+    FONT-FAMILY: Verdana,tahoma,Arial;
+    BACKGROUND-COLOR: #eeeeee
+}
+.inputBox 	{ font-size: 10pt;	FONT-FAMILY: Arial; color: #000033;}
+.titlehead 	{ font-size: 10pt;	font-family: Verdana,Arial,Sans-serif; color: #000033; background-color: #00FFFF}
+/*.textareaLabel		{ FONT-WEIGHT: normal; FONT-SIZE: 9pt; COLOR: #526ba5;  FONT-FAMILY: Arial }
+
+.inputBox
+{
+    BORDER-RIGHT: 1px solid;
+    BORDER-TOP: 1px solid;
+    FONT-SIZE: 12px;
+	background-color: #E7E7C6;
+    BACKGROUND: #ffffff;
+    BORDER-LEFT: 1px solid;
+    COLOR: #000000;
+    BORDER-BOTTOM: 1px solid;
+    FONT-FAMILY: Verdana,tahoma,Arial
+}*/
+.titleHeader
+{
+    FONT-SIZE: 16pt
+}
