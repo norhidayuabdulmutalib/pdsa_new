@@ -1,0 +1,5 @@
+RewriteEngine On
+
+RewriteRule ^page/(.*)/(.*)/(.*) index.php?page=$1&cat=$2&act=$3
+RewriteRule ^page/(.*)/(.*) index.php?page=$1&cat=$2
+RewriteRule ^page/(.*) index.php?page=$1

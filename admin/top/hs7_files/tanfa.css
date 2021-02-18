@@ -1,0 +1,59 @@
+ /* tanfa logo/link */
+#pagetop {
+position: relative;
+width: 100%;
+padding-top: 0.5em;
+height: 7.5em;
+color: #000;
+border-bottom: 1px solid #ddd;
+}
+
+#pagetop h1, #pagetop h2, #pagetop h3 {
+margin: 0.3em 220px;
+padding: 0;
+font-family: georgia, serif;
+}
+
+#pagetop h1 {font-size: 1.3em;}
+#pagetop h2 {font-size: 1.1em;}
+#pagetop h3 {font-size: 1em;}
+#pagetop h3 span {color: #a00;}
+#pagetop h3 a {color: #00f;}
+#pagetop h3 a:visited {color: #aaa;}
+
+a#toplink {
+width: 200px;
+height: 8em;
+background: #fff url(http://ago.tanfa.co.uk/images/lady-rose-bw-red.jpg) no-repeat 0px -326px;
+position: absolute;
+top: 0;
+right: 5px;
+}
+
+a#toplink:hover {
+background-position: 0 0;
+}
+
+textarea#code {
+position: absolute;
+right: 20px;
+top: 14em;
+width: 50%;
+height: 500px;
+overflow: auto;
+}
+
+ol {
+margin: 0;
+padding: 0;
+padding-left: 110px;
+}
+
+fieldset {
+width: 60%;
+margin-left: 110px;
+}
+
+legend {
+color: #a00;
+}

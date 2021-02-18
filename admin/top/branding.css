@@ -1,0 +1,57 @@
+.cse-branding-bottom {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.cse-branding-right {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.cse-branding-bottom {
+	ZOOM: 1
+}
+.cse-branding-right {
+	ZOOM: 1
+}
+.cse-branding-bottom:after {
+	DISPLAY: block; HEIGHT: 0px; VISIBILITY: hidden; CLEAR: both; CONTENT: "."
+}
+.cse-branding-right:after {
+	DISPLAY: block; HEIGHT: 0px; VISIBILITY: hidden; CLEAR: both; CONTENT: "."
+}
+.cse-branding-text {
+	FONT: 10px Arial
+}
+.cse-branding-form FORM {
+	PADDING-BOTTOM: 0px; MARGIN-BOTTOM: 0px
+}
+.cse-branding-bottom .cse-branding-logo {
+	DISPLAY: block; FLOAT: left
+}
+.cse-branding-bottom .cse-branding-text {
+	DISPLAY: block; FLOAT: left
+}
+.cse-branding-bottom .cse-branding-form {
+	MARGIN-BOTTOM: 3px
+}
+.cse-branding-bottom .cse-branding-logo {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.cse-branding-bottom .cse-branding-text {
+	PADDING-TOP: 4px
+}
+.cse-branding-right .cse-branding-form {
+	FLOAT: left
+}
+.cse-branding-right .cse-branding-logo {
+	MARGIN-LEFT: 4px
+}
+.cse-branding-right .cse-branding-text {
+	MARGIN-LEFT: 4px
+}
+.cse-branding-right .cse-branding-form {
+	FLOAT: left; MARGIN-RIGHT: 4px
+}
+.cse-branding-right .cse-branding-logo {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.cse-branding-right .cse-branding-text {
+	MARGIN-TOP: -4px
+}

@@ -1,0 +1,90 @@
+#nav {
+	Z-INDEX: 200; POSITION: relative; PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 30px; WIDTH: 670px; PADDING-RIGHT: 0px; FONT: 11px arial, sans-serif; BACKGROUND: url(back.gif) no-repeat; HEIGHT: 36px; PADDING-TOP: 0px
+}
+#nav UL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: #ccc; FLOAT: left; BORDER-TOP: #fff 1px solid; PADDING-TOP: 0px
+}
+#nav TABLE {
+	MARGIN: -1px; BORDER-COLLAPSE: collapse; HEIGHT: 0px
+}
+#nav LI {
+	FLOAT: left
+}
+#nav LI LI {
+	BORDER-LEFT: #fff 1px solid; FLOAT: none; BORDER-RIGHT: #666 1px solid
+}
+#nav LI.last {
+	BORDER-BOTTOM: #666 1px solid
+}
+#nav LI A LI {
+	FLOAT: left
+}
+#nav LI A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 36px; PADDING-LEFT: 5px; PADDING-RIGHT: 25px; DISPLAY: block; WHITE-SPACE: nowrap; FLOAT: left; HEIGHT: 36px; COLOR: #fff; FONT-WEIGHT: bold; TEXT-DECORATION: none; PADDING-TOP: 0px
+}
+#nav LI A.down {
+	BACKGROUND: url(down.gif) no-repeat right center
+}
+#nav LI LI A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 20px; PADDING-LEFT: 5px; PADDING-RIGHT: 25px; DISPLAY: block; FLOAT: none; LETTER-SPACING: 1px; HEIGHT: 20px; FONT-WEIGHT: normal; PADDING-TOP: 0px
+}
+#nav LI LI A.fly {
+	BACKGROUND: url(fly.gif) no-repeat right center
+}
+#nav LI:hover {
+	Z-INDEX: 300; POSITION: relative
+}
+#nav A:hover {
+	Z-INDEX: 300; POSITION: relative; BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; COLOR: #633; BORDER-LEFT-WIDTH: 0px
+}
+#nav LI LI A {
+	COLOR: #633
+}
+#nav LI LI A:hover {
+	BACKGROUND-COLOR: #aaa; COLOR: #fff
+}
+#nav :hover UL {
+	Z-INDEX: 500; TOP: 33px; LEFT: 0px
+}
+#nav UL {
+	POSITION: absolute; TOP: -9999px; LEFT: -9999px
+}
+* HTML #nav UL {
+	WIDTH: 2px
+}
+#nav LI:hover LI:hover > UL {
+	Z-INDEX: 500; MARGIN-LEFT: 100%; TOP: -1px; LEFT: -5px
+}
+#nav LI:hover > UL UL {
+	POSITION: absolute; WIDTH: auto; TOP: -9999px; LEFT: -9999px
+}
+#nav LI:hover > A {
+	COLOR: #633
+}
+#nav LI LI:hover > A {
+	BACKGROUND-COLOR: #aaa; COLOR: #fff
+}
+#nav A:hover A:hover UL {
+	MARGIN-LEFT: -5px; TOP: -1px; LEFT: 100%
+}
+#nav A:hover A:hover A:hover UL {
+	MARGIN-LEFT: -5px; TOP: -1px; LEFT: 100%
+}
+#nav A:hover A:hover A:hover A:hover UL {
+	MARGIN-LEFT: -5px; TOP: -1px; LEFT: 100%
+}
+#nav A:hover A:hover A:hover A:hover A:hover UL {
+	MARGIN-LEFT: -5px; TOP: -1px; LEFT: 100%
+}
+#nav A:hover UL UL {
+	POSITION: absolute; TOP: -9999px; LEFT: -9999px
+}
+#nav A:hover A:hover UL UL {
+	POSITION: absolute; TOP: -9999px; LEFT: -9999px
+}
+#nav A:hover A:hover A:hover UL UL {
+	POSITION: absolute; TOP: -9999px; LEFT: -9999px
+}
+#nav A:hover A:hover A:hover A:hover UL UL {
+	POSITION: absolute; TOP: -9999px; LEFT: -9999px
+}

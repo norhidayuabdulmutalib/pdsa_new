@@ -1,0 +1,526 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin:0px;
+	padding:0px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-style:normal;
+	color:#FFF;
+	background:#f1f1f1;
+}
+a {
+	color:#006;
+	text-decoration:none;
+}
+a:hover {
+	color:#F00;
+	text-decoration:none;
+}
+
+#button{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
+	cursor:pointer;
+	height:30px;
+	min-width:140px;
+}
+#button:hover{
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:12px;
+	background-color:#09F;
+	cursor:pointer;
+	height:30px;
+	min-width:140px;
+}
+h1 {
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	font-size:42px;
+	color:#30a2e6;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+h2{
+	font-family: 'Yanone Kaffeesatz', sans-serif;
+	font-size:28px;
+	text-align:center;
+	background-color:#eef0f2;
+	color:#30a2e6;
+	text-decoration:none;
+	margin:0px 0px 20px;
+	padding:10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	/* shadow */
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+}
+#wapper {
+	background:#f1f1f1;
+	position:relative;
+	margin:0px;
+	padding:0px;
+}
+
+#header {
+	position:relative;
+	width:96%;
+	color:#000;
+	display:block;
+	margin:10px auto 0px;
+}
+.bannerleft {
+	display:block;
+	float:left;
+	width:70%;
+	height:110px;
+	background:url(../images/bgblue.png) bottom repeat-x;
+}
+.banneright {
+	display:block;
+	width:30%;
+	height:110px;
+	float:right;
+	background:url(../images/menulog.png) no-repeat right bottom;
+}
+#box_wrap {
+	position:relative;
+	width:98%;
+	background:#ffffff;
+	color:#000;
+	display:block;
+	margin:0px auto 20px;
+	padding:10px 0px 30px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	/* shadow */
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+}
+#content {
+	position:relative;
+	margin:20px 50px 10px 50px;
+	padding:0px;
+}
+.boxleft2 {
+	float:left;
+	width:45%;
+	height:270px;
+	border-right:0px #dadada solid;
+	background:url(../images/shadowleft.png) right no-repeat;
+	text-align:center;
+  	position:relative;
+}
+.boxright2 {
+	float:left;
+	width:55%;
+	height:270px;
+}
+.welcome {
+	position:relative;
+	top:40px;
+	text-align:center;
+}
+.key {
+	position:relative;
+	top:55px;
+}
+.msg {
+	font-size:18px;
+}
+.red {
+	color:#F00;
+}
+.gap {
+	padding:30px;
+}
+#footer {
+	padding:0px;
+	color:#303030;
+	text-align:center;
+	font-size:12px;
+}
+
+#menume ul li {
+	display:inline;
+	position:relative;
+	top:70px;
+}
+#menume li a {
+	color:#FFF;
+}
+#menume li a:hover {
+	color:#0CF;
+}
+#menume li {
+	margin-right:10px;
+}
+#menume li.utama {
+	background:url(../images/menumebg.png) 0px 0px no-repeat;
+	padding-left:20px;
+}
+#menume li.tukar {
+	background:url(../images/menumebg.png) 0px -18px no-repeat;
+	padding-left:20px;
+}
+#menume li.keluar {
+	background:url(../images/menumebg.png) 0px -40px no-repeat;
+	padding-left:20px;
+}
+
+
+/* START MENU PULL DOWN HERE */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+#cssmenu,
+#cssmenu ul,
+#cssmenu ul li,
+#cssmenu ul li a,
+#cssmenu #menu-button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position:relative;
+  z-index:1;
+}
+#cssmenu:after,
+#cssmenu > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu #menu-button {
+  display: none;
+}
+#cssmenu {
+  width: auto;
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  background: #398ccc;
+  background: -moz-linear-gradient(top, #055997 0%, #43a4ed 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #51bbd2), color-stop(100%, #43a4ed));
+  background: -webkit-linear-gradient(top, #055997 0%, #43a4ed 100%);
+  background: -o-linear-gradient(top, #055997 0%, #43a4ed 100%);
+  background: -ms-linear-gradient(top, #055997 0%, #43a4ed 100%);
+  background: linear-gradient(to bottom, #055997 0%, #43a4ed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#055997', endColorstr='#055997',GradientType=1 );
+}
+#cssmenu > ul {
+  background: url('images/bg.png');
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.05);
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu > ul > li {
+  float: left;
+  display: inline-block;
+}
+#cssmenu.align-center > ul {
+  float: none;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  float: none;
+}
+#cssmenu.align-center ul ul {
+  text-align: left;
+}
+#cssmenu > ul > li > a {
+  padding: 18px 25px 21px 25px;
+  border-right: 1px solid rgba(80, 80, 80, 0.12);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: #d3eced;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+#cssmenu > ul > li:hover > a,
+#cssmenu > ul > li > a:hover,
+#cssmenu > ul > li.active > a {
+  color: #ffffff;
+  background: #055896;
+  background: rgba(0, 0, 0, 0.1);
+}
+#cssmenu > ul > li.has-sub > a {
+  padding-right: 45px;
+}
+#cssmenu > ul > li.has-sub > a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: #d3eced;
+  right: 17px;
+  top: 22px;
+}
+#cssmenu > ul > li.has-sub.active > a::after,
+#cssmenu > ul > li.has-sub:hover > a {
+  border-top-color: #ffffff;
+}
+#cssmenu ul ul {
+  position: absolute;
+  left: -9999px;
+  top: 60px;
+  padding-top: 6px;
+  font-size: 13px;
+  opacity: 0;
+  background-color:#39F;
+  -webkit-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -moz-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -ms-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -o-transition: top 0.2s ease, opacity 0.2s ease-in;
+  transition: top 0.2s ease, opacity 0.2s ease-in;
+}
+#cssmenu.align-right ul ul {
+  text-align: right;
+}
+#cssmenu > ul > li > ul::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-bottom-color: #ffffff;
+  top: -4px;
+  left: 20px;
+}
+#cssmenu.align-right > ul > li > ul::after {
+  left: auto;
+  right: 20px;
+}
+#cssmenu ul ul ul::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-right-color: #ffffff;
+  top: 11px;
+  left: -4px;
+}
+#cssmenu.align-right ul ul ul::after {
+  border-right-color: transparent;
+  border-left-color: #ffffff;
+  left: auto;
+  right: -4px;
+}
+#cssmenu > ul > li > ul {
+  top: 120px;
+}
+#cssmenu > ul > li:hover > ul {
+  top: 52px;
+  left: 0;
+  opacity: 1;
+}
+#cssmenu.align-right > ul > li:hover > ul {
+  left: auto;
+  right: 0;
+}
+#cssmenu ul ul ul {
+  padding-top: 0;
+  padding-left: 6px;
+}
+#cssmenu.align-right ul ul ul {
+  padding-right: 6px;
+}
+#cssmenu ul ul > li:hover > ul {
+  left: 180px;
+  top: 0;
+  opacity: 1;
+}
+#cssmenu.align-right ul ul > li:hover > ul {
+  left: auto;
+  right: 100%;
+  opacity: 1;
+}
+#cssmenu ul ul li a {
+  text-decoration: none;
+  font-weight: 400;
+  padding: 11px 25px;
+  width: 180px;
+  /*color: #777777;
+  background: #ffffff;*/
+  color:#FFF;
+  background-color:#39F;
+  -webkit-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -moz-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -ms-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -o-transition: top 0.2s ease, opacity 0.2s ease-in;
+  transition: top 0.2s ease, opacity 0.2s ease-in;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1), 1px 1px 1px rgba(0, 0, 0, 0.1), -1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+#cssmenu ul ul li:hover > a,
+#cssmenu ul ul li.active > a {
+  color: #333333;
+}
+#cssmenu ul ul li:first-child > a {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+#cssmenu ul ul li:last-child > a {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#cssmenu > ul > li > ul::after {
+  position: absolute;
+  display: block;
+}
+#cssmenu ul ul li.has-sub > a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+  border-left-color: #777777;
+  right: 17px;
+  top: 14px;
+}
+#cssmenu.align-right ul ul li.has-sub > a::after {
+  background-color:#F00;
+  border-left-color: transparent;
+  border-right-color: #777777;
+  right: auto;
+  left: 17px;
+}
+#cssmenu ul ul li.has-sub.active > a::after,
+#cssmenu ul ul li.has-sub:hover > a::after {
+  border-left-color: #333333;
+}
+#cssmenu.align-right ul ul li.has-sub.active > a::after,
+#cssmenu.align-right ul ul li.has-sub:hover > a::after {
+  border-right-color: #333333;
+  border-left-color: transparent;
+}
+
+
+@media all and (max-width: 800px), only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 1024px), only screen and (min-device-pixel-ratio: 2) and (max-width: 1024px), only screen and (min-resolution: 192dpi) and (max-width: 1024px), only screen and (min-resolution: 2dppx) and (max-width: 1024px) {
+  #cssmenu {
+    background: #39b1cc;
+  }
+  #cssmenu > ul {
+    display: none;
+  }
+  #cssmenu > ul.open {
+    display: block;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  #cssmenu.align-right > ul {
+    float: none;
+  }
+  #cssmenu.align-center > ul {
+    text-align: left;
+  }
+  #cssmenu > ul > li,
+  #cssmenu.align-right > ul > li {
+    float: none;
+    display: block;
+  }
+  #cssmenu > ul > li > a {
+    padding: 18px 25px 18px 25px;
+    border-right: 0;
+  }
+  #cssmenu > ul > li:hover > a,
+  #cssmenu > ul > li.active > a {
+    background: rgba(0, 0, 0, 0.1);
+  }
+  #cssmenu #menu-button {
+    display: block;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: #d3eced;
+    padding: 18px 25px 18px 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: url('images/bg.png');
+    cursor: pointer;
+  }
+  #cssmenu ul ul,
+  #cssmenu ul li:hover > ul,
+  #cssmenu > ul > li > ul,
+  #cssmenu ul ul ul,
+  #cssmenu ul ul li:hover > ul,
+  #cssmenu.align-right ul ul,
+  #cssmenu.align-right ul li:hover > ul,
+  #cssmenu.align-right > ul > li > ul,
+  #cssmenu.align-right ul ul ul,
+  #cssmenu.align-right ul ul li:hover > ul {
+    left: 0;
+    right: auto;
+    top: auto;
+    opacity: 1;
+    width: 100%;
+    padding: 0;
+    position: relative;
+    text-align: left;
+  }
+  #cssmenu ul ul li {
+    width: 100%;
+  }
+  #cssmenu ul ul li a {
+    width: 100%;
+    box-shadow: none;
+    padding-left: 35px;
+  }
+  #cssmenu ul ul ul li a {
+    padding-left: 45px;
+  }
+  #cssmenu ul ul li:first-child > a,
+  #cssmenu ul ul li:last-child > a {
+    border-radius: 0;
+  }
+  #cssmenu #menu-button::after {
+    display: block;
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 22px;
+    border-top: 2px solid #d3eced;
+    border-bottom: 2px solid #d3eced;
+    right: 25px;
+    top: 18px;
+  }
+  #cssmenu #menu-button::before {
+    display: block;
+    content: '';
+    position: absolute;
+    height: 3px;
+    width: 22px;
+    border-top: 2px solid #d3eced;
+    right: 25px;
+    top: 28px;
+  }
+  #cssmenu > ul > li.has-sub > a::after,
+  #cssmenu ul ul li.has-sub > a::after {
+    display: none;
+  }
+}
+
+.table_head{
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  /*background: #398ccc;*/
+  background: -moz-linear-gradient(top, #398ccc 0%, #43a4ed 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #51bbd2), color-stop(100%, #43a4ed));
+  background: -webkit-linear-gradient(top, #398ccc 0%, #43a4ed 100%);
+  background: -o-linear-gradient(top, #398ccc 0%, #43a4ed 100%);
+  background: -ms-linear-gradient(top, #398ccc 0%, #43a4ed 100%);
+  background: linear-gradient(to bottom, #398ccc 0%, #43a4ed 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#398ccc', endColorstr='#055997',GradientType=1 );
+}

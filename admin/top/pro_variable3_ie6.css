@@ -1,0 +1,3 @@
+#nav LI LI A {
+	; WIDTH: expression(this.parentNode.parentNode.offsetWidth -32 + 'px')
+}

@@ -1,0 +1,42 @@
+.circle {
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 20px;
+}
+
+#element1 {
+	width: 150px;
+	height: 150px;
+	background: green;
+	background: -webkit-linear-gradient(red, blue);
+	background: -o-linear-gradient(red, blue);
+	background: -moz-linear-gradient(red, blue);
+	background: linear-gradient(red, blue);
+}
+
+#element2 {
+	width: 150px;
+	height: 150px;
+	background: green;
+	background: -webkit-linear-gradient(yellow, green);
+	background: -o-linear-gradient(yellow, green);
+	background: -moz-linear-gradient(yellow, green);
+	background: linear-gradient(yellow, green);
+}
+
+#element3 {
+	width: 150px;
+	height: 150px;
+	background: blue;
+	position: relative;
+	background: -webkit-linear-gradient(purple, pink);
+	background: -o-linear-gradient(purple, pink);
+	background: -moz-linear-gradient(purple, pink);
+	background: linear-gradient(purple, pink);
+}
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;      
+  font-size:24px;	
+}

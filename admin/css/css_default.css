@@ -1,0 +1,140 @@
+body {
+	background: #ffffff; 
+	margin-top: 0; 
+	margin-bottom: 0; 
+}
+body {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	line-height: 16px;
+}
+td,th {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color: #333333;
+	line-height: 16px;
+}
+a {
+	color: #3a5ea3;
+	text-decoration: underline;
+}
+a:hover {
+	color: #4677d3;
+	text-decoration: underline;
+}
+
+
+.font-std {
+	font-family: Verdana;
+	font-size: 12px;
+}
+.title {
+	background-color: #9CC;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	font-weight: bold;
+}
+.table-header {
+	background-color: #9CC;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	font-weight: bold;
+}
+.table-header2 {
+	background-color: #669966;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	font-weight: bold;
+}
+.table-row-alt {
+	background-color: #B9CCF9;
+}
+.table-row {
+	background-color: #E0E9FC;
+}
+.table-row2-alt {
+	background-color: #CCFF99;
+}
+.table-row2 {
+	background-color: #FFFF99;
+}
+.view-group-header {
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #CCCCFF;
+}
+.view-group-footer {
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #999999;
+}
+.view-footer {
+	font-family: Verdana, Arial;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #0099FF;
+}
+.font-header {
+	font-family: Verdana, Arial;
+	font-size: 14px;
+	font-weight: bold;
+}
+.menu-table {
+	background-color: #999999;
+	font-family: Verdana, Arial;
+	font-size: 12px;
+}
+.menu-item {
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	background-color: #EDAEFF;
+	color: #000000;
+}
+.menu-top {
+	font-family: Verdana, Arial;
+	font-size: 14px;
+	background-color: #EEEEEE;
+
+}
+.font-small {
+	font-family: Verdana, Arial;
+	font-size: 10px;
+}
+.help-fgcolor {
+	background-color: #FFFF66;
+}
+.help-bgcolor {
+	background-color: #FF9900;
+}
+.table-row-bgcolor-red {
+	background-color: #FF0000;
+}
+
+.table-row-bgcolor-green {
+	background-color: #66CC33;
+}
+
+.font-error {
+	font-family: Verdana, Arial;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FF0000;
+
+}
+.table-row-blankbg {
+}
+.font-large {
+	font-size: x-large;
+	font-weight: bold;
+}
+.font-cetak {
+	font-family: Arial, Helvetica, sans-serif;
+		font-weight: bold;
+font-size: 14px;
+}
+.font-cetak {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
