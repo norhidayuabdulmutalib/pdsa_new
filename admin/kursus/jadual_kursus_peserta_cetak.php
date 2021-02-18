@@ -44,52 +44,76 @@ $rs_det = $conn->execute($sql_det);
 //print $sql_det;
 $bil=0;
 ?>
-<table width="96%" cellpadding="4" cellspacing="0" border="1" align="center">
-    <tr bgcolor="#CCCCCC">
-        <td colspan="6" valign="top">
-            <div style="float:left">
-            <b>Senarai peserta bagi kursus :<br /><?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></b>
-            <br />Kategori : <?php print $rs->fields['categorytype'];?>
-            <br />Tarikh : <?php print DisplayDate($rs->fields['startdate']);?> - <?php print DisplayDate($rs->fields['enddate']);?>
-            </div>
-            <div style="float:right">
-            <?php if($btn_display==1){ ?>
-                <img src="../img/printer_icon1.jpg" width="40" height="30" title="Sila klik untuk cetakan senarai nama peserta kursus" style="cursor:pointer"
-                onclick="open_modal1('<?php print $href_link_add;?>&ty=PE','Cetakan Senarai Nama Peserta',1,1)" />&nbsp;
-                <input type="button" value="Tambah Maklumat Peserta" style="cursor:pointer"
-                onclick="open_modal1('<?php print $href_link_add;?>&ty=PE','Penambahan Maklumat Peserta',85,85)" />
-            <?php } ?>
-            </div>
-    	</td>
-    </tr>
-    <tr bgcolor="#CCCCCC">
-        <td width="5%" align="center"><b>Bil</b></td>
-        <td width="40%" align="center"><b>Nama Peserta</b></td>
-        <td width="10%" align="center"><b>Gred</b></td>
-        <td width="40%" align="center"><b>Agensi/Jabatan/Unit</b></td>
-        <td width="10%" align="center"><b>No. Tel/Faks</b></td>
-    </tr>
-    <?php while(!$rs_det->EOF){ $bil++; 
-        $idh=$rs_det->fields['InternalStudentId'];
-    ?>
-    <tr>
-        <td align="right"><?php print $bil;?>.&nbsp;</td>
-        <td align="left"><?php print $rs_det->fields['f_peserta_nama'];?>
-        <!--<br /><i>No. KP: <?php //print $rs_det->fields['f_peserta_noic'];?></i>-->&nbsp;</td>
-        <td align="center"><?php print dlookup("_ref_titlegred","f_gred_code","f_gred_id=".tosql($rs_det->fields['f_title_grade']));?>&nbsp;</td>
-        <td align="left"><?php print dlookup("_ref_tempatbertugas","f_tempat_nama","f_tbcode=".tosql($rs_det->fields['BranchCd']));?>&nbsp;</td>
-        <td><?php print "Tel:".$rs_det->fields['f_peserta_tel_pejabat']."<br>Faks:".$rs_det->fields['f_peserta_faks'];?></td>
-    </tr>
-    <?php $rs_det->movenext(); } ?>
-</table>
-<div class="printButton" align="center">
-	<br>
-	<table width="100%" bgcolor="#CCCCCC"><tr><td width="100%" align="center">
-   	<input type="button" value="Print" onClick="handleprint()" style="cursor:pointer" />
-    <input type="button" value="Close" onClick="do_close()" title="Please click to close window" style="cursor:pointer">
-    <br>Please change the printing Orientation to <b>Landscape</b> before printing.
-	<br /><br />
-    </td></tr></table>
+
+<div class="card">
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="8">
+                        <b>Senarai peserta bagi kursus :<br /><?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></b>
+                        <br>Kategori : <?php print $rs->fields['categorytype'];?>
+                        <br>Tarikh : <?php echo date('d-m-Y', strtotime($rs->fields['startdate'])) ?> - <?php echo date('d-m-Y', strtotime($rs->fields['enddate'])) ?>
+                        <!-- <?php //print DisplayDate($rs->fields['startdate']);?> - <?php //print DisplayDate($rs->fields['enddate']);?> -->
+                    </th>
+                </tr>
+                <tr class="text-right">
+                    <th colspan="8">
+                    <?php if($btn_display==1){ ?>
+                        <img src="../img/printer_icon1.jpg" width="40" height="30" title="Sila klik untuk cetakan senarai nama peserta kursus" style="cursor:pointer"
+                        onclick="open_modal1('<?php print $href_link_add;?>&ty=PE','Cetakan Senarai Nama Peserta',1,1)" />&nbsp;
+                        <input type="button" value="Tambah Maklumat Peserta" style="cursor:pointer"
+                        onclick="open_modal1('<?php print $href_link_add;?>&ty=PE','Penambahan Maklumat Peserta',85,85)" />
+                        <?php } ?>
+                    </th>
+                </tr>
+
+                <!-- <div style="float:right">
+                    <?php if($btn_display==1){ ?>
+                        <img src="../img/printer_icon1.jpg" width="40" height="30" title="Sila klik untuk cetakan senarai nama peserta kursus" style="cursor:pointer"
+                        onclick="open_modal1('<?php print $href_link_add;?>&ty=PE','Cetakan Senarai Nama Peserta',1,1)" />&nbsp;
+                        <input type="button" value="Tambah Maklumat Peserta" style="cursor:pointer"
+                        onclick="open_modal1('<?php print $href_link_add;?>&ty=PE','Penambahan Maklumat Peserta',85,85)" />
+                    <?php } ?>
+                    </div>
+                </td>
+                </tr> -->
+
+                <tr>
+                    <th width="5%" align="center"><b>Bil</b></th>
+                    <th width="40%" align="center"><b>Nama Peserta</b></th>
+                    <th width="10%" align="center"><b>Gred</b></th>
+                    <th width="40%" align="center"><b>Agensi/Jabatan/Unit</b></th>
+                    <th width="10%" align="center"><b>No. Tel/Faks</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while(!$rs_det->EOF){ $bil++; 
+                    $idh=$rs_det->fields['InternalStudentId'];
+                ?>
+                <tr>
+                    <td align="right"><?php print $bil;?>.&nbsp;</td>
+                    <td align="left"><?php print $rs_det->fields['f_peserta_nama'];?>
+                    <!--<br /><i>No. KP: <?php //print $rs_det->fields['f_peserta_noic'];?></i>-->&nbsp;</td>
+                    <td align="center"><?php print dlookup("_ref_titlegred","f_gred_code","f_gred_id=".tosql($rs_det->fields['f_title_grade']));?>&nbsp;</td>
+                    <td align="left"><?php print dlookup("_ref_tempatbertugas","f_tempat_nama","f_tbcode=".tosql($rs_det->fields['BranchCd']));?>&nbsp;</td>
+                    <td><?php print "Tel:".$rs_det->fields['f_peserta_tel_pejabat']."<br>Faks:".$rs_det->fields['f_peserta_faks'];?></td>
+                </tr>
+                <?php $rs_det->movenext(); } ?>
+                <tr>
+                <div class="printButton" align="center">
+                    <br>
+                    <table width="100%"><tr><td width="100%" align="center">
+                        <input type="button" class="btn btn-info"value="Print" onClick="handleprint()" style="cursor:pointer" />
+                        <input type="button" class="btn btn-secondary" value="Close" onClick="do_close()" title="Please click to close window" style="cursor:pointer">
+                        <br>Please change the printing Orientation to <b>Landscape</b> before printing.
+                        <br /><br />
+                        </td></tr>
+                    </table>
+                </div>
+            </tbody>
+        </table>      
+    </div>          
 </div>
-</body>
-</html>
+</div>

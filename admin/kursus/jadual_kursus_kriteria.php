@@ -59,52 +59,61 @@ $rs = &$conn->Execute($sSQL);
 //print $sSQL;
 ?>
 <form name="ilim" method="post">
-<table width="100%" cellpadding="5" cellspacing="1" border="1" align="center">
-    <tr><td colspan="3">
-        <table width="96%" cellpadding="4" cellspacing="0" border="0" align="center">
-			<tr>
-                <td width="25%" align="right"><b>Pusat Latihan @ Tempat Kursus</b></td>
-                <td width="1%" align="center"><b> : </b></td>
-                <td align="left"><font color="#0033FF" style="font-weight:bold">
-                    <?php print dlookup("_ref_kampus","kampus_nama","kampus_id=".tosql($rs->fields['kampus_id'])); ?></font>
-                </td>	        
-            </tr>
-	        <tr>
-                <td width="25%" align="right"><b>Kursus</b></td>
-                <td width="1%" align="center"><b> : </b></td>
-                <td width="74%" align="left"><?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Kategori</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print $rs->fields['categorytype'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Pusat</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print $rs->fields['SubCategoryNm'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Tarikh Kursus</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print DisplayDate($rs->fields['startdate']);?> - <?php print DisplayDate($rs->fields['enddate']);?></td>                
-            </tr>
-		</table>
-    </td></tr>
-	<tr><td colspan="3">
-        <table width="96%" cellpadding="4" cellspacing="0" border="0" align="center">
-            <tr>
-                <td width="100%" align="left" colspan="3" bgcolor="#CCCCCC"><b>KRITERIA PEMILIHAN PESERTA KURSUS</b></td>
-            </tr>
+<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat Latihan @ Tempat Kursus : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <font color="#0033FF" style="font-weight:bold">
+            <?php print dlookup("_ref_kampus","kampus_nama","kampus_id=".tosql($rs->fields['kampus_id'])); ?></font>
+        </div>	        
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kursus : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?>
+        </div>                
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <?php print $rs->fields['categorytype'];?>
+        </div>                
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <?php print $rs->fields['SubCategoryNm'];?>
+        </div>                
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kursus : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <?php echo date('d-m-Y', strtotime($rs->fields['startdate'])) ?> - <?php echo date('d-m-Y', strtotime($rs->fields['enddate'])) ?>
+            <!-- <?php //print DisplayDate($rs->fields['startdate']);?> - <?php //print DisplayDate($rs->fields['enddate']);?>                -->
+        </div>
+    </div>
+
+
+    <div class="card  col-md-12">
+        <div class="card-header" >
+            <h4>KRITERIA PEMILIHAN PESERTA KURSUS</h4>
+        </div>
+        <div class="card-body">
+
             <?php
             $sql_k = "SELECT * FROM _tbl_kursus_kriteria WHERE event_id=".tosql($id,"Text");
             $rs_det = &$conn->execute($sql_k);
             //print $sql_k;
             ?>
-            
             <?php $sqlkk = "SELECT * FROM _tbl_kursus_cat WHERE is_deleted=0 ORDER BY category_code";
                 $rskk = &$conn->Execute($sqlkk);
             ?>
+
             <?php 
                 $sqlkks = "SELECT * FROM _tbl_kursus WHERE is_deleted=0 ";
                 if(!empty($rs->fields['category_code'])){ $sqlkks .= " AND category_code=".tosql($rs->fields['category_code'],"Number"); }
@@ -112,72 +121,76 @@ $rs = &$conn->Execute($sSQL);
                 $sqlkks .= " ORDER BY coursename";
                 $rskks = &$conn->Execute($sqlkks);
             ?>
-            <tr>
-                <td align="right"><b>Prasyarat Kursus : </b></td> 
-                <td align="left" colspan="2" >
-                    <select name="subjek" onchange="query_data('include/get_kursus.php')">
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Prasyarat Kursus :</b></label>
+                <div class="col-sm-12 col-md-7">
+                    <select name="subjek" class="form-control" onchange="query_data('include/get_kursus.php')">
                         <option value="">-- Sila pilih subjek --</option>
                         <?php while(!$rskks->EOF){ ?>
                         <option value="<?php print $rskks->fields['id'];?>" <?php if($rs_det->fields['subjek']==$rskks->fields['id']){ print 'selected'; }?>
                         ><?php print $rskks->fields['courseid'] . " - " . $rskks->fields['coursename'];?></option>
                         <?php $rskks->movenext(); } ?>
                     </select>
-                </td>
-            <tr>
-                <td align="right"><b>Jumlah Tahun Berkhidmat : </b></td> 
-                <td align="left">
-                <select name="jtb1">
-                    <option value="">-- Sila pilih --</option>
-                    <option value="="<?php if($rs_det->fields['jtb1']=="="){ print 'selected'; }?>> = </option>
-                    <option value=">="<?php if($rs_det->fields['jtb1']==">="){ print 'selected'; }?>> >= </option>
-                    <option value="<="<?php if($rs_det->fields['jtb1']=="<="){ print 'selected'; }?>> <= </option>
-                </select>
-                &nbsp;&nbsp;&nbsp;
-                <select name="jtb2">
-                    <option value="">-- Sila pilih --</option>
-                    <?php for($t=1;$t<=30;$t++){ ?>
-                    <option value="<?php print $t;?>" <?php if($rs_det->fields['jtb2']==$t){ print 'selected'; }?>> <?php print $t;?> </option>
-                    <?php } ?>        
-                </select>        
-                </td>
-            </tr>
+                </div>
+            </div>
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Jumlah Tahun Berkhidmat :</b></label>
+                <div class="col-sm-12 col-md-3">
+                    <select class="form-control" name="jtb1">
+                        <option value="">-- Sila pilih --</option>
+                        <option value="="<?php if($rs_det->fields['jtb1']=="="){ print 'selected'; }?>> = </option>
+                        <option value=">="<?php if($rs_det->fields['jtb1']==">="){ print 'selected'; }?>> >= </option>
+                        <option value="<="<?php if($rs_det->fields['jtb1']=="<="){ print 'selected'; }?>> <= </option>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <select class="form-control" name="jtb2">
+                        <option value="">-- Sila pilih --</option>
+                        <?php for($t=1;$t<=30;$t++){ ?>
+                        <option value="<?php print $t;?>" <?php if($rs_det->fields['jtb2']==$t){ print 'selected'; }?>> <?php print $t;?> </option>
+                        <?php } ?>        
+                    </select>        
+                </div>
+            </div>
+
             <?php
             $sqlp = "SELECT * FROM _ref_titlegred WHERE is_deleted=0 AND f_status=0 ORDER BY f_gred_code";
             $rspg = &$conn->execute($sqlp);
             ?>
-            <tr>
-                <td align="right"><b>Gred Jawatan : </b></td>
-                <td colspan="2">
-                <select name="grade1">
-                    <option value="">-- Sila pilih --</option>
-                    <option value="="<?php if($rs_det->fields['grade1']=="="){ print 'selected'; }?>> = </option>
-                    <option value=">="<?php if($rs_det->fields['grade1']==">="){ print 'selected'; }?>> >= </option>
-                    <option value="<="<?php if($rs_det->fields['grade1']=="<="){ print 'selected'; }?>> <= </option>
-                </select>
-                &nbsp;&nbsp;&nbsp;
-                <select name="grade2">
-                    <?php while(!$rspg->EOF){ ?>
-                    <option value="<?php print $rspg->fields['f_gred_code'];?>" <?php if($rspg->fields['f_gred_code']==$rs_det->fields['grade2']){ print 'selected'; }?>><?php print $rspg->fields['f_gred_code'] ." - ". $rspg->fields['f_gred_name'];?></option>
-                    <?php $rspg->movenext(); } ?>
-               </select>   
-                </td>
-            </tr>
-		</tr>
-     </table>
-     </td></tr>  
-    <tr>
-        <td colspan="3" align="center">
-        <?php if($btn_display==1){ ?>
-            <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-        <?php } ?>
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Gred Jawatan : </b></label>
+                <div class="col-sm-12 col-md-3">
+                    <select class="form-control" name="grade1">
+                        <option value="">-- Sila pilih --</option>
+                        <option value="="<?php if($rs_det->fields['grade1']=="="){ print 'selected'; }?>> = </option>
+                        <option value=">="<?php if($rs_det->fields['grade1']==">="){ print 'selected'; }?>> >= </option>
+                        <option value="<="<?php if($rs_det->fields['grade1']=="<="){ print 'selected'; }?>> <= </option>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <select class="form-control" name="grade2">
+                        <?php while(!$rspg->EOF){ ?>
+                        <option value="<?php print $rspg->fields['f_gred_code'];?>" <?php if($rspg->fields['f_gred_code']==$rs_det->fields['grade2']){ print 'selected'; }?>><?php print $rspg->fields['f_gred_code'] ." - ". $rspg->fields['f_gred_name'];?></option>
+                        <?php $rspg->movenext(); } ?>
+                    </select>   
+                </div>
+            </div>
+		</div>
+        <div align="center">
+            <?php if($btn_display==1){ ?>
+            <button class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" ><i class="far fa-save"></i><b> Simpan</b></button>
+            <?php } ?>
             <!--<input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >-->
             <input type="hidden" name="event_id" value="<?=$id?>" />
             <input type="hidden" name="tkk_id" value="<?=$rs_det->fields['tkk_id']?>" />
             <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
-        </td>
-    </tr>
-</table>
+            </br>
+        </div>
+    </div>
+
+</table>    
 </form>
+
 <script LANGUAGE="JavaScript">
 	document.ilim.kategori.focus();
 </script>

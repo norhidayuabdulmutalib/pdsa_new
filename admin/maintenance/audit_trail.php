@@ -79,31 +79,46 @@ $href_search = "index.php?data=".base64_encode($userid.';maintenance/audit_trail
                             </div>
                             <?php } ?>
 
-                            <div class="form-group row mb-4">
+                            <!-- <div class="form-group row mb-4">
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Transaksi : </b></label>
 								<div class="col-sm-12 col-md-7">
                                     <label> Mula : </label>
-                                        <input class="form-control" type="date" width="40%" name="tkh_mula" value="<?php echo $tkh_mula;?>">
+                                        <input class="form-control" type="date" width="40%" name="tkh_mula" value="<?php// echo $tkh_mula;?>">
                                     <alt="" width="21" height="22" align="absmiddle" style="cursor:pointer" 
                                         onclick="displayCalendar(document.forms[0].tkh_mula,'dd/mm/yyyy',this)"/> 
                                     <label> Tamat : </label> 
-                                        <input class="form-control" type="date" width="40%" name="tkh_tamat" value="<?php echo $tkh_tamat;?>">
+                                        <input class="form-control" type="date" width="40%" name="tkh_tamat" value="<?php//echo $tkh_tamat;?>">
                                     <alt="" width="21" height="22" align="absmiddle" style="cursor:pointer" 
                                         onclick="displayCalendar(document.forms[0].tkh_tamat,'dd/mm/yyyy',this)"/>
                                 </div>
-                            </div>
+                            </div> -->
+                            <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Mula Transaksi : </b></label>
+                                    <div class="col-sm-12 col-md-3">
+                                        <input class="form-control" type="date" width="40%" name="tkh_mula" value="<?php echo $tkh_mula;?>">
+                                        <alt="" width="18" height="18" align="absmiddle" style="cursor:pointer" 
+                                            onclick="displayCalendar(document.forms[0].tkh_mula,'dd/mm/yyyy',this)"/> 
+                                    </div>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-2"><b>Tarikh Tamat Transaksi : </b></label>
+                                    <div class="col-sm-12 col-md-3">
+                                        <input class="form-control" type="date" width="40%" name="tkh_tamat" value="<?php echo $tkh_tamat;?>">
+                                        <alt="" width="18" height="18" align="absmiddle" style="cursor:pointer" 
+                                            onclick="displayCalendar(document.forms[0].tkh_tamat,'dd/mm/yyyy',this)"/>
+                                    </div>
+                                </div>
 
                             <div class="form-group row mb-4">
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Maklumat Carian : </b></label>
-								<div class="col-sm-12 col-md-7">
+								<div class="col-sm-12 col-md-5">
 			                        <input class="form-control" type="text" size="30" name="search" value="<?php echo stripslashes($search);?>">
                                 </div>
-                                <div class="col-sm-12 col-md-2">
+                                <div class="col-sm-12 col-md-4">
                                     <button class="btn" style="background-color:#fed136;" name="Cari" value="  Cari  " onClick="do_page('<?=$href_search;?>')"><i class="fas fa-search"></i><b> Cari</b></button>
+                               
                                     <button class="btn" style="background-color:#fed136;" name="Hapus" value="  Hapus  " onClick="do_hapus('<?=$href_search;?>&pro=DEL')"><i class="fas fa-trash"></i><b> Hapus</b></button>
+                                </div>
                                     <input type="hidden" name="sql" value="<?=$sSQL1;?>" size="100" />
                                     <input type="hidden" name="jum_rec" value="<?=$RecordCount;?>" />
-                                </div>
                             </div>
                         </div>
 					</form>

@@ -104,10 +104,10 @@ function do_hapus(jenis,idh,dir){
                                 <tr>
                                     <th width="5%" align="center"><b>Bil</b></th>
                                     <th width="40%" align="center"><b>Maklumat Blok Bangunan</b></th>
-                                    <th width="25%" align="center"><b>Kategori Blok</b></th>
+                                    <th width="20%" align="center"><b>Kategori Blok</b></th>
                                     <th width="10%" align="center"><b>Kampus</b></th>
                                     <th width="10%" align="center"><b>Status</b></th>
-                                    <th width="10%" align="center"><b>Tindakan</b></th>
+                                    <th width="15%" align="center"><b>Tindakan</b></th>
                                 </tr>
                                 </thead>
                                     <tbody>

@@ -80,51 +80,62 @@ if(!empty($id)){
 }
 ?>
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT SET PENILAIAN</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="80%" cellpadding="3" cellspacing="0" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT SET PENILAIAN</h4>
+	</div>
+		<div class="card-body">
+
         	<?php if(!empty($msg)){ ?>
             <tr>
                 <td width="100%" align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
             </tr>
             <?php } ?>
-            <tr>
-                <td width="30%"><b>Kategori Penilaian : </b></td>
-                <td width="50%" colspan="2">
-                <textarea name="pset_tajuk" rows="2" style="width:90%"><?php print $rs->fields['pset_tajuk'];?></textarea></td>
-            </tr>
-            <tr>
-                <td><b>Status : </b></td>
-                <td colspan="2">
-                	<select name="pset_status">
+            
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori Penilaian :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<textarea name="pset_tajuk" class="form-control"><?php print $rs->fields['pset_tajuk'];?></textarea>
+				</div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Status :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="pset_status">
                     	<option value="0" <?php if($rs->fields['pset_status']=='0'){ print 'selected'; }?>>Aktif</option>
                     	<option value="1" <?php if($rs->fields['pset_status']=='1'){ print 'selected'; }?>>Tidak Aktif</option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td><b>Tarikh Jana : </b></td>
-                <td colspan="2"><?php print DisplayDate($rs->fields['create_dt']);?></td>
-			</tr>
-            <tr>
-                <td><b>Tarikh Kemaskini : </b></td>
-                <td colspan="2"><?php print DisplayDate($rs->fields['update_dt']);?></td>
-			</tr>
+                </div>
+            </div>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Jana :</b></label>
+                <div class="col-sm-12 col-md-7">
+            		<?php //print DisplayDate($rs->fields['create_dt']);?>
+				</div>
+			</div>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kemaskini :</b></label>
+                <div class="col-sm-12 col-md-7">
+            		<?php //print DisplayDate($rs->fields['update_dt']);?>
+				</div>
+			</div>
+
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('index.php?data=<?php print $data;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan blok bangunan" 
+                    <input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('index.php?data=<?php print $data;?>&pro=SAVE')" >
+                    <input type="button" class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan blok bangunan" 
                     onClick="form_tutup('index.php?data=<?php print base64_encode($userid.';penilaian/set_penilaian.php;nilai;set;');?>')" >
                     <input type="hidden" name="id" value="<?=$id?>" />
                 </td>
             </tr>
-        </table>
-      </td>
-   </tr>
+
+        </div>
+   </div>
+   
    <?php if(!empty($id)){ 
    $href_link = "modal_form.php?win=".base64_encode('penilaian/set_pilih.php;')."&id=".$id;?>
    <tr><td colspan="2" width="100%">&nbsp;</td></tr>

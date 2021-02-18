@@ -63,62 +63,71 @@ if(!empty($id)){
 }
 //if(empty($id)){ $f_tbcode = dlookup("_ref_tempatbertugas","lpad(max(f_tbcode+1),3,'0')","1"); }
 ?>
+
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT TEMPAT BERTUGAS</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT TEMPAT BERTUGAS</h4>
+	</div>
+		<div class="card-body">
+
         	<?php if(!empty($msg)){ ?>
             <tr>
                 <td width="100%" align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
             </tr>
             <?php } ?>
-            <tr>
-                <td width="30%"><b>Kod Tempat : </b></td>
-                <td width="50%" colspan="2"><input type="text" size="10" name="f_tbcode" value="<?php print $f_tbcode;?>" maxlength="4" /></td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Tempat Bertugas : </b></td>
-                <td width="50%" colspan="2"><input type="text" size="60" name="f_tempat_nama" value="<?php print $rs->fields['f_tempat_nama'];?>" /></td>
-            </tr>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kod Tempat :</b></label>
+                <div class="col-sm-12 col-md-7">
+           			<input type="text" class="form-control" name="f_tbcode" value="<?php print $f_tbcode;?>" maxlength="4" />
+				</div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tempat Bertugas :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<input type="text" class="form-control" name="f_tempat_nama" value="<?php print $rs->fields['f_tempat_nama'];?>" />
+				</div>
+            </div>
+
 			<?php $sqlkk = "SELECT * FROM _ref_tempat_kategori WHERE ref_kt_status=0 ORDER BY ref_ktid";
                 $rskk = &$conn->Execute($sqlkk);
             ?>
-            <tr>
-                <td align="left"><b>Kategori Agensi : </b></td> 
-                <td align="left" colspan="2" >
-                    <select name="kategori">
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori Agensi :</b></label>
+                <div class="col-sm-12 col-md-7">
+                    <select class="form-control" name="kategori">
                         <option value="">-- Sila pilih kategori --</option>
                         <?php while(!$rskk->EOF){ ?>
                         <option value="<?php print $rskk->fields['ref_ktid'];?>" <?php if($rs->fields['ref_ktid']==$rskk->fields['ref_ktid']){ print 'selected'; }?>><?php print $rskk->fields['ref_kt_nama'];?></option>
                         <?php $rskk->movenext(); } ?>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="20%"><b>Status : </b></td>
-                <td width="50%" colspan="2">
-                	<select name="f_status">
+                </div>
+            </div>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Status :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="f_status">
                     	<option value="0" <?php if($rs->fields['f_status']=='0'){ print 'selected'; }?>>Aktif</option>
                     	<option value="1" <?php if($rs->fields['f_status']=='1'){ print 'selected'; }?>>Tidak Aktif</option>
                     </select>
-                </td>
-            </tr>
+                </div>
+            </div>
+
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai gred jawatan" onClick="form_back()" >
+                    <input type="button" value="Simpan" class="btn btn-success" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+                    <input type="button" value="Kembali" class="btn btn-secondary" title="Sila klik untuk kembali ke senarai gred jawatan" onClick="form_back()" >
                     <input type="hidden" name="id" value="<?=$id?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
                 </td>
             </tr>
-        </table>
-      </td>
-   </tr>
-</table>
+
+        </div>
+</div>
 </form>
 <script LANGUAGE="JavaScript">
 	document.ilim.f_tbcode.focus();

@@ -156,6 +156,7 @@ if(!$rs->EOF){
 }
 if($pro=='SEARCH'){ $f_peserta_noic=$_GET['kp']; }
 ?>
+
 <br>
 <div class="section-body">
     <div class="row">
@@ -235,14 +236,14 @@ if($pro=='SEARCH'){ $f_peserta_noic=$_GET['kp']; }
                         <div class="form-group row" style="padding-right:0px;">
                             <label class="col-form-label col-12 col-md-3 col-lg-3"><b>Tarikh Lantikan :</b></label>
                             <div class="col-sm-12 col-md-4">
-                                <input type="date" class="form-control" name="f_peserta_appoint_dt" value="<?=DisplayDate($rs->fields['f_peserta_appoint_dt'])?>">
+                                <input type="date" class="form-control" name="f_peserta_appoint_dt" value="<?//=DisplayDate($rs->fields['f_peserta_appoint_dt'])?>">
                             </div>
                         </div>
 
                         <div class="form-group row" style="padding-right:0px;">
                             <label class="col-form-label col-12 col-md-3 col-lg-3"><b>Tarikh Sah Jawatan :</b></label>
                             <div class="col-sm-12 col-md-4">
-                                <input type="date" class="form-control" name="f_peserta_sah_dt" value="<?=DisplayDate($rs->fields['f_peserta_sah_dt'])?>">
+                                <input type="date" class="form-control" name="f_peserta_sah_dt" value="<?//=DisplayDate($rs->fields['f_peserta_sah_dt'])?>">
                             </div>
                         </div>
 
@@ -448,7 +449,7 @@ if($pro=='SEARCH'){ $f_peserta_noic=$_GET['kp']; }
                                 
                                 <br>
                                 
-                                <td align="left" colspan="2"><?=DisplayDate($rs->fields['f_peserta_sah_dt'])?>&nbsp;</td>
+                                <td align="left" colspan="2"><?//=DisplayDate($rs->fields['f_peserta_sah_dt'])?>&nbsp;</td>
                                 <td align="center" rowspan="5" valign="top">
                                     <?php include 'view_kursus_calc.php'; ?>
                                 </td>

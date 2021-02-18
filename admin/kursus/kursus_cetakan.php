@@ -61,7 +61,7 @@ $href_search = "index.php?data=".base64_encode($userid.';kursus/kursus_cetakan.p
                             ?>
                             <div class="form-group row mb-4">
 							    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat Latihan :</b></label>
-							    <div class="col-sm-12 col-md-7">
+							    <div class="col-sm-12 col-md-8">
                                     <select class="form-control" name="kampus_id" onchange="do_page('<?=$href_search;?>')">
                                         <option value="">-- Sila pilih kampus --</option>
                                         <?php while(!$rskks->EOF){ ?>
@@ -78,7 +78,7 @@ $href_search = "index.php?data=".base64_encode($userid.';kursus/kursus_cetakan.p
 	                        ?>
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori Kursus : </b></label>
-                                <div class="col-sm-12 col-md-7">
+                                <div class="col-sm-12 col-md-8">
                                     <select class="form-control" name="kategori" onchange="do_page('<?=$href_search;?>')">
                                         <option value="">-- Sila pilih kategori --</option>
                                         <?php while(!$rskk->EOF){ ?>
@@ -94,7 +94,7 @@ $href_search = "index.php?data=".base64_encode($userid.';kursus/kursus_cetakan.p
                             ?>
                             <div class="form-group row mb-4">
 							    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat / Unit : </b></label>
-							    <div class="col-sm-12 col-md-7">
+							    <div class="col-sm-12 col-md-8">
                                     <select  class="form-control" name="subkategori" onchange="do_page('<?=$href_search;?>')">
                                         <option value="">-- Sila pilih sub-kategori --</option>
                                         <?php while(!$rskks->EOF){ ?>
@@ -105,13 +105,14 @@ $href_search = "index.php?data=".base64_encode($userid.';kursus/kursus_cetakan.p
                             </div>
                             
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kursus : </b></label>
-                                <div class="col-sm-12 col-md-7">
-                                    <label> Mula : </label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Mula Kursus : </b></label>
+                                <div class="col-sm-12 col-md-3">
                                     <input class="form-control" type="date" width="40%" name="tkh_mula" value="<?php echo $tkh_mula;?>">
                                     <alt="" width="21" height="22" align="absmiddle" style="cursor:pointer" 
                                         onclick="displayCalendar(document.forms[0].tkh_mula,'dd/mm/yyyy',this)"/> 
-                                    <label> Tamat : </label> 
+                                </div>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-2"><b>Tarikh Tamat Kursus : </b></label>
+                                    <div class="col-sm-12 col-md-3">
                                     <input class="form-control" type="date" width="40%" name="tkh_tamat" value="<?php echo $tkh_tamat;?>">
                                     <alt="" width="21" height="22" align="absmiddle" style="cursor:pointer" 
                                         onclick="displayCalendar(document.forms[0].tkh_tamat,'dd/mm/yyyy',this)"/>
@@ -160,7 +161,7 @@ $href_search = "index.php?data=".base64_encode($userid.';kursus/kursus_cetakan.p
                                         <th width="10%" align="center">
                                             <a href="<?php echo $href_search."&sb=enddate&tkh_mula=$tkh_mula&tkh_tamat=$tkh_tamat&search=$search"; ?>"><b>Tarikh Tamat</b></a>&nbsp;
                                             <?php echo (($varSort=="enddate")?"<img src=\"../images/down_arrow.gif\">":"");?></th>
-                                        <th width="5%" align="center"><b>&nbsp;</b></th>
+                                        <th width="5%" align="center"><b>Tindakan</b></th>
                                     </tr>
                                     </thead>
 									<tbody>
@@ -179,14 +180,16 @@ $href_search = "index.php?data=".base64_encode($userid.';kursus/kursus_cetakan.p
                                                     <td valign="top" align="left"><?php echo stripslashes($rs->fields['courseid']);?>&nbsp;</td>
                                                     <td valign="top" align="left"><?php echo stripslashes($rs->fields['coursename']);?>&nbsp;</td>
                                                     <td valign="top" align="center"><?php echo stripslashes($unit);?>&nbsp;</td>
-                                                    <td valign="top" align="center"><?php echo DisplayDate($rs->fields['startdate'])?></td>
-                                                    <td valign="top" align="center"><?php echo DisplayDate($rs->fields['enddate'])?></td>
+                                                    <td valign="top" align="center"><?php echo date('d-m-Y', strtotime($rs->fields['startdate']))?>&nbsp;</td>
+                                                    <!-- <td valign="top" align="center"><?php// echo DisplayDate($rs->fields['startdate'])?></td> -->
+                                                    <td valign="top" align="center"><?php echo date('d-m-Y', strtotime($rs->fields['enddate']))?>&nbsp;</td>
+                                                    <!-- <td valign="top" align="center"><?php// echo DisplayDate($rs->fields['enddate'])?></td> -->
                                                     <td align="center">
                                                     <?php if($_SESSION["s_jabatan"]==$rs->fields['subcategory_code'] || 
                                                     $_SESSION["s_level"]==1 || $_SESSION["s_level"]==99){ ?>
                                                     <?php if($rs->fields['startdate']<=date("Y-m-d")){ ?>
-                                                        <img src="../img/printer_icon1.jpg" width="30" height="28" style="cursor:pointer" title="Sila klik cetakan sijil kursus" 
-                                                        onclick="open_modal('<?=$href_link;?>','Cetakan sijil kursus',1,1)" />
+                                                        <button class="btn btn-info" style="cursor:pointer; padding:9px;" title="Sila klik cetakan sijil kursus" 
+                                                        onclick="open_modal('<?=$href_link;?>','Cetakan sijil kursus',1,1)" ><i class="fas fa-print"></i></button>
                                                     <?php } ?>
                                                     <?php } ?>
                                                     </td>

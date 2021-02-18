@@ -32,35 +32,40 @@ if(!empty($id)){
 }
 ?>
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT RUJUKAN ARAS BANGUNAN</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT RUJUKAN ARAS BANGUNAN</h4>
+	</div>
+		<div class="card-body">
+
         	<?php if(!empty($msg)){ ?>
             <tr>
                 <td width="100%" align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
             </tr>
             <?php } ?>
-            <tr>
-                <td width="30%"><b>Nama Aras Bangunan: </b></td>
-                <td width="50%" colspan="2"><input type="text" size="50" name="f_ab_desc" value="<?php print $rs->fields['f_ab_desc'];?>" /></td>
-            </tr>
-            <tr>
-                <td width="20%"><b>Status : </b></td>
-                <td width="50%" colspan="2">
-                	<select name="f_ab_status">
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Nama Aras Bangunan :</b></label>
+                <div class="col-sm-12 col-md-7">
+            		<input type="text" class="form-control" name="f_ab_desc" value="<?php print $rs->fields['f_ab_desc'];?>" />
+				</div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Status :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="f_ab_status">
                     	<option value="0" <?php if($rs->fields['f_ab_status']=='0'){ print 'selected'; }?>>Aktif</option>
                     	<option value="1" <?php if($rs->fields['f_ab_status']=='1'){ print 'selected'; }?>>Tidak Aktif</option>
                     </select>
-                </td>
-            </tr>
+                </div>
+            </div>
+
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan kategori jawatan" onClick="form_back()" >
+                    <input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+                    <input type="button" class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan kategori jawatan" onClick="form_back()" >
                     <input type="hidden" name="id" value="<?=$id?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
                 </td>

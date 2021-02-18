@@ -57,7 +57,7 @@ $end_date = $rs->fields['enddate'];
 <form name="hadir" method="post" action="">
     <div class="card">
         <div class="card-header" >
-            <h4>Maklumat Peserta Kursus</h4>
+            <!-- <h4>Carian Maklumat Kursus</h4> -->
         </div>
         <div class="card-body">
             <div class="form-group row mb-4">
@@ -80,6 +80,7 @@ $end_date = $rs->fields['enddate'];
                         <?php print $unit = pusat_list($rs->fields['CID']); //$rs->fields['SubCategoryNm'];?>
                     </div>
             </div>
+
             <div class="form-group row mb-4">
                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kursus : </b></label>
                     <div class="col-sm-12 col-md-7">
@@ -93,22 +94,19 @@ $end_date = $rs->fields['enddate'];
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header" >
-                        <h4>Senarai Peserta Bagi Kursus <?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></h4>
-                    </div>
+                <div class="card-header" >
+                    <h4>Senarai peserta bagi kursus : <?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></h4>
+                </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                             <thead>
-                                <!-- <tr>
-                                    <th colspan="8"><b>Senarai peserta bagi kursus :<br/><?php //print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></b></th>
-                                </tr> -->
                                 <tr>
                                     <th width="5%" align="center" rowspan="2"><b>Bil</b></th>
-                                    <th width="40%" align="center" rowspan="2"><b>Nama Peserta</b></th>
+                                    <th width="35%" align="center" rowspan="2"><b>Nama Peserta</b></th>
                                     <th width="5%" align="center" rowspan="2"><b>Gred</b></th>
                                     <th width="25%" align="center" rowspan="2"><b>Agensi/Jabatan/Unit</b></th>
-                                    <th width="20%" align="center" colspan="2"><b>Jumlah Penyertaan<br/>Kursus Di ILIM</b></th>
+                                    <th width="15%" align="center" colspan="2"><b>Jumlah Penyertaan<br/>Kursus Di ILIM</b></th>
                                     <th width="5%" align="center" rowspan="2"><b>Pengesahan Permohonan</b></th>
                                 </tr>
                                 <tr>

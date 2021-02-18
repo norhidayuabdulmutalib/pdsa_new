@@ -94,10 +94,10 @@ function do_open(URL){
 									<tr>
 										<th width="5%" align="center"><b>Bil</b></th>
 										<th width="30%" align="center"><b>Nama Peserta</b></th>
-										<th width="10%" align="center"><b>No. K/P</b></th>
+										<th width="5%" align="center"><b>No. K/P</b></th>
 										<th width="5%" align="center"><b>Gred</b></th>
-										<th width="35%" align="center"><b>Jabatan/Unit/Pusat</b></th>
-										<th width="10%" align="center"><b>Jumlah Kursus Tahunan</b></th>
+										<th width="30%" align="center"><b>Jabatan/Unit/Pusat</b></th>
+										<th width="20%" align="center"><b>Jumlah Kursus Tahunan</b></th>
 										<th width="5%" align="center">&nbsp;</th>
 									</tr>
 									</thead>

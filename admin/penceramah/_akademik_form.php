@@ -58,47 +58,58 @@ function form_back(URL){
 	$rs = &$conn->Execute($sSQL);
 //}
 ?>
+
 <form name="ilim" method="post" enctype="multipart/form-data" >
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT AKADEMIK PENCERAMAH</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="3" cellspacing="1" border="0" align="center">
-        	<?php if(!empty($msg)){ ?>
-            <tr>
-                <td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
-            </tr>
-            <?php } ?>
-            <tr>
-              <td width="30%"><b>Kelulusan : </b></td>
-              <td width="70%" colspan="2">
-              		<select name="inaka_sijil">
-                        <?php 
-						   $r_gred = &$conn->query("SELECT * FROM _ref_akademik ORDER BY f_akademik_id");
-                           while (!$r_gred->EOF) { ?>
-                           <option value="<?=$r_gred->fields['f_akademik_id'] ?>" <?php if($rs->fields['titlegredcd'] == $r_gred->fields['f_akademik_id']) echo "selected"; ?> ><?=$r_gred->fields['f_akademik_nama']?></option>
-                        <?php $r_gred->movenext(); } ?>        
-                   </select>   
-				</td>
-            </tr>
-			<tr>
- 				<td width="30%"><b>Bidang Kursus : </b></td>
- 				<td width="70%" colspan="2">
-                <input type="text" size="80" maxlength="120" name="inaka_kursus" value="<?php print $rs->fields['inaka_kursus'];?>" /></td>
-            </tr>
-            <tr>
-              <td><b>Institusi : </b></td>
-              <td colspan="2">
-              	<input type="text" size="80" maxlength="120" name="inaka_institusi" value="<?php print $rs->fields['inaka_institusi'];?>" /></td>
-            </tr>
-            <tr>
-              <td><b>Tahun : </b></td>
-              <td colspan="2"><input type="text" size="5" name="inaka_tahun" value="<?php print $rs->fields['inaka_tahun'];?>" /></td>
-            </tr>
-			<tr>
-              <td valign="top"><b>Muatnaik Sijil : </b></td>
-            	<td colspan="2"><input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT AKADEMIK PENCERAMAH</h4>
+	</div>
+
+    <div class="card-body">
+        <?php if(!empty($msg)){ ?>
+        <tr>
+            <td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
+        </tr>
+        <?php } ?>
+
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kelulusan :</b></label>
+            <div class="col-sm-12 col-md-7">
+                <select class="form-control" name="inaka_sijil">
+                    <?php 
+                        $r_gred = &$conn->query("SELECT * FROM _ref_akademik ORDER BY f_akademik_id");
+                        while (!$r_gred->EOF) { ?>
+                        <option value="<?=$r_gred->fields['f_akademik_id'] ?>" <?php if($rs->fields['titlegredcd'] == $r_gred->fields['f_akademik_id']) echo "selected"; ?> ><?=$r_gred->fields['f_akademik_nama']?></option>
+                    <?php $r_gred->movenext(); } ?>        
+                </select>   
+            </div>
+        </div>
+
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Bidang Kursus :</b></label>
+            <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" maxlength="120" name="inaka_kursus" value="<?php print $rs->fields['inaka_kursus'];?>" />
+            </div>
+        </div>
+
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Institusi :</b></label>
+            <div class="col-sm-12 col-md-7">
+              	<input type="text" class="form-control" maxlength="120" name="inaka_institusi" value="<?php print $rs->fields['inaka_institusi'];?>" />
+            </div>
+        </div>
+
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tahun :</b></label>
+            <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" name="inaka_tahun" value="<?php print $rs->fields['inaka_tahun'];?>" />
+            </div>
+        </div>
+
+		<div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Muatnaik Sijil :</b></label>
+            <div class="col-sm-12 col-md-7">
+                <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
                 <input type="hidden" name="action1" value="1">
                 <input type="file" name="file1" size="50">
                 <!--<br />
@@ -110,23 +121,22 @@ function form_back(URL){
                 <?php print $rs->fields['fld_image'];?>
                 <?php } ?>
                 <br />Sila pastikan hanya fail imej berikut sahaja yang dibenarkan untuk dimuatnaik ke dalam sistem (PNG, JPG, JPEG, GIF) atau fail PDF sahaja. 
-                </td>
-            </tr>
+            </div>
+        </div>
 
-            <tr><td colspan="3"><hr /></td></tr>
-            <tr>
-                <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('penceramah/_akademik_form_do.php')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai gred jawatan" onClick="form_back()" >
-                    <input type="hidden" name="id" value="<?=$id?>" />
-                    <input type="hidden" name="PageNo" value="<?=$PageNo?>" />                
-                </td>
-            </tr>
-        </table>
-      </td>
-   </tr>
-</table>
+        <hr />
+        <div>
+            <div colspan="3" align="center">
+                <button value="Simpan" class="btn btn-success" style="cursor:pointer; padding:8px;" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('penceramah/_akademik_form_do.php')" ><i class="fas fa-save"></i> Simpan</button>
+                <button value="Kembali" class="btn btn-secondary" style="cursor:pointer; padding:8px;" title="Sila klik untuk kembali ke senarai gred jawatan" onClick="form_back()" ><i class="fas fa-undo"></i> Kembali</button>
+                <input type="hidden" name="id" value="<?=$id?>" />
+                <input type="hidden" name="PageNo" value="<?=$PageNo?>" />                
+            </div>
+        </div>
+    </div>
+</div>
 </form>
+
 <script LANGUAGE="JavaScript">
 	document.ilim.inaka_sijil.focus();
 </script>

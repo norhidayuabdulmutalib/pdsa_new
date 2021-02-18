@@ -128,7 +128,7 @@ function upload_gambar(URL){
 	emailwindow=dhtmlmodal.open('EmailBox', 'iframe', URL, 'Kemaskini Gambar Peserta', 'width=550px,height=200px,center=1,resize=0,scrolling=1')
 } //End "opennewsletter" function
 </script>
-<?
+<?php
 //$conn->debug=true;
 $PageNo = $_POST['PageNo'];
 $pro = $_GET['pro'];
@@ -172,8 +172,10 @@ if($pro=='SEARCH'){ $f_peserta_noic=$_GET['kp']; }
                             <label class="col-form-label col-12 col-md-3 col-lg-3"><b>No. K/P <font color="#FF0000">*</font> :</b></label>
                             <div class="col-sm-12 col-md-5">
                                 <div type="hidden" name="id_peserta"  value="<?php print $rs->fields['id_peserta'];?>" />
-                                <div class="form-control" type="text" name="f_peserta_noic"   maxlength="20"  
-                                <?php if(empty($pro)){ ?>onchange="do_search('index.php?data=<?php print base64_encode($userid.';peserta/peserta_form.php;peserta;peserta');?>')" <?php } ?>><?php print $f_peserta_noic;?></div>
+                                    <div class="form-control" type="text" name="f_peserta_noic"   maxlength="20"  
+                                        <?php if(empty($pro)){ ?>onchange="do_search('index.php?data=<?php print base64_encode($userid.';peserta/peserta_form.php;peserta;peserta');?>')" <?php } ?>><?php print $f_peserta_noic;?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -230,14 +232,14 @@ if($pro=='SEARCH'){ $f_peserta_noic=$_GET['kp']; }
                         <div class="form-group row" style="padding-right:0px;">
                             <label class="col-form-label col-12 col-md-3 col-lg-3"><b>Tarikh Lantikan :</b></label>
                             <div class="col-sm-12 col-md-4">
-                                <div type="date" class="form-control" name="f_peserta_appoint_dt" ><?=DisplayDate($rs->fields['f_peserta_appoint_dt'])?></div>
+                                <!-- <div type="date" class="form-control" name="f_peserta_appoint_dt" ><?//=DisplayDate($rs->fields['f_peserta_appoint_dt'])?></div> -->
                             </div>
                         </div>
 
                         <div class="form-group row" style="padding-right:0px;">
                             <label class="col-form-label col-12 col-md-3 col-lg-3"><b>Tarikh Sah Jawatan :</b></label>
                             <div class="col-sm-12 col-md-4">
-                                <div type="date" class="form-control" name="f_peserta_sah_dt" ><?=DisplayDate($rs->fields['f_peserta_sah_dt'])?></div>
+                                <!-- <div type="date" class="form-control" name="f_peserta_sah_dt" ><?//=DisplayDate($rs->fields['f_peserta_sah_dt'])?></div> -->
                             </div>
                         </div>
 
@@ -280,13 +282,14 @@ if($pro=='SEARCH'){ $f_peserta_noic=$_GET['kp']; }
                             <label class="col-form-label col-12 col-md-3 col-lg-3"><b>Tarikh Lahir :</b></label>
                             <div class="col-sm-12 col-md-4">
                                 <div  class="form-control" name="f_peserta_lahir" onfocus="(this.type='date')" ><?php echo date('d-m-Y', strtotime($rs->fields['f_peserta_lahir'])); ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-
+                    </form>
+                </div>
             </div>
         </div>
+
         <div class="col-3">
             <div class="card">
                 <form name="ilim"  id="frm" method="post">
@@ -308,7 +311,7 @@ if($pro=='SEARCH'){ $f_peserta_noic=$_GET['kp']; }
                                 
                                 <br>
                                 
-                                <td align="left" colspan="2"><?=DisplayDate($rs->fields['f_peserta_sah_dt'])?>&nbsp;</td>
+                                <td align="left" colspan="2"><?//=DisplayDate($rs->fields['f_peserta_sah_dt'])?>&nbsp;</td>
                                 <td align="center" rowspan="5" valign="top">
                                     <?php include 'view_kursus_calc.php'; ?>
                                 </td>

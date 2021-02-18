@@ -37,26 +37,31 @@ function form_back(URL){
 $sSQL="SELECT * FROM _tbl_nilai_bahagian  WHERE nilaib_id = ".tosql($id_bhg,"Number");
 $rs = &$conn->Execute($sSQL);
 ?>
+
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SET PENILAIAN KURSUS - MAKLUMAT BAHAGIAN</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>SET PENILAIAN KURSUS - MAKLUMAT BAHAGIAN</h4>
+	</div>
+		<div class="card-body">
+
         	<?php if(!empty($msg)){ ?>
             <tr>
                 <td width="100%" align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
             </tr>
             <?php } ?>
-            <tr>
-                <td width="30%"><b>Maklumat Bahagian : </b></td>
-                <td width="70%" colspan="2"><input type="text" size="70" name="nilai_keterangan" maxlength="120" value="<?php print $rs->fields['nilai_keterangan'];?>" /></td>
-            </tr>
-            <tr>
-                <td><b>Susunan : </b></td>
-                <td colspan="2">
-                	<select name="nilai_sort">
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Maklumat Bahagian :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<input type="text" class="form-control" name="nilai_keterangan" maxlength="120" value="<?php print $rs->fields['nilai_keterangan'];?>" />
+				</div>
+            </div>
+            
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Susunan :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="nilai_sort">
                     	<option value="1" <?php if($rs->fields['nilai_sort']=='1'){ print 'selected'; }?>> 1 </option>
                     	<option value="2" <?php if($rs->fields['nilai_sort']=='2'){ print 'selected'; }?>> 2 </option>
                     	<option value="3" <?php if($rs->fields['nilai_sort']=='2'){ print 'selected'; }?>> 3 </option>
@@ -65,32 +70,33 @@ $rs = &$conn->Execute($sSQL);
                     	<option value="6" <?php if($rs->fields['nilai_sort']=='6'){ print 'selected'; }?>> 6 </option>
                     	<option value="7" <?php if($rs->fields['nilai_sort']=='7'){ print 'selected'; }?>> 7 </option>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td><b>Berdasarkan Pensyarah : </b></td>
-                <td colspan="2">
-                	<select name="is_pensyarah">
+                </div>
+            </div>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Berdasarkan Pensyarah :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="is_pensyarah">
                     	<option value="0" <?php if($rs->fields['is_pensyarah']=='0'){ print 'selected'; }?>> Tidak </option>
                     	<option value="1" <?php if($rs->fields['is_pensyarah']=='1'){ print 'selected'; }?>> Ya </option>
                     </select>
-                </td>
-            </tr>
+                </div>
+            </div>
+
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Hapus" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hapus('modal_form.php?<?php print $URLs;?>&pro=DEL')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan kategori jawatan" onClick="form_back()" >
+                    <input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+                    <input type="button" class="btn btn-danger" value="Hapus" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hapus('modal_form.php?<?php print $URLs;?>&pro=DEL')" >
+                    <input type="button" class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan kategori jawatan" onClick="form_back()" >
                     <input type="hidden" name="id_bhg" value="<?=$id_bhg?>" />
                     <input type="hidden" name="pset_id" value="<?=$pset_id?>" />
                 </td>
             </tr>
-        </table>
-      </td>
-   </tr>
-</table>
+        </div>
+</div>
 </form>
+
 <script LANGUAGE="JavaScript">
 	document.ilim.nilai_keterangan.focus();
 </script>

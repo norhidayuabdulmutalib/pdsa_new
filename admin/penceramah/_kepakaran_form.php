@@ -36,22 +36,24 @@ if(!empty($id)){
 	$rs = &$conn->Execute($sSQL);
 }
 ?>
+
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT KEPAKARAN PENCERAMAH</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
-        	<?php if(!empty($msg)){ ?>
-            <tr>
-                <td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
-           </tr>
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT KEPAKARAN PENCERAMAH</h4>
+	</div>
+
+    <div class="card-body">
+		<?php if(!empty($msg)){ ?>
+		<tr>
+			<td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
+		</tr>
             <?php } ?>
-            <tr>
-                <td width="30%"><b>Bidang : </b></td>
-              	<td width="70%" colspan="2">
-                	<select name="inpakar_bidang">
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Bidang :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="inpakar_bidang">
 					<?php 
 					//$r_gred = dlookupList('_ref_kepakaran', 'f_pakar_code,f_pakar_nama', '', 'f_pakar_nama');
 					$r_gred = &$conn->execute("SELECT * FROM _ref_kepakaran ORDER BY f_pakar_nama");
@@ -59,25 +61,28 @@ if(!empty($id)){
 					<option value="<?=$r_gred->fields['f_pakar_code'] ?>" <?php if($rs->fields['inpakar_bidang'] == $r_gred->fields['f_pakar_code']) echo "selected"; ?> >
 					<?=$r_gred->fields['f_pakar_nama']?></option>
 					<?php $r_gred->movenext(); }?>        
-                   </select></td>
-            </tr>
-			<tr>
- 				<td width="30%"><b>Pengkhususan : </b></td>
- 				<td width="70%" colspan="2"><input type="text" size="60" name="inpakar_pengkhususan" value="<?php print $rs->fields['inpakar_pengkhususan'];?>" /></td>
-            </tr>
-           <tr><td colspan="3"><hr /></td></tr>
-            <tr>
-                <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke maklumat penceramah" onClick="form_back()" >
+                   </select>
+				</div>
+            </div>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pengkhususan :</b></label>
+                <div class="col-sm-12 col-md-7">
+					<input type="text" class="form-control" name="inpakar_pengkhususan" value="<?php print $rs->fields['inpakar_pengkhususan'];?>" />
+				</div>
+            </div>
+
+           <hr />
+            <div>
+                <div colspan="3" align="center">
+                    <button class="btn btn-success" value="Simpan" style="cursor:pointer; padding:8px;" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" ><i class="fas fa-save"></i> Simpan</button>
+                    <button class="btn btn-secondary" value="Kembali" style="cursor:pointer; padding:8px;" class="button_disp" title="Sila klik untuk kembali ke maklumat penceramah" onClick="form_back()" ><i class="fas fa-undo"></i> Kembali</button>
                     <input type="hidden" name="id" value="<?=$id?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />                
-                </td>
-            </tr>
-        </table>
-      </td>
-   </tr>
-</table>
+                </div>
+            </div>
+   </div>
+</div>
 </form>
 <script LANGUAGE="JavaScript">
 	document.ilim.inpakar_bidang.focus();

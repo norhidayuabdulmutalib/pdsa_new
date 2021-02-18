@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Untitled Document</title>
-<?
+<?php
 //$conn->debug=true;
 $id=isset($_REQUEST["pset_id"])?$_REQUEST["pset_id"]:"";
 

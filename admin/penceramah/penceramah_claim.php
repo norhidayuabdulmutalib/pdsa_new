@@ -163,11 +163,11 @@ function do_open(URL){
 									<thead>
                                     <tr>
                                         <th width="5%" align="center"><b>Bil</b></th>
-                                        <th width="40%" align="center"><b>Nama Penceramah<br>Jabatan/Unit/Pusat</b></th>
-                                        <th width="20%" align="center"><b>Kategori</b></th>
+                                        <th width="35%" align="center"><b>Nama Penceramah<br>Jabatan/Unit/Pusat</b></th>
+                                        <th width="15%" align="center"><b>Kategori</b></th>
                                         <th width="12%" align="center"><b>No. HP</b></th>
                                         <th width="15%" align="center"><b>Bulan/Tahun</b><br /><i>Status</i></th>
-                                        <th width="8%" align="center"><b>Tindakan</b></th>
+                                        <th width="20%" align="center"><b>Tindakan</b></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -188,7 +188,7 @@ function do_open(URL){
                                                     <?php echo $rs->fields['insorganization'];?>&nbsp;</td>
                                                     <td valign="top" align="center"><?php echo dlookup("_ref_kategori_penceramah","f_kp_kenyataan","f_kp_id=".$rs->fields['inskategori']);?>&nbsp;</td>
                                                     <td valign="top" align="center"><?php echo $rs->fields['insmobiletel'];?>&nbsp;</td>
-                                                    <td valign="top" align="center"><?php print month($rs->fields['cl_month']).", ".$rs->fields['cl_year']; ?>
+                                                    <td valign="top" align="center"><?php //print month($rs->fields['cl_month']).", ".$rs->fields['cl_year']; ?>
                                                     <br /><i>
                                                     <?php
                                                     if($rs->fields['is_process']==0){ print '<font color=#FF0000>Baru</font>'; }
@@ -196,10 +196,9 @@ function do_open(URL){
                                                     ?></i>
                                                     &nbsp;</td>
                                                     <td align="center">
-                                                        <a href="<?=$href_link;?>"><img src="../img/icon-info1.gif" width="22" height="22" style="cursor:pointer" 
-                                                        title="Sila klik untuk pengemaskinian data" border="0"/></a>
-                                                        <img src="../images/printicon.gif" style="cursor:pointer" title="Cetak Tuntutan" 
-                                                        onClick="open_modal('<?=$href_surat;?>','Cetakan borang tuntutan penceramah',1,1)" />
+                                                        <a href="<?=$href_link;?>"><button class="btn btn-warning" style="cursor:pointer; padding:8px;" title="Sila klik untuk pengemaskinian data" border="0"><i class="fas fa-edit"></i></button></a>
+                                                        <button class="btn btn-info" style="cursor:pointer; padding:9px;" title="Cetak Tuntutan" 
+                                                        onClick="open_modal('<?=$href_surat;?>','Cetakan borang tuntutan penceramah',1,1)"><i class="fas fa-print"></i></button>
                                                     </td>
                                                 </tr>
                                                 <?php

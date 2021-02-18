@@ -28,7 +28,6 @@ function do_hapus(jenis,idh){
 </script>
 
 <?php include_once 'include/list_head.php'; ?>
-<form id="ilim" name="ilim" method="post">
 <section class="section">
 	<div class="section-body">
 		<div class="row">
@@ -37,8 +36,9 @@ function do_hapus(jenis,idh){
 					<div class="card-header" >
 						<h4>Carian Maklumat Kursus</h4>
 					</div>
-                    <form id="ilim" name="ilim" method="post">
+                    <form name="ilim" method="post">
 						<div class="card-body">
+
                             <?php if($_SESSION["s_level"]=='99'){
                             //$conn->debug=true;
                                 $sqlkks = "SELECT * FROM _ref_kampus WHERE kampus_status=0";
@@ -61,19 +61,17 @@ function do_hapus(jenis,idh){
                                 if($_SESSION["s_level"]<>'99'){ $sqlkk .= " AND kampus_id=".$_SESSION['SESS_KAMPUS']; }
                                 if(!empty($kampus_id)){ $sqlkk.=" AND kampus_id=".$kampus_id; }
                                 $sqlkk .= " ORDER BY category_code";
-                                $rskk = $conn->Execute($sqlkk);
-
-                                // var_dump($rskk);exit();
+                                $rskk = &$conn->Execute($sqlkk);
                             ?>
                             <div class="form-group row mb-4">
 								<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori Kursus : </b></label>
 								<div class="col-sm-12 col-md-7">
-                                    <select class="form-control" name="kategori" onchange="do_page('<?=$href_search;?>')">
-                                        <option value="">-- Sila pilih kategori --</option>
-                                            <?php while(!$rskk->EOF){ ?>
-                                                <option value="<?php print $rskk->fields['id'];?>" <?php if($kategori==$rskk->fields['id']){ print 'selected'; }?>><?php print $rskk->fields['categorytype'];?></option>
-                                            <?php $rskk->movenext(); } ?>
-                                    </select>
+                                <select class="form-control" name="kategori" onchange="do_page('<?=$href_search;?>')">
+                                    <option value="">-- Sila pilih kategori --</option>
+                                        <?php while(!$rskk->EOF){ ?>
+                                            <option value="<?php print $rskk->fields['id'];?>" <?php if($kategori==$rskk->fields['id']){ print 'selected'; }?>><?php print $rskk->fields['categorytype'];?></option>
+                                        <?php $rskk->movenext(); } ?>
+                                </select>
                                 </div>
                             </div>
                             
@@ -86,7 +84,7 @@ function do_hapus(jenis,idh){
                                     <button class="btn" style="background-color:#fed136;" name="Cari" onClick="do_page('<?=$href_search;?>')"><i class="fas fa-search"></i><b> Cari</b></button>
                                 </div>
                             </div>
-                        </div>
+                            </div>
 					</form>
 				</div>
 			</div>
@@ -114,27 +112,29 @@ function do_hapus(jenis,idh){
 					<div class="card-header">
 						<h4>Senarai Maklumat Pusat / Unit Kursus</h4>
 					</div>
-                    
 					<div class="card-body">
-                        <div colspan="3" align="right">
-                            <?php $new_page = "modal_form.php?win=".base64_encode('kursus/ref_unit_form.php;');?>
-                                <button class="btn btn-success" title="Sila klik untuk menyimpan maklumat peserta" 
-                                onclick="open_modal('<?=$new_page;?>','Penambahan Maklumat Unit / Pusat Kursus',700,400)">&nbsp;&nbsp; 
-                                <i class="fas fa-plus"></i> Tambah Maklumat Unit / Pusat Kursus</button> 
-                        </div>
+                        <table width="100%" cellpadding="3" cellspacing="0" border="0">
+                            <tr class="title" >
+                                <td colspan="3" align="right">
+                                    <?php $new_page = "modal_form.php?win=".base64_encode('kursus/ref_unit_form.php;');?>
+                                        <button class="btn btn-success" title="Sila klik untuk menyimpan maklumat peserta" 
+                                        onclick="open_modal('<?=$new_page;?>','Penambahan Maklumat Unit / Pusat Kursus',700,400)">&nbsp;&nbsp; 
+                                        <i class="fas fa-plus"></i> Tambah Maklumat Unit / Pusat Kursus</button> 
+                                </td>
+                            </tr>
                        
                         <?php include_once 'include/page_list.php'; ?>
 							<div class="table-responsive">
 								<table class="table table-bordered">
 									<thead>
                                     <tr>
-                                        <th width="5%" align="center"><b>Bil</b></td>
-                                        <th width="15%" align="center"><b>Kategori Kursus</b></td>
-                                        <th width="20%" align="center"><b>Kod Pusat / Unit Kursus</b></td>
-                                        <th width="30%" align="center"><b>Diskripsi Pusat / Unit Kursus</b></td>
-                                        <th width="10%" align="center"><b>Pusat</b></td>
-                                        <th width="10%" align="center"><b>Status</b></td>
-                                        <th width="10%" align="center"><b>Tindakan</b></td>
+                                        <th width="5%" align="center"><b>Bil</b></th>
+                                        <th width="15%" align="center"><b>Kategori Kursus</b></th>
+                                        <th width="15%" align="center"><b>Kod Pusat / Unit Kursus</b></th>
+                                        <th width="30%" align="center"><b>Diskripsi Pusat / Unit Kursus</b></th>
+                                        <th width="10%" align="center"><b>Pusat</b></th>
+                                        <th width="10%" align="center"><b>Status</b></th>
+                                        <th width="15%" align="center"><b>Tindakan</b></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -182,8 +182,8 @@ function do_hapus(jenis,idh){
                                             <tr><td colspan="10" width="100%" bgcolor="#FFFFFF"><b>Tiada rekod dalam senarai.</b></td></tr>
                                         <?php } ?>                  
                                     </tbody>
-                                </table>
-                            </div>
+                            </table>
+                        </div>
                         <?php
                         if($cnt<>0){
                             $sFileName=$href_search;
@@ -196,7 +196,6 @@ function do_hapus(jenis,idh){
         </div>
     </div>
 </section>	
-</form>
 
 
 

@@ -68,49 +68,63 @@ $cnt = $rs->recordcount();
 $conn->debug=false;
 $bil=0;
 ?>
+
 <form name="ilim" method="post">
-<table width="96%" border="0" cellpadding="3" cellspacing="0" align="center">
-	<tr>
-    	<td align="right"><b>Maklumat carian <?=$title;?> :: </b></td>
-        <td align="left">
-        	<input type="text" size="40" name="search" value="<?php print $search;?>" />
-        	<input type="button" value="Cari" onclick="do_open('<?=$ruri;?>')" style="cursor:pointer" />
-            &nbsp;<input type="button" value="Tutup" onclick="form_back()" style="cursor:pointer" />
-        	&nbsp;<input type="button" name="Cari" value="  Proses Pemilihan  " onClick="do_pilih('<?=$ruri;?>')">
-        	<input type="hidden" name="event_id" value="<?php print $id;?>" />
-        	<input type="hidden" name="ty" value="<?php print $ty;?>" />
-        	<input type="hidden" name="proses" value="" />
-        </td>
-    </tr>
-</table>
-<br />
-<div style="position:absolute; left:0px; top:60px; width:100%; height:75%; background-color:#ffffff; overflow:auto;">
-<table width="96%" border="1" cellpadding="3" cellspacing="0" align="center">
-	<tr bgcolor="#CCCCCC"><td colspan="4"><b>Senarai Maklumat <?=$title;?></b></td></tr>
-	<tr>
-    	<td align="center" width="5%"><b>Bil</b></td>
-    	<td align="center" width="5%"><b>Pilih</b></td>
-    	<td align="center" width="40%"><b>Nama <?=$title;?></b></td>
-    	<td align="center" width="50%"><b>Agensi/Jabatan/Unit</b></td>
-    </tr>
-	<?php while(!$rs->EOF){ $bil++; ?>
-	<tr>
-    	<td align="right"><?php print $bil; ?>.&nbsp;</td>
-        <td align="center"><input type="checkbox" name="chbCheck[]" value="<?php print $rs->fields['ingenid'];?>" /></td>
-        <td align="left"><?php print $rs->fields['insname'];?></td>
-        <td align="left"><?php print $rs->fields['insorganization'];?></td>
-    </tr>
-    <?php $rs->movenext(); } ?>
-    <tr>
-    	<td colspan="4" align="center">
-            <input type="button" value="Tutup" onclick="form_back()" style="cursor:pointer" />
-    	</td>
-    </tr>
-</table>
-</div>
+	<table width="95%" cellpadding="5" cellspacing="1" border="0" align="center">
+
+		<div class="form-group row mb-4">
+			<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Maklumat carian <?=$title;?> :  </b></label>
+			<div class="col-sm-12 col-md-4">
+				<input type="text" class="form-control" name="search" value="<?php print $search;?>" />
+			</div>
+			<div class="col-sm-12 col-md-1">
+				<button class="btn btn-warning" value="Cari" onclick="do_open('<?=$ruri;?>')" style="cursor:pointer"><b> Cari</b></button>
+			</div>
+			<div class="col-sm-12 col-md-1">
+				<button class="btn btn-secondary" value="Tutup" onclick="form_back()" style="cursor:pointer"><b> Tutup</b></button>
+			</div>
+			<div class="col-sm-12 col-md-3">
+				<button class="btn btn-primary" name="Cari" value=" Proses Pemilihan" onClick="do_pilih('<?=$ruri;?>')"><b> Proses Pemilihan</b></button>
+			</div>
+				<input type="hidden" name="event_id" value="<?php print $id;?>" />
+				<input type="hidden" name="ty" value="<?php print $ty;?>" />
+				<input type="hidden" name="proses" value="" />
+			</div>
+		</div>
+	</table>
+
+	<div class="table-responsive">
+		<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th colspan="8"><b>Senarai Maklumat <?=$title;?></b></th>
+			</tr>
+			<tr>
+				<th align="center" width="5%"><b>Bil</b></th>
+				<th align="center" width="5%"><b>Pilih</b></th>
+				<th align="center" width="40%"><b>Nama <?=$title;?></b></th>
+				<th align="center" width="50%"><b>Agensi/Jabatan/Unit</b></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php while(!$rs->EOF){ $bil++; ?>
+			<tr>
+				<td align="right"><?php print $bil; ?>.&nbsp;</td>
+				<td align="center"><input type="checkbox" name="chbCheck[]" value="<?php print $rs->fields['ingenid'];?>" /></td>
+				<td align="left"><?php print $rs->fields['insname'];?></td>
+				<td align="left"><?php print $rs->fields['insorganization'];?></td>
+			</tr>
+			<?php $rs->movenext(); } ?>
+			<tr>
+				<td colspan="4" align="center">
+					<input type="button" class="btn btn-secondary" value="Tutup" onclick="form_back()" style="cursor:pointer" />
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
 </form>
-</body>
-</html>
+
 <?php } else {
 	//$conn->debug=true;
 	//print 'simpan';

@@ -1,4 +1,4 @@
-<?
+<?php
 //$conn->debug=true;
 $id=isset($_REQUEST["id"])?$_REQUEST["id"]:"";
 $id_bhg=isset($_REQUEST["id_bhg"])?$_REQUEST["id_bhg"]:"";
@@ -39,54 +39,65 @@ $href_search = "modal_form.php?win=".base64_encode('penilaian/set_pilih.php;')."
 		}
     }
 </script>
+
 <?php include_once 'include/list_head.php'; ?>
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+<div class="card">
+	<div class="card-header" >
+		<!-- <h4>Carian Maklumat Kursus</h4> -->
+	</div>
 	<?php $sqlb = "SELECT * FROM _ref_penilaian_kategori WHERE is_deleted=0";
 		if($_SESSION["s_level"]<>'99'){ $sqlb .= " AND kampus_id=".$_SESSION['SESS_KAMPUS']; }
-    $rs_kb = &$conn->Execute($sqlb);
-    ?>
-    <tr>
-        <td width="30%" align="right"><b>Kategori Penilaian : </b></td>
-        <td width="60%">&nbsp;
-            <select name="kategori">
+	$rs_kb = &$conn->Execute($sqlb);
+		?>
+	
+	<div class="card-body">
+
+		<div class="form-group row mb-4">
+			<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori Penilaian :</b></label>
+			<div class="col-sm-12 col-md-7">
+            <select class="form-control" name="kategori">
             	<option value="">-- Sila pilih --</option>
-            <?php while(!$rs_kb->EOF){ ?>
-                <option value="<?php print $rs_kb->fields['f_penilaianid'];?>" <?php if($rs_kb->fields['f_penilaianid']==$kategori){ print 'selected="selected"';}?>><?php print $rs_kb->fields['f_penilaian'];?></option>
-            <?php $rs_kb->movenext(); } ?>
-                <option value="A" <?php if($rs->fields['f_penilaianid']=='A'){ print 'selected'; }?>>Keseluruhan Kursus</option>
-                <option value="B" <?php if($rs->fields['f_penilaianid']=='B'){ print 'selected'; }?>>Cadangan Penambahbaikan</option>
+				<?php while(!$rs_kb->EOF){ ?>
+					<option value="<?php print $rs_kb->fields['f_penilaianid'];?>" <?php if($rs_kb->fields['f_penilaianid']==$kategori){ print 'selected="selected"';}?>><?php print $rs_kb->fields['f_penilaian'];?></option>
+				<?php $rs_kb->movenext(); } ?>
+					<option value="A" <?php if($rs->fields['f_penilaianid']=='A'){ print 'selected'; }?>>Keseluruhan Kursus</option>
+					<option value="B" <?php if($rs->fields['f_penilaianid']=='B'){ print 'selected'; }?>>Cadangan Penambahbaikan</option>
             </select>
-        </td>
-    </tr>
-	<tr>
-		<td width="30%" align="right"><b>Maklumat Carian : </b></td> 
-		<td width="60%" align="left">&nbsp;
-			<input type="text" size="30" name="search" value="<?php echo stripslashes($search);?>">
-			<input type="button" name="Cari" value="  Cari  " onClick="do_page('<?=$href_search;?>')">
-			<input type="hidden" size="10" name="id" value="<?php echo $id;?>">
-			<input type="hidden" size="10" name="id_bhg" value="<?php echo $id_bhg;?>">
-		</td>
-	</tr>
-    <tr valign="top" bgcolor="#80ABF2"> 
-        <td height="30" colspan="0" valign="middle">
-        <font size="2" face="Arial, Helvetica, sans-serif">
-	        &nbsp;&nbsp;<strong>SENARAI MAKLUMAT RUJUKAN PENILAIAN</strong></font>
-        </td>
-        <td colspan="2" valign="middle" align="right">
-        	<input type="button" value="Pilih" style="cursor:pointer" onclick="do_save('<?=$href_search;?>&pro=SAVE')" />&nbsp;&nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td colspan="5" align="center">
-            <table width="100%" border="1" cellpadding="5" cellspacing="0">
-                <tr bgcolor="#CCCCCC">
-                    <td width="5%" align="center"><b>Bil</b></td>
-                    <td width="5%" align="center"><b>&nbsp;</b></td>
-                    <td width="60%" align="center"><b>Maklumat Penilaian</b></td>
-                    <td width="30%" align="center"><b>Kategori Penilaian</b></td>
+			</div>
+        </div>
+
+		<div class="card-body">
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Maklumat Carian :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<input class="form-control" type="text" size="30" name="search" value="<?php echo stripslashes($search);?>">
+					<div class="col-sm-12 col-md-2">
+						<input type="button" class="btn btn-secondary" name="Cari" value="  Cari  " onClick="do_page('<?=$href_search;?>')">
+						<input type="hidden" size="10" name="id" value="<?php echo $id;?>">
+						<input type="hidden" size="10" name="id_bhg" value="<?php echo $id_bhg;?>">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th colspan="68"><b>SENARAI MAKLUMAT RUJUKAN PENILAIAN</b>
+					<input type="button" class="btn btn-success" value="Pilih" style="cursor:pointer" onclick="do_save('<?=$href_search;?>&pro=SAVE')" /></th>
+				</tr>
+
+    			<tr>
+                    <th width="5%" align="center"><b>Bil</b></th>
+                    <th width="5%" align="center"><b>&nbsp;</b></th>
+                    <th width="60%" align="center"><b>Maklumat Penilaian</b></th>
+                    <th width="30%" align="center"><b>Kategori Penilaian</b></th>
                 </tr>
-				<?
+				<?php
                 if(!$rs->EOF) {
                     $bil = 0; $count=0;
                     while(!$rs->EOF) {
@@ -103,7 +114,7 @@ $href_search = "modal_form.php?win=".base64_encode('penilaian/set_pilih.php;')."
 							<?php echo stripslashes($rs->fields['f_penilaian_desc']);?>&nbsp;</td>
             				<td valign="top" align="left"><?php echo stripslashes($kat_penilaian);?>&nbsp;</td>
                         </tr>
-                        <?
+                        <?php
 						$bil++;
                         $rs->movenext();
                     } 
@@ -124,7 +135,7 @@ $href_search = "modal_form.php?win=".base64_encode('penilaian/set_pilih.php;')."
 </table> 
 </form>
 <?php } else { ?>
-    <?
+    <?php
 	$proses = $_POST['proses'];
 	if(empty($proses)){ $proses=isset($_REQUEST["proses"])?$_REQUEST["proses"]:""; }
 	print "Pro:".$proses."<br>";

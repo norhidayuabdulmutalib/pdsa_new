@@ -52,13 +52,14 @@ if(!empty($id)){
 	$rs = &$conn->Execute($sSQL);
 }
 ?>
+
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT KURSUS / CERAMAH</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT KURSUS / CERAMAH</h4>
+	</div>
+		<div class="card-body">
+
         	<?php if(!empty($msg)){ ?>
             <tr>
                 <td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
@@ -87,26 +88,33 @@ if(!empty($id)){
 						AND month(enddate) = ".tosql($mt)." AND year(enddate)=".tosql($yr);
 				$rs_eve = $conn->execute($sSQL);	
 			?>
-            <tr>
-                <td width="30%"><b>Kursus / Ceramah : </b></td>
-              	<td width="70%" colspan="2"><select name="cl_eve_event_id">
-			<?php
-					while (!$rs_eve->EOF) { ?>
-					<option value="<?=$rs_eve->fields['eve_id'] ?>" <?php if($rs->fields['cl_eve_event_id'] == $rs_eve->fields['eve_id']) echo "selected"; ?> >
-					<?=$rs_eve->fields['coursename']?> [ <?=DisplayDate($rs_eve->fields['startdate'])?> - <?=DisplayDate($rs_eve->fields['enddate'])?> ]</option>
-			<?php $rs_eve->movenext(); }?>        
-               </select></td>
-            </tr>
-			<tr>
- 				<td width="30%"><b>Tempoh : </b></td>
- 				<td width="70%" colspan="2"><input type="text" name="cl_eve_tempoh" id="cl_eve_tempoh" value="<?php print $rs->fields['cl_eve_tempoh'];?>" /> 
- 				  Jam (Sila isi angka integer sahaja!)</td>
-            </tr>
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kursus / Ceramah :</b></label>
+                <div class="col-sm-12 col-md-7">
+					<select  class="form-control" name="cl_eve_event_id">
+						<?php
+						while (!$rs_eve->EOF) { ?>
+						<option value="<?=$rs_eve->fields['eve_id'] ?>" <?php if($rs->fields['cl_eve_event_id'] == $rs_eve->fields['eve_id']) echo "selected"; ?> >
+							<?=$rs_eve->fields['coursename']?> [ <?//=DisplayDate($rs_eve->fields['startdate'])?> - <?//=DisplayDate($rs_eve->fields['enddate'])?> ]
+						</option>
+						<?php $rs_eve->movenext(); }?>        
+               		</select>
+				</div>
+            </div>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tempoh :</b></label>
+                <div class="col-sm-12 col-md-7">
+					<input type="text" class="form-control"  name="cl_eve_tempoh" id="cl_eve_tempoh" value="<?php print $rs->fields['cl_eve_tempoh'];?>" /> 
+					Jam (Sila isi angka integer sahaja!)
+				</div>
+            </div>
+			
            <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke maklumat penceramah" onClick="form_back()" >
+                    <input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+                    <input type="button" class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke maklumat penceramah" onClick="form_back()" >
                     <input type="hidden" name="id" value="<?=$id?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />                
                 </td>

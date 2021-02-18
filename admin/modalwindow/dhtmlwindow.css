@@ -7,25 +7,24 @@ border-radius: 16px;
 -ms-border-radius: 16px; 
 -moz-border-radius: 16px; 
 -webkit-border-radius: 16px;
-/* padding:5px 5px 5px 5px; */
+padding:5px 5px 5px 5px;
 
 }
 
 .drag-handle{ /*CSS for Drag Handle*/
-padding: 10px 15px;
+padding: 3px 3px 3px 3px;
 text-indent: 5px;
 font: bold 16px Arial;
-background-color:#fed136;
+background-color:#CCCCCC;
 color:#000000;
 cursor: move;
 overflow: hidden;
 width: auto;
-height:35px;
+height:23px;
 filter:progid:DXImageTransform.Microsoft.alpha(opacity=100);
 -moz-opacity: 1;
 opacity: 1;
-border-radius: 10px 5px 0 0;
-/* border: 2px solid #999;  */
+border: 2px solid #999; 
 }
 
 .drag-handle .drag-controls{ /*CSS for controls (min, close etc) within Drag Handle*/
@@ -51,16 +50,16 @@ width: 100%;
 
 
 .drag-contentarea{ /*CSS for Content Display Area div*/
-/* border-top: 1px solid brown; */
+border-top: 1px solid brown;
 background-color: white;
 color: black;
 height: 150px;
-/* padding: 2px; */
+padding: 2px;
 overflow: auto;
 }
 
 .drag-statusarea{ /*CSS for Status Bar div (includes resizearea)*/
-/* border-top: 1px solid gray; */
+border-top: 1px solid gray;
 background-color: #F8F8F8;
 height: 13px; /*height of resize image*/
 }

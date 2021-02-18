@@ -104,6 +104,7 @@ WHERE A.category_code=B.id AND A.subcategory_code=C.id AND A.id=D.courseid AND D
 $rskursus = $conn->query($sSQL);
 $jum_hadir = dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAccepted=1 AND EventId=".tosql($id));
 ?>
+
 <form name="ilim" method="post">
 <input type="hidden" name="id" value="<?=$id;?>" />
 <input type="hidden" name="winds" value="<?=$_GET['win'];?>" />
@@ -140,7 +141,7 @@ $jum_hadir = dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAcc
             <tr>
                 <td align="left"><b>Tarikh Kursus</b></td>
                 <td align="center"><b> : </b></td>
-                <td align="left"><?php print DisplayDate($rskursus->fields['startdate']);?> - <?php print DisplayDate($rskursus->fields['enddate']);?></td>                
+                <!-- <td align="left"><?php //print DisplayDate($rskursus->fields['startdate']);?> - <?php// print DisplayDate($rskursus->fields['enddate']);?></td>                 -->
             </tr>
             <!--<tr>
                 <td align="left"><b>Kategori</b></td>

@@ -33,63 +33,70 @@ if(!empty($id)){
 }
 ?>
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT RUJUKAN BLOK BANGUNAN</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT RUJUKAN BLOK BANGUNAN</h4>
+	</div>
+		<div class="card-body">
+
         	<?php if(!empty($msg)){ ?>
             <tr>
                 <td width="100%" align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
             </tr>
             <?php } ?>
+
             <?php 
 			//$conn->debug=true;
 			$sqlb = "SELECT * FROM _ref_kampus WHERE kampus_status=0".$sql_kampus;
 			$rs_kb = $conn->query($sqlb);
 			?>
-            <tr>
-                <td width="30%"><b>Pusat Latihan : </b></td>
-                <td width="50%" colspan="2">
-                	<select name="kampus_id" style="width:100%">
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat Latihan :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select name="kampus_id" class="form-control">
                     <?php while(!$rs_kb->EOF){ ?>
                     	<option value="<?php print $rs_kb->fields['kampus_id'];?>" <?php if($rs_kb->fields['kampus_id']==$rs->fields['kampus_id']){ print 'selected="selected"';}?>><?php print $rs_kb->fields['kampus_nama'];?></option>
                     <?php $rs_kb->movenext(); } ?>
                     </select>
-                    </td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Blok Bangunan : </b></td>
-                <td width="50%" colspan="2"><input type="text" size="50" name="f_bb_desc" value="<?php print $rs->fields['f_bb_desc'];?>" /></td>
-            </tr>
+                </div>
+            </div>
+			
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Blok Bangunan :</b></label>
+                <div class="col-sm-12 col-md-7">
+					<input type="text" class="form-control" name="f_bb_desc" value="<?php print $rs->fields['f_bb_desc'];?>" />
+				</div>
+            </div>
+
             <?php $sqlb = "SELECT * FROM _ref_kategori_blok WHERE is_deleted=0";
 			$rs_kb = &$conn->Execute($sqlb);
 			?>
-            <tr>
-                <td width="30%"><b>Kategori Blok : </b></td>
-                <td width="50%" colspan="2">
-                	<select name="f_kb_id">
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori Blok :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="f_kb_id">
                     <?php while(!$rs_kb->EOF){ ?>
                     	<option value="<?php print $rs_kb->fields['f_kb_id'];?>" <?php if($rs_kb->fields['f_kb_id']==$rs->fields['f_kb_id']){ print 'selected="selected"';}?>><?php print $rs_kb->fields['f_kb_desc'];?></option>
                     <?php $rs_kb->movenext(); } ?>
                     </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="20%"><b>Status : </b></td>
-                <td width="50%" colspan="2">
-                	<select name="f_bb_status">
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Status :</b></label>
+                <div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="f_bb_status">
                     	<option value="0" <?php if($rs->fields['f_bb_status']=='0'){ print 'selected'; }?>>Aktif</option>
                     	<option value="1" <?php if($rs->fields['f_bb_status']=='1'){ print 'selected'; }?>>Tidak Aktif</option>
                     </select>
-                </td>
-            </tr>
+                </div>
+            </div>
+
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan blok bangunan" onClick="form_back()" >
+                    <input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+                    <input type="button" class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan blok bangunan" onClick="form_back()" >
                     <input type="hidden" name="id" value="<?=$id?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
                 </td>

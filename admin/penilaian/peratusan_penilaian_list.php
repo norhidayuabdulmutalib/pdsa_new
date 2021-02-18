@@ -184,157 +184,177 @@ FROM _tbl_kursus A, _tbl_kursus_cat B, _tbl_kursus_catsub C, _tbl_kursus_jadual 
 WHERE A.category_code=B.id AND A.subcategory_code=C.id AND A.id=D.courseid AND D.kampus_id=E.kampus_id AND D.id = ".tosql($id,"Next");
 $rskursus = $conn->query($sSQL);
 ?>
+
+
 <form name="ilim" method="post">
-<input type="hidden" name="id" value="<?=$id;?>" />
-<input type="hidden" name="winds" value="<?=$_GET['win'];?>" />
-<table width="98%" align="center" cellpadding="0" cellspacing="0" border="0">
-    <tr valign="top" bgcolosr="#80ABF2"> 
-        <td height="30" colspan="5" valign="middle">
-        <div style="float:left">
-        	<font size="2" face="Arial, Helvetica, sans-serif">
-	        &nbsp;&nbsp;<strong>SENARAI MAKLUMAT PERATUSAN PENILAIAN</strong> <font color="#FFFFFF"><?=$id;?></font></font></div>
-        <div style="float:right"><input type="button" value="Proses" style="cursor:pointer" onclick="do_proses('<?=$id;?>')" />
-        &nbsp;&nbsp;
-        <input type="button" value="Tutup" style="cursor:pointer" onclick="javascript:parent.emailwindow.hide();" /></div>
-        </td>
-    </tr>
-    <tr><td colspan="5">
-        <table width="100%" cellpadding="2" cellspacing="0" border="0" align="center">
-	        <tr>
-                <td width="25%" align="right"><b>Pusat Latihan</b></td>
-                <td width="1%" align="center"><b> : </b></td>
-                <td width="74%" align="left"><font color="#0033FF"><b><?php print $rskursus->fields['kampus_nama'];?></b></font></td>            
-            </tr>
-	        <tr>
-                <td width="25%" align="right"><b>Kursus</b></td>
-                <td width="1%" align="center"><b> : </b></td>
-                <td width="74%" align="left"><?php print $rskursus->fields['courseid'] . " - " .$rskursus->fields['coursename'];?></td>            </tr>
-            <tr>
-                <td align="right"><b>Kategori</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print $rskursus->fields['categorytype'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Pusat</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print dlookup("_tbl_kursus_catsub","SubCategoryDesc","id=".tosql($rskursus->fields['CID']));
-				//print pusat_list($rskursus->fields['CID']);; //$rskursus->fields['SubCategoryNm'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Tarikh Kursus</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print DisplayDate($rskursus->fields['startdate']);?> - <?php print DisplayDate($rskursus->fields['enddate']);?></td>                
-            </tr>
-		</table>
-    </td></tr>
-    <?php
-    $sql_data = "SELECT * FROM _tbl_set_penilaian WHERE fset_event_id=".tosql($id);
-	$rs_nilai = $conn->query($sql_data);
-	?>
-    <tr><td colspan="5">&nbsp;</td></tr>
-    <?php
-	//$conn->debug=true;
-	//$jum_tawaran = dlookup("_tbl_kursus_jadual_peserta","count(*)","EventId=".tosql($id)." GROUP BY peserta_icno");
-	$sql1 = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE EventId=".tosql($id)."  AND is_selected IN (1) AND is_deleted=0 
-		GROUP BY peserta_icno";
-	$rs1 = $conn->query($sql1);
-	//print $sql1;
-	$jum_tawaran = $rs1->recordcount();
-	
-	//$jum_hadir = dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAccepted= 1 AND EventId=".tosql($id));
-	$sql1 = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE EventId=".tosql($id)." AND InternalStudentAccepted=1 
-	AND is_selected IN (1) AND is_deleted=0 GROUP BY peserta_icno";
-	$rs1 = $conn->query($sql1);
-	//print $sql1;
-	$jum_hadir = $rs1->recordcount();
+	<input type="hidden" name="id" value="<?=$id;?>" />
+	<input type="hidden" name="winds" value="<?=$_GET['win'];?>" />
+		<div class="card">
+			<div class="card-header">
+				<h4>SENARAI MAKLUMAT PERATUSAN PENILAIAN <font color="#FFFFFF"><?=$id;?></font></h4>
+			</div>
 
-	$conn->debug=false;
-	//$jum_nilai = dlookup_cnt("_tbl_penilaian_peserta","distinct pp_peserta_id","pp_eventid=".tosql($id)." GROUP BY pp_peserta_id");
-	//$jum_nilai = dlookup_cnt("_tbl_set_penilaian_peserta_bhg","distinct id_peserta","event_id=".tosql($id)." GROUP BY id_peserta");
-	$sqlsel = "SELECT A.* FROM _tbl_set_penilaian_peserta A, _tbl_kursus_jadual_peserta B 
-		WHERE A.id_peserta=B.InternalStudentId AND B.InternalStudentAccepted=1 AND B.is_selected IN (1) 
-		AND A.is_nilai=1 AND A.event_id=".tosql($id);
-	$sqlsel .= "  AND B.InternalStudentId IN (SELECT id_peserta FROM _tbl_set_penilaian_peserta WHERE event_id=".tosql($id).")";
-	$rsnilai = $conn->query($sqlsel); $jum_nilai = $rsnilai->recordcount();
-	//print $sqlsel;
+			<div class="card-body">
 
-	//$conn->debug=false;
-	$jum_l=0; $jum_p=0; $kum_j=0; $kum_p=0; $kum_s=0;
-	$u19=0; $u20=0; $u30=0; $u40=0; $u50=0;
-	$train_1=0; $train_2=0; $train_3=0;
-	while(!$rsnilai->EOF){
-		if($rsnilai->fields['fsetp_jantina_l']==1){ $jum_l++; }
-		else if($rsnilai->fields['fsetp_jantina_p']==1){ $jum_p++; }
-		if($rsnilai->fields['fsetp_umur19']==1){ $u19++; }
-		else if($rsnilai->fields['fsetp_umur20']==1){ $u20++; }
-		else if($rsnilai->fields['fsetp_umur30']==1){ $u30++; }
-		else if($rsnilai->fields['fsetp_umur40']==1){ $u40++; }
-		else if($rsnilai->fields['fsetp_umur50']==1){ $u50++; }
-		if($rsnilai->fields['fsept_jusa']==1){ $kum_j++; }
-		else if($rsnilai->fields['fsetp_pp']==1){ $kum_p++; }
-		else if($rsnilai->fields['fsetp_sokongan']==1){ $kum_s++; }
-		if($rsnilai->fields['fsetp_pertama']==1){ $train_1++; }
-		else if($rsnilai->fields['fsetp_kedua']==1){ $train_2++; }
-		else { $train_3++; }
-	
-		$rsnilai->movenext();
-	}
-	
-	$jum_all_umur = $rs_nilai->fields['fset_umur19_off']+$u19+
-					$rs_nilai->fields['fset_umur20_off']+$u20+
-					$rs_nilai->fields['fset_umur30_off']+$u30+
-					$rs_nilai->fields['fset_umur40_off']+$u40+
-					$rs_nilai->fields['fset_umur50_off']+$u50;
-	
-	$jum_offs = $rs_nilai->fields['jum_off'];
-	$jhadir=$jum_offs+$jum_nilai;
-	
-	
-	?>
-	<tr>
-        <td><strong>Jumlah Tawaran : <?php print $jum_tawaran;?></strong> peserta</td>
-        <td><strong>Jumlah Kehadiran : <?php print $jum_hadir;?></strong> peserta hadir
-        	<input type="text" size="1" name="jum_off" value="<?php print $rs_nilai->fields['jum_off'];?>" style="text-align:center" 
-            	onchange="disp_val_main('<?php print $id;?>','jum_off','jum_online','jk',this.form)" />
-        	<input type="text" name="jum_online" size="3" value="<?=$jum_nilai;?>" readonly="readonly" disabled="disabled" style="text-align:center" /> = 
-        	<input type="text" name="jk" size="3" value="<?php print $jhadir;?>" readonly="readonly" disabled="disabled" style="text-align:center" />
-        </td>
-        <?php $href_nilai = "modal_form.php?win=".base64_encode('penilaian/nilai_list.php;'.$id); 
-			/*$sql_det = "SELECT A.*, B.f_peserta_nama, B.BranchCd, B.f_peserta_noic, B.f_title_grade 
-			FROM _tbl_kursus_jadual_peserta A, _tbl_peserta B WHERE A.peserta_icno=B.f_peserta_noic AND A.EventId=".tosql($id) . " 
-			AND A.InternalStudentAccepted=1 AND A.InternalStudentId IN (SELECT id_peserta FROM _tbl_set_penilaian_peserta 
-			WHERE event_id=".tosql($id).")";
-			$sql_det .= " GROUP BY B.f_peserta_noic ORDER BY B.f_peserta_nama";
-			//24-04$rsnilai = $conn->query($sql_det); $jum_nilai = $rsnilai->recordcount();*/
+				<div class="form-group row mb-4" style="float:right">
+					<div>
+					<input type="button" value="Proses" class="btn btn-warning" style="cursor:pointer" onclick="do_proses('<?=$id;?>')" />
+					&nbsp;&nbsp;
+					<input type="button" value="Tutup" class="btn btn-secondary" style="cursor:pointer" onclick="javascript:parent.emailwindow.hide();" />
+					</div>
+				</div>
+
+				<div class="form-group row mb-4">
+					<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat Latihan :</b></label>
+					<div class="col-sm-12 col-md-7">
+						<font color="#0033FF"><b><?php print $rskursus->fields['kampus_nama'];?></b></font>
+					</div>            
+				</div>
+
+				<div class="form-group row mb-4">
+					<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kursus :</b></label>
+					<div class="col-sm-12 col-md-7">
+						<?php print $rskursus->fields['courseid'] . " - " .$rskursus->fields['coursename'];?>
+					</div>
+				</div>
+
+				<div class="form-group row mb-4">
+					<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori :</b></label>
+					<div class="col-sm-12 col-md-7">
+						<?php print $rskursus->fields['categorytype'];?>
+					</div>                
+				</div>
+
+				<div class="form-group row mb-4">
+					<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat :</b></label>
+					<div class="col-sm-12 col-md-7">
+						<?php print dlookup("_tbl_kursus_catsub","SubCategoryDesc","id=".tosql($rskursus->fields['CID']));
+						//print pusat_list($rskursus->fields['CID']);; //$rskursus->fields['SubCategoryNm'];?>
+					</div>                
+				</div>
+
+				<div class="form-group row mb-4">
+					<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kursus :</b></label>
+					<div class="col-sm-12 col-md-7">
+						<?php echo date('d-m-Y', strtotime($rs->fields['startdate'])) ?> - <?php echo date('d-m-Y', strtotime($rs->fields['enddate'])) ?>
+						<!-- <?php //print DisplayDate($rskursus->fields['startdate']);?> - <?php //print DisplayDate($rskursus->fields['enddate']);?> -->
+					</div>                
+				</div>
+
+			</div>
+		</div>
+
+		<?php
+		$sql_data = "SELECT * FROM _tbl_set_penilaian WHERE fset_event_id=".tosql($id);
+		$rs_nilai = $conn->query($sql_data);
 		?>
-        <td><b>Jumlah Menilai : </b><a onclick="open_modal('<?=$href_nilai;?>','Senarai peserta menilai',1,1)" 
-        	style="cursor:pointer"><b><?=$jum_tt;?><?php print $jum_nilai;?></b></a>
-        <?php //$conn->debug=true;
-			/*$sqlsel = "SELECT A.* FROM _tbl_set_penilaian_peserta A, _tbl_kursus_jadual_peserta B 
-			WHERE A.id_peserta=B.InternalStudentId AND B.InternalStudentAccepted=1 AND B.is_deleted=0 
-			AND A.is_nilai=0 AND B.is_selected IN (1) AND A.event_id=".tosql($id);
-			//24-04$rsnilai = $conn->query($sqlsel); $jum_thantar = $rsnilai->recordcount();
-			//print $sqlsel."<br>";
+		
+		<tr><td colspan="5">&nbsp;</td></tr>
+		<?php
+		//$conn->debug=true;
+		//$jum_tawaran = dlookup("_tbl_kursus_jadual_peserta","count(*)","EventId=".tosql($id)." GROUP BY peserta_icno");
+		$sql1 = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE EventId=".tosql($id)."  AND is_selected IN (1) AND is_deleted=0 
+			GROUP BY peserta_icno";
+		$rs1 = $conn->query($sql1);
+		//print $sql1;
+		$jum_tawaran = $rs1->recordcount();
+		
+		//$jum_hadir = dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAccepted= 1 AND EventId=".tosql($id));
+		$sql1 = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE EventId=".tosql($id)." AND InternalStudentAccepted=1 
+		AND is_selected IN (1) AND is_deleted=0 GROUP BY peserta_icno";
+		$rs1 = $conn->query($sql1);
+		//print $sql1;
+		$jum_hadir = $rs1->recordcount();
 
-			//$sql1 = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE EventId=".tosql($id)." AND InternalStudentAccepted= 1 AND is_selected IN (1) ";
-			$sqlsel = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE InternalStudentAccepted=1 AND EventId=".tosql($id) . " AND is_selected IN (1)  
-			AND InternalStudentId NOT IN (SELECT id_peserta FROM _tbl_set_penilaian_peserta WHERE event_id=".tosql($id).")";
-			$sqlsel .= " GROUP BY peserta_icno";
-			//24-04 $rsnilai = $conn->query($sqlsel); $jum_tt = $rsnilai->recordcount();
-			//print $sqlsel."<br>";
-			$conn->debug=false;*/
+		$conn->debug=false;
+		//$jum_nilai = dlookup_cnt("_tbl_penilaian_peserta","distinct pp_peserta_id","pp_eventid=".tosql($id)." GROUP BY pp_peserta_id");
+		//$jum_nilai = dlookup_cnt("_tbl_set_penilaian_peserta_bhg","distinct id_peserta","event_id=".tosql($id)." GROUP BY id_peserta");
+		$sqlsel = "SELECT A.* FROM _tbl_set_penilaian_peserta A, _tbl_kursus_jadual_peserta B 
+			WHERE A.id_peserta=B.InternalStudentId AND B.InternalStudentAccepted=1 AND B.is_selected IN (1) 
+			AND A.is_nilai=1 AND A.event_id=".tosql($id);
+		$sqlsel .= "  AND B.InternalStudentId IN (SELECT id_peserta FROM _tbl_set_penilaian_peserta WHERE event_id=".tosql($id).")";
+		$rsnilai = $conn->query($sqlsel); $jum_nilai = $rsnilai->recordcount();
+		//print $sqlsel;
 
+		//$conn->debug=false;
+		$jum_l=0; $jum_p=0; $kum_j=0; $kum_p=0; $kum_s=0;
+		$u19=0; $u20=0; $u30=0; $u40=0; $u50=0;
+		$train_1=0; $train_2=0; $train_3=0;
+		while(!$rsnilai->EOF){
+			if($rsnilai->fields['fsetp_jantina_l']==1){ $jum_l++; }
+			else if($rsnilai->fields['fsetp_jantina_p']==1){ $jum_p++; }
+			if($rsnilai->fields['fsetp_umur19']==1){ $u19++; }
+			else if($rsnilai->fields['fsetp_umur20']==1){ $u20++; }
+			else if($rsnilai->fields['fsetp_umur30']==1){ $u30++; }
+			else if($rsnilai->fields['fsetp_umur40']==1){ $u40++; }
+			else if($rsnilai->fields['fsetp_umur50']==1){ $u50++; }
+			if($rsnilai->fields['fsept_jusa']==1){ $kum_j++; }
+			else if($rsnilai->fields['fsetp_pp']==1){ $kum_p++; }
+			else if($rsnilai->fields['fsetp_sokongan']==1){ $kum_s++; }
+			if($rsnilai->fields['fsetp_pertama']==1){ $train_1++; }
+			else if($rsnilai->fields['fsetp_kedua']==1){ $train_2++; }
+			else { $train_3++; }
+		
+			$rsnilai->movenext();
+		}
+		
+		$jum_all_umur = $rs_nilai->fields['fset_umur19_off']+$u19+
+						$rs_nilai->fields['fset_umur20_off']+$u20+
+						$rs_nilai->fields['fset_umur30_off']+$u30+
+						$rs_nilai->fields['fset_umur40_off']+$u40+
+						$rs_nilai->fields['fset_umur50_off']+$u50;
+		
+		$jum_offs = $rs_nilai->fields['jum_off'];
+		$jhadir=$jum_offs+$jum_nilai;
+		
+		
 		?>
-		<?php if($jum_thantar>0){ $href_senarai = "modal_form.php?win=".base64_encode('penilaian/tidak_hantarnilai_list.php;'.$id);?>
-        	&nbsp;(<a onclick="open_modal('<?=$href_senarai;?>','Senarai peserta tidak menilai',1,1)" 
-        	style="cursor:pointer" title="Peserta tidak hantar penilaian"><b><?=$jum_thantar;?></b> Orang tidak hantar</a>)
-		<?php } ?>
-		<?php if($jum_tt>0){ $href_xnilai = "modal_form.php?win=".base64_encode('penilaian/tidak_nilai_list.php;'.$id);?>
-        	&nbsp;(<a onclick="open_modal('<?=$href_xnilai;?>','Senarai peserta tidak menilai',1,1)" 
-        	style="cursor:pointer" title="Peserta tidak menilai"><b><?=$jum_tt;?></b> Orang tidak menilai</a>)
-		<?php } ?>
-        </td>
-    </tr>
+
+		<tr>
+			<td><strong>Jumlah Tawaran : <?php print $jum_tawaran;?></strong> peserta</td>
+			<td><strong>Jumlah Kehadiran : <?php print $jum_hadir;?></strong> peserta hadir
+				<input type="text" size="1" name="jum_off" value="<?php print $rs_nilai->fields['jum_off'];?>" style="text-align:center" 
+					onchange="disp_val_main('<?php print $id;?>','jum_off','jum_online','jk',this.form)" />
+				<input type="text" name="jum_online" size="3" value="<?=$jum_nilai;?>" readonly="readonly" disabled="disabled" style="text-align:center" /> = 
+				<input type="text" name="jk" size="3" value="<?php print $jhadir;?>" readonly="readonly" disabled="disabled" style="text-align:center" />
+			</td>
+			<?php $href_nilai = "modal_form.php?win=".base64_encode('penilaian/nilai_list.php;'.$id); 
+				/*$sql_det = "SELECT A.*, B.f_peserta_nama, B.BranchCd, B.f_peserta_noic, B.f_title_grade 
+				FROM _tbl_kursus_jadual_peserta A, _tbl_peserta B WHERE A.peserta_icno=B.f_peserta_noic AND A.EventId=".tosql($id) . " 
+				AND A.InternalStudentAccepted=1 AND A.InternalStudentId IN (SELECT id_peserta FROM _tbl_set_penilaian_peserta 
+				WHERE event_id=".tosql($id).")";
+				$sql_det .= " GROUP BY B.f_peserta_noic ORDER BY B.f_peserta_nama";
+				//24-04$rsnilai = $conn->query($sql_det); $jum_nilai = $rsnilai->recordcount();*/
+			?>
+			<td><b>Jumlah Menilai : </b><a onclick="open_modal('<?=$href_nilai;?>','Senarai peserta menilai',1,1)" 
+				style="cursor:pointer"><b><?=$jum_tt;?><?php print $jum_nilai;?></b></a>
+			<?php //$conn->debug=true;
+				/*$sqlsel = "SELECT A.* FROM _tbl_set_penilaian_peserta A, _tbl_kursus_jadual_peserta B 
+				WHERE A.id_peserta=B.InternalStudentId AND B.InternalStudentAccepted=1 AND B.is_deleted=0 
+				AND A.is_nilai=0 AND B.is_selected IN (1) AND A.event_id=".tosql($id);
+				//24-04$rsnilai = $conn->query($sqlsel); $jum_thantar = $rsnilai->recordcount();
+				//print $sqlsel."<br>";
+
+				//$sql1 = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE EventId=".tosql($id)." AND InternalStudentAccepted= 1 AND is_selected IN (1) ";
+				$sqlsel = "SELECT * FROM _tbl_kursus_jadual_peserta WHERE InternalStudentAccepted=1 AND EventId=".tosql($id) . " AND is_selected IN (1)  
+				AND InternalStudentId NOT IN (SELECT id_peserta FROM _tbl_set_penilaian_peserta WHERE event_id=".tosql($id).")";
+				$sqlsel .= " GROUP BY peserta_icno";
+				//24-04 $rsnilai = $conn->query($sqlsel); $jum_tt = $rsnilai->recordcount();
+				//print $sqlsel."<br>";
+				$conn->debug=false;*/
+
+			?>
+			<?php if($jum_thantar>0){ $href_senarai = "modal_form.php?win=".base64_encode('penilaian/tidak_hantarnilai_list.php;'.$id);?>
+				&nbsp;(<a onclick="open_modal('<?=$href_senarai;?>','Senarai peserta tidak menilai',1,1)" 
+				style="cursor:pointer" title="Peserta tidak hantar penilaian"><b><?=$jum_thantar;?></b> Orang tidak hantar</a>)
+			<?php } ?>
+			<?php if($jum_tt>0){ $href_xnilai = "modal_form.php?win=".base64_encode('penilaian/tidak_nilai_list.php;'.$id);?>
+				&nbsp;(<a onclick="open_modal('<?=$href_xnilai;?>','Senarai peserta tidak menilai',1,1)" 
+				style="cursor:pointer" title="Peserta tidak menilai"><b><?=$jum_tt;?></b> Orang tidak menilai</a>)
+			<?php } ?>
+			</td>
+		</tr>
+
     <tr><td>&nbsp;</td></tr>
 	<tr><td colspan="5"><table width="100%" border="0" cellspacing="0" cellpadding="1">
       <tr>

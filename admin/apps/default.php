@@ -1,5 +1,4 @@
-<?php session_start(); 
-include_once('../common.php'); ?>
+<?php session_start(); ?>
 <script language="javascript" type="text/javascript">
 function openModal(URL){
 	var returnValue = window.showModalDialog(URL, 'ILIM','help:no;status:no;scroll:yes;resize:yes;tools:yes;dialogHeight:500px;dialogWidth:800px');

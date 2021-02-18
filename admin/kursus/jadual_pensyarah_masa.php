@@ -37,44 +37,47 @@ $rs = &$conn->Execute($sSQL);
 print $rs->fields['id_pensyarah'];
 ?>
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">MAKLUMAT PENSYARAH -TAJUK KURSUS</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>MAKLUMAT PENSYARAH -TAJUK KURSUS</h4>
+	</div>
+		<div class="card-body">
+
             <?php
 			$sql_det = "SELECT A.*, B.ingenid, B.insname, B.insorganization FROM _tbl_kursus_jadual_det A, _tbl_instructor B WHERE A.instruct_id=B.ingenid AND A.event_id=".tosql($id,"Text");
 			$rs_det = $conn->execute($sql_det);
 			?>
-            <tr>
-                <td width="30%"><b>Maklumat Penceramah : </b></td>
-                <td width="70%" colspan="2">
-                <select name="id_pensyarah">
-                	<option value="0"> -- Rehat -- </option>
-                <?php while(!$rs_det->EOF){ ?>
-                	<option value="<?=$rs_det->fields['ingenid'];?>" <?php if($rs_det->fields['ingenid']==$rs->fields['id_pensyarah']){ print 'selected'; }?>
-                    ><?php print $rs_det->fields['insname'] . " - " . $rs_det->fields['insorganization'];?></option>
-                <?php $rs_det->movenext(); } ?>
-                </select>
-                </td>
-            </tr>
-            <tr>
-                <td><b>Tarikh : </b></td>
-                <td colspan="2">
-                <?php $ddiff = get_datediff($rs_kursus->fields['startdate'],$rs_kursus->fields['enddate']); //print $ddiff?>
-                	<select name="tarikh">
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Maklumat Penceramah :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<select class="form-control" name="id_pensyarah">
+							<option value="0"> -- Rehat -- </option>
+						<?php while(!$rs_det->EOF){ ?>
+							<option value="<?=$rs_det->fields['ingenid'];?>" <?php if($rs_det->fields['ingenid']==$rs->fields['id_pensyarah']){ print 'selected'; }?>
+							><?php print $rs_det->fields['insname'] . " - " . $rs_det->fields['insorganization'];?></option>
+						<?php $rs_det->movenext(); } ?>
+					</select>
+                </div>
+            </div>
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<?php $ddiff = get_datediff($rs_kursus->fields['startdate'],$rs_kursus->fields['enddate']); //print $ddiff?>
+					<select class="form-control" name="tarikh">
 					<?php for($i=0;$i<$ddiff;$i++){ 
 						$dt = get_jadual_kursus($rs_kursus->fields['startdate'],$rs_kursus->fields['enddate'],$i); ?>
-	                   	<option value="<?php print $dt;?>" <?php if($rs->fields['tarikh']==$dt){ print 'selected'; }?>><?php print $dt;?></option>
-                	<?php } ?>
-                    </select>
-                </td>
-            </tr>
+						<option value="<?php print $dt;?>" <?php if($rs->fields['tarikh']==$dt){ print 'selected'; }?>><?php print $dt;?></option>
+					<?php } ?>
+					</select>
+                </div>
+            </div>
             <tr>
-                <td><b>Masa Kursus : </b></td>
-                <td colspan="2"> Mula : 
-                	<select name="masa_mula">
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Masa Mula Kursus :</b></label>
+				<div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="masa_mula">
 						<option value="00:00:00" <?php if($rs->fields['masa_mula']=='00:00:00'){ print 'selected'; }?>> 00:00 Tgh Malam </option>					
 						<option value="00:15:00" <?php if($rs->fields['masa_mula']=='00:15:00'){ print 'selected'; }?>> 00:15 Tgh Malam </option>					
 						<option value="00:30:00" <?php if($rs->fields['masa_mula']=='00:30:00'){ print 'selected'; }?>> 00:30 Tgh Malam </option>					
@@ -172,8 +175,10 @@ print $rs->fields['id_pensyarah'];
 						<option value="23:30:00" <?php if($rs->fields['masa_mula']=='23:30:00'){ print 'selected'; }?>> 11:30 malam </option>					
 						<option value="23:45:00" <?php if($rs->fields['masa_mula']=='23:45:00'){ print 'selected'; }?>> 11:45 malam </option>					
                     </select>
-                    &nbsp;&nbsp;Tamat :
-                	<select name="masa_tamat">
+				</div>
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Masa Tamat Kursus :</b></label>
+				<div class="col-sm-12 col-md-7">
+                	<select class="form-control" name="masa_tamat">
 						<option value="00:00:00" <?php if($rs->fields['masa_tamat']=='00:00:00'){ print 'selected'; }?>> 00:00 Tgh Malam </option>					
 						<option value="00:15:00" <?php if($rs->fields['masa_tamat']=='00:15:00'){ print 'selected'; }?>> 00:15 Tgh Malam </option>					
 						<option value="00:30:00" <?php if($rs->fields['masa_tamat']=='00:30:00'){ print 'selected'; }?>> 00:30 Tgh Malam </option>					
@@ -271,27 +276,28 @@ print $rs->fields['id_pensyarah'];
 						<option value="23:30:00" <?php if($rs->fields['masa_tamat']=='23:30:00'){ print 'selected'; }?>> 11:30 malam </option>					
 						<option value="23:45:00" <?php if($rs->fields['masa_tamat']=='23:45:00'){ print 'selected'; }?>> 11:45 malam </option>					
                     </select>
-                    
-                </td>
-            </tr>
-            <tr>
-                <td><b>Tajuk : </b></td>
-                <td colspan="2"><textarea rows="2" cols="90" name="tajuk"><?php print $rs->fields['tajuk'];?></textarea></td>
-			</tr>
+                </div>
+			</div>
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tajuk :</b></label>
+					<div class="col-sm-12 col-md-7">
+						<textarea rows="2" cols="90" name="tajuk"><?php print $rs->fields['tajuk'];?></textarea>
+					</div>
+			</div>
+
             <tr><td colspan="3"><hr /></td></tr>
-            <tr>
-                <td colspan="3" align="center">
+            <div>
+                <div colspan="3" align="center">
                     <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
                     <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan kategori jawatan" onClick="form_back()" >
                     <input type="hidden" name="event_id" value="<?=$id?>" />
                     <input type="hidden" name="id_jadmasa" value="<?=$id_masa?>" />
-                </td>
-            </tr>
-        </table>
-      </td>
-   </tr>
-</table>
+                </div>
+            </div>
+        </div>
+	</div>
 </form>
+
 <script LANGUAGE="JavaScript">
 	document.ilim.nilai_keterangan.focus();
 </script>

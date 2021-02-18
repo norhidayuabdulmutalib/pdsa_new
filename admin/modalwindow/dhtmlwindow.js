@@ -99,23 +99,23 @@ setSize:function(t, w, h){ //set window size (min is 150px wide by 100px tall)
 	if(w==1 && h==1){
 		t.style.width="90%";
 		t.style.height="90%";
-		t.contentarea.style.height=Math.max(parseInt(h), 88)+"%";
+		t.contentarea.style.height=Math.max(parseInt(h), 92)+"%";
 	} else if(w==90 && h==90){
 		t.style.width="90%";
 		t.style.height="90%";
-		t.contentarea.style.height=Math.max(parseInt(h), 88)+"%";
+		t.contentarea.style.height=Math.max(parseInt(h), 92)+"%";
 	} else if(w==80 && h==80){
 		t.style.width="80%";
 		t.style.height="80%";
-		t.contentarea.style.height=Math.max(parseInt(h), 88)+"%";
+		t.contentarea.style.height=Math.max(parseInt(h), 92)+"%";
 	} else if(w==85 && h==85){
 		t.style.width="85%";
 		t.style.height="85%";
-		t.contentarea.style.height=Math.max(parseInt(h), 88)+"%";
+		t.contentarea.style.height=Math.max(parseInt(h), 92)+"%";
 	} else if(w==70 && h==70){
 		t.style.width="70%";
 		t.style.height="70%";
-		t.contentarea.style.height=Math.max(parseInt(h), 88)+"%";
+		t.contentarea.style.height=Math.max(parseInt(h), 92)+"%";
 	} else {
 		t.style.width=Math.max(parseInt(w), 150)+"px";
 		t.contentarea.style.height=Math.max(parseInt(h), 100)+"px";

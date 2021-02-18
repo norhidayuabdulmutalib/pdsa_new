@@ -42,8 +42,8 @@ function handleprint(){
 <div class="printButton" align="center">
 	<br>
 	<table width="100%" bgcolor="#CCCCCC"><tr><td width="100%" align="center">
-   	<input type="button" value="Print" onClick="handleprint()" style="cursor:pointer" />
-    <input type="button" value="Close" onClick="do_close()" title="Please click to close window" style="cursor:pointer">
+   	<input type="button" class="btn btn-primary" value="Cetak" onClick="handleprint()" style="cursor:pointer" />
+    <input type="button" class="btn btn-secondary" value="Kembali" onClick="do_close()" title="Please click to close window" style="cursor:pointer">
     <br>Please change the printing Orientation to <b>Potrait</b> before printing.
 	<br /><br />
     </td></tr></table>

@@ -48,58 +48,67 @@ if(!empty($id)){
 	$rs = &$conn->Execute($sSQL);
 }
 ?>
+
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT AKADEMIK PESERTA</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
-        	<?php if(!empty($msg)){ ?>
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT AKADEMIK PESERTA</h4>
+	</div>
+
+	<div class="card-body">
+		<?php if(!empty($msg)){ ?>
             <tr>
                 <td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
             </tr>
             <?php } ?>
-            <tr>
-                <td width="30%"><b>Kelulusan : </b></td>
-              	<td width="70%" colspan="2"><select name="inaka_sijil">
-				<?php 
-				$r_gred = listLookup('_ref_akademik', '*', '1', 'f_akademik_id');
-				while(!$r_gred->EOF){ ?>
-				<option value="<?=$r_gred->fields['f_akademik_id'] ?>" <?php if($rs->fields['inaka_sijil'] == $r_gred->fields['f_akademik_id']) echo "selected"; ?> >
-				<?=$r_gred->fields['f_akademik_nama']?></option>
-                <?php $r_gred->movenext(); }?>        
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kelulusan :</b></label>
+                <div class="col-sm-12 col-md-7">
+					<select class="form-control" name="inaka_sijil">
+						<?php 
+						$r_gred = listLookup('_ref_akademik', '*', '1', 'f_akademik_id');
+						while(!$r_gred->EOF){ ?>
+						<option value="<?=$r_gred->fields['f_akademik_id'] ?>" <?php if($rs->fields['inaka_sijil'] == $r_gred->fields['f_akademik_id']) echo "selected"; ?> >
+						<?=$r_gred->fields['f_akademik_nama']?></option>
+						<?php $r_gred->movenext(); }?>        
                    </select>   
-				</td>
-            </tr>
-			<tr>
- 				<td width="30%"><b>Bidang Kursus : </b></td>
- 				<td width="70%" colspan="2"><input type="text" size="60" name="inaka_kursus" value="<?php print $rs->fields['inaka_kursus'];?>" /></td>
-            </tr>
-            <tr>
-              <td><b>Institusi : </b></td>
-              <td colspan="2"><input type="text" size="60" name="inaka_institusi" value="<?php print $rs->fields['inaka_institusi'];?>" /></td>
-            </tr>
-            <tr>
-              <td><b>Tahun : </b></td>
-              <td colspan="2"><input type="text" size="5" name="inaka_tahun" maxlength="4" value="<?php print $rs->fields['inaka_tahun'];?>" /></td>
-            </tr>
+				</div>
+            </div>
 
-            <tr><td colspan="3"><hr /></td></tr>
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Bidang Kursus :</b></label>
+                <div class="col-sm-12 col-md-7">
+					<input class="form-control" type="text" name="inaka_kursus" value="<?php print $rs->fields['inaka_kursus'];?>" />
+				</div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Institusi :</b></label>
+                <div class="col-sm-12 col-md-7">
+			  		<input type="text" class="form-control" name="inaka_institusi" value="<?php print $rs->fields['inaka_institusi'];?>" />
+				</div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tahun :</b></label>
+                <div class="col-sm-12 col-md-7">
+			  		<input type="text" class="form-control" name="inaka_tahun" maxlength="4" value="<?php print $rs->fields['inaka_tahun'];?>" />
+			  	</div>
+            </div>
+
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke maklumat peserta" onClick="form_back()" >
+                    <input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+                    <input type="button" class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke maklumat peserta" onClick="form_back()" >
                     <input type="hidden" name="id_peserta" value="<?=$id?>" />
                     <input type="hidden" name="idp" value="<?=$idp?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />                
                 </td>
             </tr>
-        </table>
-      </td>
-   </tr>
-</table>
-</form>
+		</div>
+	</div>
+</form>  
+
 <script LANGUAGE="JavaScript">
 	document.ilim.inaka_sijil.focus();
 </script>

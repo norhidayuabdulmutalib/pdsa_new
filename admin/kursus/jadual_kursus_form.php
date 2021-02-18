@@ -48,27 +48,40 @@ function open_windows(URL){
 	window.showModalDialog(URL,"","dialogWidth:1100px;dialogHeight:700px");
 } //End "opennewsletter" function
 </script>
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="6" class="title" height="25">
-        <div style="float:left">SELENGGARA MAKLUMAT JADUAL KURSUS</div>
-        <div style="float:right"><input type="button" value="Tutup" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back1()" ></div>
-        </td>
-    </tr>
-	<?php if(!empty($id)){ ?>
-        <tr height="25">
-            <td width="17%" align="center" bgcolor="<?=$bg1;?>"><a href="<?=$href_link;?>&load_pages="><b>Maklumat Kursus</b></a></td>
-            <td width="17%" align="center" bgcolor="<?=$bg3;?>"><a href="<?=$href_link;?>&load_pages=penceramah"><b>Maklumat Penceramah</b></a></td>
-            <td width="17%" align="center" bgcolor="<?=$bg2;?>"><a href="<?=$href_link;?>&load_pages=maklumat"><b>Maklumat Jadual & Kandungan</b></a></td>
-            <td width="17%" align="center" bgcolor="<?=$bg4;?>"><a href="<?=$href_link;?>&load_pages=kriteria"><b>Kriteria Pemilihan</b></a></td>
-            <td width="15%" align="center" bgcolor="<?=$bg5;?>"><a href="<?=$href_link;?>&load_pages=peserta"><b>Maklumat Peserta</b></a></td>
-            <td width="17%" align="center" bgcolor="<?=$bg6;?>"><a href="<?=$href_link;?>&load_pages=nilai"><b>Maklumat Penilaian Kursus</b></a></td>
-        </tr>
-    <?php } ?>
-	<tr><td colspan="6">
-    	<?php include $disp_pages; ?>
-    </td></tr>
-</table>
+
+<div class="card">
+    <div class="card-header" >
+        <h4>SELENGGARA MAKLUMAT JADUAL KURSUS</h4>
+    </div>
+    <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                <thead>
+                    <?php if(!empty($id)){ ?>
+                    <tr height="25">
+                        <th width="17%" align="center" bgcolor="<?=$bg1;?>"><a href="<?=$href_link;?>&load_pages="><b>Maklumat Kursus</b></a></th>
+                        <th width="17%" align="center" bgcolor="<?=$bg3;?>"><a href="<?=$href_link;?>&load_pages=penceramah"><b>Maklumat Penceramah</b></a></th>
+                        <th width="17%" align="center" bgcolor="<?=$bg2;?>"><a href="<?=$href_link;?>&load_pages=maklumat"><b>Maklumat Jadual & Kandungan</b></a></th>
+                        <th width="17%" align="center" bgcolor="<?=$bg4;?>"><a href="<?=$href_link;?>&load_pages=kriteria"><b>Kriteria Pemilihan</b></a></th>
+                        <th width="15%" align="center" bgcolor="<?=$bg5;?>"><a href="<?=$href_link;?>&load_pages=peserta"><b>Maklumat Peserta</b></a></th>
+                        <th width="17%" align="center" bgcolor="<?=$bg6;?>"><a href="<?=$href_link;?>&load_pages=nilai"><b>Maklumat Penilaian Kursus</b></a></th>
+
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    <div style="float:right">
+                        <input type="button" class="btn btn-secondary" value="Tutup" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back1()" >
+                    </div>
+                    <?php } ?>
+                    <tr>
+                        <?php include $disp_pages; ?>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+    </div>
+</div>
 <!--<div align="center"><br />
 <input type="button" value="Tutup" class="button_disp" title="Sila klik untuk kembali ke senarai jadual kursus" onClick="form_back()" >
 </div>-->

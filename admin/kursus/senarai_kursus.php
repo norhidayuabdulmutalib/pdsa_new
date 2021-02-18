@@ -1,8 +1,8 @@
 <?php
 //$conn->debug=true;
 if(!empty($_REQUEST['pro_daftar']) && $_REQUEST['pro_daftar']=='pro'){
-	// session_start();
-	
+	session_start();
+	include '../../common.php';
 	extract($_POST);
 	print $_SESSION["s_logid"];
 	$EventId = $_REQUEST["ids"];
@@ -16,7 +16,7 @@ if(!empty($_REQUEST['pro_daftar']) && $_REQUEST['pro_daftar']=='pro'){
 	print '<script language="javascript">alert("Pendaftaran kursus sedang dalam proses.");parent.emailwindow.hide();</script>';
 	exit;
 }
-include_once '../admin/common.php'; 
+
 //print $_SESSION["s_logid"];
 $types=isset($_REQUEST["types"])?$_REQUEST["types"]:"";
 if($types=='NEXT'){
@@ -49,7 +49,7 @@ if($types=='NEXT'){
 	FROM _tbl_kursus_jadual A, _tbl_kursus B, _tbl_kursus_catsub D 
 	WHERE A.courseid=B.id AND B.is_deleted=0"; 
 	$sSQL.= " AND B.subcategory_code=D.id AND D.f_status=0 AND D.is_deleted=0";
-	$sSQL.= " AND month(A.startdate)='$this_mth' AND year(A.startdate)='$this_year'";
+	$sSQL.= " month(A.startdate)='$this_mth' AND year(A.startdate)='$this_year'";
 }
 if($_SESSION["s_level"]<>'99'){ $sSQL .= " AND kampus_id=".$_SESSION['SESS_KAMPUS']; }
 $sSQL .= " ORDER BY A.startdate";
@@ -57,9 +57,8 @@ $sSQL .= " ORDER BY A.startdate";
 //$sSQL .= $strSort; //"ORDER BY B.coursename";
 //print $sSQL;
 //$conn->debug=true;
-// var_dump($sSQL);exit();
-$rs = $conn->query($sSQL);
 
+$rs = $conn->query($sSQL);
 $cnt = $rs->recordcount();
 //$conn->debug=false;
 ?>
@@ -75,32 +74,33 @@ function form_back(URL){
 }
 </script>
 <form name="ilim" method="post">
-	<div class="table-responsive">
-		<table class="table table-bordered">
-			<thead>
-				<!-- <table width="100%" border="1" cellpadding="5" cellspacing="0"> -->
-				<tr>
-					<th colspan="8"><strong>SENARAI MAKLUMAT KURSUS (PENJADUALAN)</strong></th>
-				</tr>
-				<tr>
-					<th width="5%" align="center"><b>Bil</b></th>
-					<th width="8%" align="center"><b>Kod Kursus</b></th>
-					<th width="40%" align="center"><b>Diskripsi Kursus</b></th>
-					<th width="10%" align="center"><b>Pusat/Unit</b></th>
-					<th width="10%" align="center"><b>Tarikh Mula</b></th>
-					<th width="10%" align="center"><b>Tarikh Tamat</b></th>
-					<th width="10%" align="center"><b>Bil. Peserta Daftar</b></th>
+<table width="99%" align="center" cellpadding="0" cellspacing="0" border="0">
+    <tr valign="top" bgcolor="#80ABF2"> 
+        <td height="30" colspan="0" valign="middle">
+        <font size="2" face="Arial, Helvetica, sans-serif">
+	        &nbsp;&nbsp;<strong>SENARAI MAKLUMAT KURSUS (PENJADUALAN)</strong></font>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="5" align="center">
+            <table width="100%" border="1" cellpadding="5" cellspacing="0">
+                <tr bgcolor="#CCCCCC">
+                    <td width="5%" align="center"><b>Bil</b></td>
+                    <td width="8%" align="center"><b>Kod Kursus</b></td>
+                    <td width="40%" align="center"><b>Diskripsi Kursus</b>&nbsp;</td>
+                    <td width="10%" align="center"><b>Pusat/Unit</b></td>
+                    <td width="10%" align="center"><b>Tarikh Mula</b>&nbsp;</td>
+                    <td width="10%" align="center"><b>Tarikh Tamat</b>&nbsp;</td>
+                    <td width="10%" align="center"><b>Bil. Peserta Daftar</b>&nbsp;</td>
 					<?php if($_SESSION["s_user"]=='PESERTA'){ ?>
-					<th width="5%" align="center"><b>Daftar</b></th>
-					<?php } ?>
-				</tr>
-			</thead>
-			<tbody>
+                    <td width="5%" align="center"><b>Daftar</b>&nbsp;</td>
+                    <?php } ?>
+                </tr>
 				<?
-				if(!$rs->EOF) {
-					$cnt = 1;
-					$bil = $StartRec;
-					while(!$rs->EOF) {
+                if(!$rs->EOF) {
+                    $cnt = 1;
+                    $bil = $StartRec;
+                    while(!$rs->EOF) {
 						$bil = $cnt + ($PageNo-1)*$PageSize;
 						//$unit = dlookup("_tbl_kursus_catsub","SubCategoryNm","SubCategoryCd=".tosql($rs->fields['SubCategoryCd'],"Text"));
 						//$conn->debug=true;
@@ -118,39 +118,40 @@ function form_back(URL){
 						$pcount = dlookup("_tbl_kursus_jadual_peserta","count(*)","EventId=".tosql($rs->fields['id'],"Text"));
 						$ucount = dlookup("_tbl_kursus_jadual_peserta","count(*)","peserta_icno=".tosql($_SESSION["s_logid"])." AND EventId=".tosql($rs->fields['id']));
 						$sah_window = "modal_form.php?win=".base64_encode('peserta/kursus_permohonan.php;'.$rs_marque->fields['InternalStudentId']);
-						?>
-						<tr bgcolor="<?php if ($cnt%2 == 1) echo $bg1; else echo $bg2 ?>">
-							<td valign="top" align="right"><?=$bil;?>.</td>
-							<td valign="top" align="center"><?php echo stripslashes($kod_kursus);?>&nbsp;</td>
-							<td valign="top" align="left"><?php echo stripslashes($nama_kursus);?>&nbsp;</td>
-							<td valign="top" align="center"><?php echo stripslashes($unit);?>&nbsp;</td>
-							<td valign="top" align="center"><?php echo DisplayDate($rs->fields['startdate'])?></td>
-							<td valign="top" align="center"><?php echo DisplayDate($rs->fields['enddate'])?></td>
-							<td valign="top" align="center"><?php echo $pcount;?></td>
+                        ?>
+                        <tr bgcolor="<?php if ($cnt%2 == 1) echo $bg1; else echo $bg2 ?>">
+                            <td valign="top" align="right"><?=$bil;?>.</td>
+            				<td valign="top" align="center"><?php echo stripslashes($kod_kursus);?>&nbsp;</td>
+            				<td valign="top" align="left"><?php echo stripslashes($nama_kursus);?>&nbsp;</td>
+            				<td valign="top" align="center"><?php echo stripslashes($unit);?>&nbsp;</td>
+            				<td valign="top" align="center"><?php echo DisplayDate($rs->fields['startdate'])?></td>
+            				<td valign="top" align="center"><?php echo DisplayDate($rs->fields['enddate'])?></td>
+            				<td valign="top" align="center"><?php echo $pcount;?></td>
 							<?php if($_SESSION["s_user"]=='PESERTA'){ ?>
-							<td valign="top" align="center"><?php if($ucount==0){ ?>
-								<!--<img src="../images/boxin1.gif" height="20" width="20" title="Sila klik untuk pendaftaran" style="cursor:pointer" 
-								onclick="daftar('<?=$rs->fields['id'];?>')" />-->
-								<img src="../images/boxin1.gif" height="20" width="20" title="Sila klik untuk pendaftaran" style="cursor:pointer" 
-								onclick="open_modal('<?=$sah_window;?>&idkursus=<?=$rs->fields['id'];?>','Senarai peserta kursus pada hari ini <?=date("d/m/Y");?>',1,1)" />
+                            <td valign="top" align="center"><?php if($ucount==0){ ?>
+                            	<!--<img src="../images/boxin1.gif" height="20" width="20" title="Sila klik untuk pendaftaran" style="cursor:pointer" 
+                                onclick="daftar('<?=$rs->fields['id'];?>')" />-->
+                            	<img src="../images/boxin1.gif" height="20" width="20" title="Sila klik untuk pendaftaran" style="cursor:pointer" 
+                                onclick="open_modal('<?=$sah_window;?>&idkursus=<?=$rs->fields['id'];?>','Senarai peserta kursus pada hari ini <?=date("d/m/Y");?>',1,1)" />
 								<?php } else { print 'Telah Mendaftar'; } ?>
-							</td>
-							<?php }?>
-						</tr>
-						<?
-						$cnt = $cnt + 1;
-						$bil = $bil + 1;
-						$rs->movenext();
-					} 
-				} else {
-				?>
-				<tr><td colspan="7" width="100%" bgcolor="#FFFFFF"><b>Tiada rekod dalam senarai.</b></td></tr>
-				<?php } ?> 
-			</tbody>
-		</table> 
-	</div>
-
-	<div class style="float:right">
-		<input type="button" class="btn btn-secondary" value="Tutup" style="cursor:pointer"title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" />
-	</div>
+                            </td>
+                            <?php }?>
+                        </tr>
+                        <?
+                        $cnt = $cnt + 1;
+                        $bil = $bil + 1;
+                        $rs->movenext();
+                    } 
+                } else {
+                ?>
+                <tr><td colspan="7" width="100%" bgcolor="#FFFFFF"><b>Tiada rekod dalam senarai.</b></td></tr>
+                <?php } ?>                   
+            </table> 
+        </td>
+    </tr>
+    <tr><td colspan="5" align="center"><br />
+    	<input type="button" value="Tutup" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >	
+        <input type="hidden" name="pro_daftar" />
+	</td></tr>
+</table> 
 </form>

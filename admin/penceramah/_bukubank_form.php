@@ -41,57 +41,70 @@ function form_back(URL){
 	$rs = &$conn->Execute($sSQL);
 //}
 ?>
+
 <form name="ilim" method="post" enctype="multipart/form-data" >
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT BUKU BANK PENCERAMAH</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="3" cellspacing="1" border="0" align="center">
-        	<?php if(!empty($msg)){ ?>
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT BUKU BANK PENCERAMAH</h4>
+	</div>
+
+    <div class="card-body">
+        <?php if(!empty($msg)){ ?>
             <tr>
                 <td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
             </tr>
             <?php } ?>
-			<tr>
- 				<td width="30%"><b>Nama Bank : </b></td>
- 				<td width="70%" colspan="2"><input type="text" size="80" maxlength="120" name="inaka_banknama" value="<?php print $rs->fields['inaka_banknama'];?>" /></td>
-            </tr>
-            <tr>
-              <td><b>Cawangan : </b></td>
-              <td colspan="2"><input type="text" size="80" maxlength="120" name="inaka_bankcawangan" value="<?php print $rs->fields['inaka_bankcawangan'];?>" /></td>
-            </tr>
-            <tr>
-              <td><b>No. Akaun : </b></td>
-              <td colspan="2"><input type="text" size="40" maxlength="32" name="inaka_banknoacct" value="<?php print $rs->fields['inaka_banknoacct'];?>" /></td>
-            </tr>
-			<tr>
-              <td valign="top"><b>Muatnaik Sijil : </b></td>
-            	<td colspan="2"><input type="hidden" name="MAX_FILE_SIZE" value="1000000">
-                <input type="hidden" name="action1" value="1">
-                <input type="file" name="file1" size="50">
-                <!--<br />
-                <input type="radio" name="img_baru" value="Y" />Muatnaik Imej Baru &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="img_baru" value="N" checked="checked" />Kekalkan imej-->
-                <br /><br />
-                <?php if(!empty($rs->fields['fld_image'])){ ?>
-                <img src="all_pic/img_bukubank.php?id=<?php echo $rs->fields['ingenid_bank'];?>" width="150" height="150" border="0"><br />
-                <?php print $rs->fields['fld_image'];?>
-                <?php } ?>
-                <br />Sila pastikan hanya fail imej berikut sahaja yang dibenarkan untuk dimuatnaik ke dalam sistem (PNG, JPG, JPEG, GIF) atau fail PDF sahaja. 
-                
-                </td>
-            </tr>
 
-            <tr><td colspan="3"><hr /></td></tr>
-            <tr>
-                <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('penceramah/_bukubank_form_do.php')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke maklumat penceramah" onClick="form_back()" >
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Nama Bank :</b></label>
+                <div class="col-sm-12 col-md-7">
+ 				    <input class="form-control" type="text" size="80" maxlength="120" name="inaka_banknama" value="<?php print $rs->fields['inaka_banknama'];?>" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Cawangan :</b></label>
+                <div class="col-sm-12 col-md-7">
+                    <input type="text" class="form-control" maxlength="120" name="inaka_bankcawangan" value="<?php print $rs->fields['inaka_bankcawangan'];?>" />
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>No. Akaun :</b></label>
+                <div class="col-sm-12 col-md-7">
+                    <input type="text" class="form-control" maxlength="32" name="inaka_banknoacct" value="<?php print $rs->fields['inaka_banknoacct'];?>" />
+                </div>
+            </div>
+
+			<div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Muatnaik Sijil :</b></label>
+                <div class="col-sm-12 col-md-7">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+                    <input type="hidden" name="action1" value="1">
+                    <input type="file" name="file1" size="50">
+                    <!--<br />
+                    <input type="radio" name="img_baru" value="Y" />Muatnaik Imej Baru &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="img_baru" value="N" checked="checked" />Kekalkan imej-->
+                    <br /><br />
+                    <?php if(!empty($rs->fields['fld_image'])){ ?>
+                    <img src="all_pic/img_bukubank.php?id=<?php echo $rs->fields['ingenid_bank'];?>" width="150" height="150" border="0"><br />
+                    <?php print $rs->fields['fld_image'];?>
+                    <?php } ?>
+                    <br />Sila pastikan hanya fail imej berikut sahaja yang dibenarkan untuk dimuatnaik ke dalam sistem (PNG, JPG, JPEG, GIF) atau fail PDF sahaja. 
+                
+                </div>
+            </div>
+
+            <hr />
+            <div>
+                <div colspan="3" align="center">
+                    <button class="btn btn-success" value="Simpan" style="cursor:pointer; padding:8px;" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('penceramah/_bukubank_form_do.php')" ><i class="fas fa-save"></i> Simpan</button>
+                    <button class="btn btn-secondary" value="Kembali" style="cursor:pointer; padding:8px;" class="button_disp" title="Sila klik untuk kembali ke maklumat penceramah" onClick="form_back()" ><i class="fas fa-undo"></i> Kembali</button>
                     <input type="hidden" name="id" value="<?=$id?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />                
-                </td>
-            </tr>
+                </div>
+            </div>
+
         </table>
       </td>
    </tr>

@@ -45,6 +45,7 @@ function do_hapus(jenis,idh){
                                     <button class="btn" style="background-color:#fed136;" name="Cari" value="  Cari  " onClick="do_page('<?=$href_search;?>')"><i class="fas fa-search"></i><b> Cari</b></button>
                                 <div>
                             </div>
+
                         </div>
 					</form>
 				</div>
@@ -130,6 +131,7 @@ function do_hapus(jenis,idh){
                                 include_once 'include/list_footer.php'; 
                             }
                             ?> 
+                    </table>
                     </div>
                 </div>
             </div>

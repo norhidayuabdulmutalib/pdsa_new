@@ -42,56 +42,67 @@ $rs = &$conn->Execute($sSQL);
 $kampus = dlookup("_ref_kampus","kampus_nama","kampus_id=".tosql($rs->fields['kampus_id']));
 
 ?>
+
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="title" height="25">SELENGGARA MAKLUMAT RUJUKAN SURAT</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT RUJUKAN SURAT</h4>
+	</div>
+		<div class="card-body">
+
         	<?php if(!empty($msg)){ ?>
             <tr>
                 <td align="center" colspan="3"><b><i><font color="#FF0000"><?php print $msg;?></font></i></b></td>
           </tr>
             <?php } ?>
-            <tr>
-                <td width="14%"><b>Pusat Latihan : </b></td>
-              <td width="86%" colspan="2"><b style="color:#00F"><?php print $kampus; ?></b></td>
-            </tr>
-            <tr>
-                <td width="14%"><b>Tajuk Surat : </b></td>
-              <td width="86%" colspan="2"><input type="text" size="80" maxlength="128" name="surat_tajuk" value="<?php print $rs->fields['surat_tajuk'];?>" /></td>
-            </tr>
-            <tr>
-                <td width="14%"><b>No. Rujukan Fail : </b></td>
-              <td width="86%" colspan="2"><input type="text" size="80" maxlength="64" name="surat_ruj_fail" 
-                	value="<?php print $rs->fields['surat_ruj_fail'];?>" /></td>
-          </tr>
-            <tr>
-                <td width="14%" valign="top"><b>Kandungan Surat : </b></td>
-                <td width="86%" colspan="2" valign="top">
-                      <textarea name="surat_1" id="myform" style="width:95%;height:400px"><?php print $rs->fields['surat_1']; ?></textarea>
-              </td>    
-            </tr>
+
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat Latihan :</b></label>
+              <div class="col-sm-12 col-md-7">
+                <b style="color:#00F"><?php print $kampus; ?></b>
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tajuk Surat :</b></label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" name="surat_tajuk" value="<?php print $rs->fields['surat_tajuk'];?>" />
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>No Rujukan Fail :</b></label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" class="form-control" name="surat_ruj_fail" 
+                value="<?php print $rs->fields['surat_ruj_fail'];?>" />
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kandungan Surat :</b></label>
+                <div class="col-sm-12 col-md-7">
+                  <textarea name="surat_1" id="myform" style="form-control"><?php print $rs->fields['surat_1']; ?></textarea>
+              </div>    
+            </div>
+
            <!-- <tr>
                 <td width="20%"><b></b></td>
                 <td width="50%" colspan="2">
-                      <textarea name="surat_2" cols="60" rows="5"><?php print $rs->fields['surat_2']; ?></textarea>
+                      <textarea name="surat_2" cols="60" rows="5"><?php// print $rs->fields['surat_2']; ?></textarea>
                 </td>    
             </tr>-->
+
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
                 <td colspan="3" align="center">
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan kategori jawatan" onClick="form_back()" >
+                    <input type="button" value="Simpan" class="btn btn-success" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+                    <input type="button" value="Kembali" class="btn btn-secondary" title="Sila klik untuk kembali ke senarai rujukan kategori jawatan" onClick="form_back()" >
                     <input type="hidden" name="id" value="<?=$id?>" />
                     <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
                 </td>
             </tr>
-        </table>
-      </td>
-   </tr>
-</table>
+        </div>
+</div>
 </form>
 <script LANGUAGE="JavaScript">
 	document.ilim.surat_tajuk.focus();

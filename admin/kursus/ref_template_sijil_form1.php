@@ -111,70 +111,74 @@ if(!empty($id)){
 	$rs = &$conn->Execute($sSQL);
 }
 ?>
+
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" height="25">
-        <div style="float:left">&nbsp;<b>SELENGGARA MAKLUMAT CONTOH SIJIL</b></div>
-        <div style="float:right">
+<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT CONTOH SIJIL</h4>
+    <div style="float:right">
 			Status Contoh Sijil : 
-                 <select name="ref_ts_status">
-                    <option value="0" <?php if($rs->fields['ref_ts_status']==0){ print 'selected'; }?>>Aktif</option>
-                    <option value="1" <?php if($rs->fields['ref_ts_status']==1){ print 'selected'; }?>>Tidak Aktif</option>
-                 </select>    	
-			&nbsp;&nbsp;
-            <?php if(empty($forms)){ ?>
-    	    	<input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
+        <select name="ref_ts_status">
+          <option value="0" <?php if($rs->fields['ref_ts_status']==0){ print 'selected'; }?>>Aktif</option>
+          <option value="1" <?php if($rs->fields['ref_ts_status']==1){ print 'selected'; }?>>Tidak Aktif</option>
+        </select>    	
+
+    </div>
+	</div>
+
+  <div class="card-body">
+
+        <div class="form-group row mb-4" style="float:right">
+					<div>
+					  <?php if(empty($forms)){ ?>
+    	    	<input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
                 <?php if($_SESSION["s_level"]=='99'){ ?>
-    	    	<input type="button" value="HAPUS" class="button_disp" title="Sila klik untuk menghapuskan maklumat" onClick="form_hapus('modal_form.php?<?php print $URLs;?>&pro=DEL')" >
+    	    	<input type="button" class="btn btn-danger" value="HAPUS" class="button_disp" title="Sila klik untuk menghapuskan maklumat" onClick="form_hapus('modal_form.php?<?php print $URLs;?>&pro=DEL')" >
                 <?php } ?>
             <?php } else { ?>
-	        	<input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" 
+	        	<input type="button" class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" 
                 onClick="form_hantar('ref_template_sijil_form1.php?forms=cetak&tsid=<?=$id;?>&pro=SAVE')" >
             <?php } ?>
-            <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >
-        </div>
-        </td>
-    </tr>
+            <input type="button" class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >
+					</div>
+				</div>
+            
+        <?php 
+        //$conn->debug=true;
+        $sqlb = "SELECT * FROM _ref_kampus WHERE kampus_status=0".$sql_kampus;
+          $rs_kb = &$conn->Execute($sqlb);
+          ?>
+          <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat Latihan :</b></label>
+            <div class="col-sm-12 col-md-7">
+              <select name="kampus_id" class="form-control">
+              <?php while(!$rs_kb->EOF){ ?>
+                  <option value="<?php print $rs_kb->fields['kampus_id'];?>" <?php if($rs_kb->fields['kampus_id']==$rs->fields['kampus_id']){ print 'selected="selected"';}?>><?php print $rs_kb->fields['kampus_nama'];?></option>
+              <?php $rs_kb->movenext(); } ?>
+              </select>
+            </div>
+          </div>
 
-	<?php 
-	//$conn->debug=true;
-	$sqlb = "SELECT * FROM _ref_kampus WHERE kampus_status=0".$sql_kampus;
-    $rs_kb = &$conn->Execute($sqlb);
-    ?>
-    <tr>
-    	<td colspan="2" class="title" height="25">
-        	<table width="100%" cellpadding="3" cellspacing="0" border="0">
-            	<tr>
-                <td width="15%" align="right">Pusat Latihan : </td>
-                <td width="85%" align="left">
-                    <select name="kampus_id" style="width:80%">
-                    <?php while(!$rs_kb->EOF){ ?>
-                        <option value="<?php print $rs_kb->fields['kampus_id'];?>" <?php if($rs_kb->fields['kampus_id']==$rs->fields['kampus_id']){ print 'selected="selected"';}?>><?php print $rs_kb->fields['kampus_nama'];?></option>
-                    <?php $rs_kb->movenext(); } ?>
-                    </select>
-				</td>
-             	</tr>
-                <tr>
-                <td align="right">Tajuk Sijil :</td>
-                <td><input type="text" style="width:80%" name="ref_tajuk_sijil" value="<?php print $rs->fields['ref_tajuk_sijil'];?>" /></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-	<tr><td colspan="2">
+        <div class="form-group row mb-4">
+          <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tajuk Sijil :</b></label>
+          <div class="col-sm-12 col-md-7">
+            <input type="text" class="form-control" name="ref_tajuk_sijil" value="<?php print $rs->fields['ref_tajuk_sijil'];?>" />
+          </div>
+        </div>
+
+	  <tr><td colspan="2">
     	<table width="100%" cellpadding="5" cellspacing="1" border="1" align="center">
         	<tr>
-            	<td width="50%" align="center" valign="top">
-                	<table width="100%" cellpadding="5" cellspacing="1" border="1" align="center">
+            <td width="50%" align="center" valign="top">
+            	<table width="100%" cellpadding="5" cellspacing="1" border="1" align="center">
 						<tr>
-                      	  <td width="100%" align="center"  valign="bottom"><br /><br />
-                          <div style="widows:100%;height:<?php print $rs->fields['ref_ts_head1_size'];?>">
-                          	<label style="font-family:'<?php print $rs->fields['ref_ts_head1_font']?>';font-size:<?php print $rs->fields['ref_ts_head1_size'];?>;font-style:<?php print $rs->fields['ref_ts_head1_fontstyle']?>">
+              <td width="100%" align="center"  valign="bottom"><br /><br />
+                <div style="widows:100%;height:<?php print $rs->fields['ref_ts_head1_size'];?>">
+                  <label style="font-family:'<?php print $rs->fields['ref_ts_head1_font']?>';font-size:<?php print $rs->fields['ref_ts_head1_size'];?>;font-style:<?php print $rs->fields['ref_ts_head1_fontstyle']?>">
 							<?php print $rs->fields['ref_ts_head1'];?></label></div>
 							
-                          <div style="widows:100%;height:<?php print $rs->fields['ref_ts_head2_size'];?>"">
-                          	<label style="font-family:'<?php print $rs->fields['ref_ts_head2_font']?>';font-size:<?php print $rs->fields['ref_ts_head2_size'];?>;font-style:<?php print $rs->fields['ref_ts_head2_fontstyle']?>">
+              <div style="widows:100%;height:<?php print $rs->fields['ref_ts_head2_size'];?>"">
+                <label style="font-family:'<?php print $rs->fields['ref_ts_head2_font']?>';font-size:<?php print $rs->fields['ref_ts_head2_size'];?>;font-style:<?php print $rs->fields['ref_ts_head2_fontstyle']?>">
 							<?php print $rs->fields['ref_ts_head2'];?></label></div>
 							
                           <div style="widows:100%;height:<?php print $rs->fields['ref_ts_head3_size'];?>"">
@@ -223,70 +227,71 @@ if(!empty($id)){
                         </tr>
                     </table>
                 </td>
+
                 <td width="50%" align="center" valign="top">
                 	<table width="100%" cellpadding="5" cellspacing="1" border="0" align="center">
-						<tr>
-                      	  <td width="100%" align="center">Masukkan maklumat bahagian atas sijil<br />
-                          	<input type="text" size="80" name="ref_ts_head1" value="<?php print $rs->fields['ref_ts_head1'];?>" maxlength="120" style="text-align:center;background-color:#CCCCCC" /><br />
-                            Font:<select name="ref_ts_head1_font">
-                            	<option value="Times New Roman" <?php if($rs->fields['ref_ts_head1_font']=='Times New Roman'){ print 'selected'; }?>>Times New Roman</option>
-                            	<option value="Arial" <?php if($rs->fields['ref_ts_head1_font']=='Arial'){ print 'selected'; }?>>Arial</option>
-                            	<option value="Verdana" <?php if($rs->fields['ref_ts_head1_font']=='Verdana'){ print 'selected'; }?>>Verdana</option>
-                            </select>&nbsp;&nbsp;
-                            Font Style:<select name="ref_ts_head1_fontstyle">
-                            	<option value="" <?php if($rs->fields['ref_ts_head1_fontstyle']==''){ print 'selected'; }?>>Normal</option>
-                            	<option value="italic" <?php if($rs->fields['ref_ts_head1_fontstyle']=='italic'){ print 'selected'; }?>>italic</option>
-                            </select>&nbsp;&nbsp;
-                            Font Size:<select name="ref_ts_head1_size">
-                            	<option value="16px" <?php if($rs->fields['ref_ts_head1_size']=='16px'){ print 'selected'; }?>>16px</option>
-                            	<option value="18px" <?php if($rs->fields['ref_ts_head1_size']=='18px'){ print 'selected'; }?>>18px</option>
-                            	<option value="20px" <?php if($rs->fields['ref_ts_head1_size']=='20px'){ print 'selected'; }?>>20px</option>
-                            	<option value="24px" <?php if($rs->fields['ref_ts_head1_size']=='24px'){ print 'selected'; }?>>24px</option>
-                            	<option value="28px" <?php if($rs->fields['ref_ts_head1_size']=='28px'){ print 'selected'; }?>>28px</option>
-                            	<option value="32px" <?php if($rs->fields['ref_ts_head1_size']=='32px'){ print 'selected'; }?>>32px</option>
-                            	<option value="36px" <?php if($rs->fields['ref_ts_head1_size']=='36px'){ print 'selected'; }?>>36px</option>
-                            	<option value="42px" <?php if($rs->fields['ref_ts_head1_size']=='42px'){ print 'selected'; }?>>42px</option>
-                            	<option value="50px" <?php if($rs->fields['ref_ts_head1_size']=='50px'){ print 'selected'; }?>>50px</option>
-                            </select>
-                          	<input type="text" size="80" name="ref_ts_head2" value="<?php print $rs->fields['ref_ts_head2'];?>" maxlength="120" style="text-align:center;background-color:#CCCCCC" /><br />
-                            Font:<select name="ref_ts_head2_font">
-                            	<option value="Times New Roman" <?php if($rs->fields['ref_ts_head2_font']=='Times New Roman'){ print 'selected'; }?>>Times New Roman</option>
-                            	<option value="Arial" <?php if($rs->fields['ref_ts_head2_font']=='Arial'){ print 'selected'; }?>>Arial</option>
-                            	<option value="Verdana" <?php if($rs->fields['ref_ts_head2_font']=='Verdana'){ print 'selected'; }?>>Verdana</option>
-                            </select>&nbsp;&nbsp;
-                            Font Style:<select name="ref_ts_head2_fontstyle">
-                            	<option value="" <?php if($rs->fields['ref_ts_head2_fontstyle']==''){ print 'selected'; }?>>Normal</option>
-                            	<option value="italic" <?php if($rs->fields['ref_ts_head2_fontstyle']=='italic'){ print 'selected'; }?>>italic</option>
-                            </select>&nbsp;&nbsp;
-                            Font Size:<select name="ref_ts_head2_size">
-                            	<option value="16px" <?php if($rs->fields['ref_ts_head2_size']=='16px'){ print 'selected'; }?>>16px</option>
-                            	<option value="18px" <?php if($rs->fields['ref_ts_head2_size']=='18px'){ print 'selected'; }?>>18px</option>
-                            	<option value="20px" <?php if($rs->fields['ref_ts_head2_size']=='20px'){ print 'selected'; }?>>20px</option>
-                            	<option value="24px" <?php if($rs->fields['ref_ts_head2_size']=='24px'){ print 'selected'; }?>>24px</option>
-                            	<option value="28px" <?php if($rs->fields['ref_ts_head2_size']=='28px'){ print 'selected'; }?>>28px</option>
-                            	<option value="32px" <?php if($rs->fields['ref_ts_head2_size']=='32px'){ print 'selected'; }?>>32px</option>
-                            </select>
-                          	<input type="text" size="80" name="ref_ts_head3" value="<?php print $rs->fields['ref_ts_head3'];?>" maxlength="120" style="text-align:center;background-color:#CCCCCC" /><br />
-                            Font:<select name="ref_ts_head3_font">
-                            	<option value="Times New Roman" <?php if($rs->fields['ref_ts_head3_font']=='Times New Roman'){ print 'selected'; }?>>Times New Roman</option>
-                            	<option value="Arial" <?php if($rs->fields['ref_ts_head3_font']=='Arial'){ print 'selected'; }?>>Arial</option>
-                            	<option value="Verdana" <?php if($rs->fields['ref_ts_head3_font']=='Verdana'){ print 'selected'; }?>>Verdana</option>
-                            </select>&nbsp;&nbsp;
-                            Font Style:<select name="ref_ts_head3_fontstyle">
-                            	<option value="" <?php if($rs->fields['ref_ts_head3_fontstyle']==''){ print 'selected'; }?>>Normal</option>
-                            	<option value="italic" <?php if($rs->fields['ref_ts_head3_fontstyle']=='italic'){ print 'selected'; }?>>italic</option>
-                            </select>&nbsp;&nbsp;
-                            Font Size:<select name="ref_ts_head3_size">
-                            	<option value="16px" <?php if($rs->fields['ref_ts_head3_size']=='16px'){ print 'selected'; }?>>16px</option>
-                            	<option value="18px" <?php if($rs->fields['ref_ts_head3_size']=='18px'){ print 'selected'; }?>>18px</option>
-                            	<option value="20px" <?php if($rs->fields['ref_ts_head3_size']=='20px'){ print 'selected'; }?>>20px</option>
-                            	<option value="24px" <?php if($rs->fields['ref_ts_head3_size']=='24px'){ print 'selected'; }?>>24px</option>
-                            	<option value="28px" <?php if($rs->fields['ref_ts_head3_size']=='28px'){ print 'selected'; }?>>28px</option>
-                            	<option value="32px" <?php if($rs->fields['ref_ts_head3_size']=='32px'){ print 'selected'; }?>>32px</option>
-                            </select>
-                          </td>
-                    	</tr>
-                        <tr>
+						      <tr>
+                    <td width="100%" align="center">Masukkan maklumat bahagian atas sijil<br />
+                      <input type="text" size="80" name="ref_ts_head1" value="<?php print $rs->fields['ref_ts_head1'];?>" maxlength="120" style="text-align:center;background-color:#CCCCCC" /><br />
+                      Font:<select  name="ref_ts_head1_font">
+                        <option value="Times New Roman" <?php if($rs->fields['ref_ts_head1_font']=='Times New Roman'){ print 'selected'; }?>>Times New Roman</option>
+                        <option value="Arial" <?php if($rs->fields['ref_ts_head1_font']=='Arial'){ print 'selected'; }?>>Arial</option>
+                        <option value="Verdana" <?php if($rs->fields['ref_ts_head1_font']=='Verdana'){ print 'selected'; }?>>Verdana</option>
+                      </select>&nbsp;&nbsp;
+                      Font Style:<select name="ref_ts_head1_fontstyle">
+                        <option value="" <?php if($rs->fields['ref_ts_head1_fontstyle']==''){ print 'selected'; }?>>Normal</option>
+                        <option value="italic" <?php if($rs->fields['ref_ts_head1_fontstyle']=='italic'){ print 'selected'; }?>>italic</option>
+                      </select>&nbsp;&nbsp;
+                      Font Size:<select name="ref_ts_head1_size">
+                        <option value="16px" <?php if($rs->fields['ref_ts_head1_size']=='16px'){ print 'selected'; }?>>16px</option>
+                        <option value="18px" <?php if($rs->fields['ref_ts_head1_size']=='18px'){ print 'selected'; }?>>18px</option>
+                        <option value="20px" <?php if($rs->fields['ref_ts_head1_size']=='20px'){ print 'selected'; }?>>20px</option>
+                        <option value="24px" <?php if($rs->fields['ref_ts_head1_size']=='24px'){ print 'selected'; }?>>24px</option>
+                        <option value="28px" <?php if($rs->fields['ref_ts_head1_size']=='28px'){ print 'selected'; }?>>28px</option>
+                        <option value="32px" <?php if($rs->fields['ref_ts_head1_size']=='32px'){ print 'selected'; }?>>32px</option>
+                        <option value="36px" <?php if($rs->fields['ref_ts_head1_size']=='36px'){ print 'selected'; }?>>36px</option>
+                        <option value="42px" <?php if($rs->fields['ref_ts_head1_size']=='42px'){ print 'selected'; }?>>42px</option>
+                        <option value="50px" <?php if($rs->fields['ref_ts_head1_size']=='50px'){ print 'selected'; }?>>50px</option>
+                      </select>
+                      <input type="text" size="80" name="ref_ts_head2" value="<?php print $rs->fields['ref_ts_head2'];?>" maxlength="120" style="text-align:center;background-color:#CCCCCC" /><br />
+                      Font:<select name="ref_ts_head2_font">
+                        <option value="Times New Roman" <?php if($rs->fields['ref_ts_head2_font']=='Times New Roman'){ print 'selected'; }?>>Times New Roman</option>
+                        <option value="Arial" <?php if($rs->fields['ref_ts_head2_font']=='Arial'){ print 'selected'; }?>>Arial</option>
+                        <option value="Verdana" <?php if($rs->fields['ref_ts_head2_font']=='Verdana'){ print 'selected'; }?>>Verdana</option>
+                      </select>&nbsp;&nbsp;
+                      Font Style:<select name="ref_ts_head2_fontstyle">
+                        <option value="" <?php if($rs->fields['ref_ts_head2_fontstyle']==''){ print 'selected'; }?>>Normal</option>
+                        <option value="italic" <?php if($rs->fields['ref_ts_head2_fontstyle']=='italic'){ print 'selected'; }?>>italic</option>
+                      </select>&nbsp;&nbsp;
+                      Font Size:<select name="ref_ts_head2_size">
+                        <option value="16px" <?php if($rs->fields['ref_ts_head2_size']=='16px'){ print 'selected'; }?>>16px</option>
+                        <option value="18px" <?php if($rs->fields['ref_ts_head2_size']=='18px'){ print 'selected'; }?>>18px</option>
+                        <option value="20px" <?php if($rs->fields['ref_ts_head2_size']=='20px'){ print 'selected'; }?>>20px</option>
+                        <option value="24px" <?php if($rs->fields['ref_ts_head2_size']=='24px'){ print 'selected'; }?>>24px</option>
+                        <option value="28px" <?php if($rs->fields['ref_ts_head2_size']=='28px'){ print 'selected'; }?>>28px</option>
+                        <option value="32px" <?php if($rs->fields['ref_ts_head2_size']=='32px'){ print 'selected'; }?>>32px</option>
+                      </select>
+                      <input type="text" size="80" name="ref_ts_head3" value="<?php print $rs->fields['ref_ts_head3'];?>" maxlength="120" style="text-align:center;background-color:#CCCCCC" /><br />
+                      Font:<select name="ref_ts_head3_font">
+                        <option value="Times New Roman" <?php if($rs->fields['ref_ts_head3_font']=='Times New Roman'){ print 'selected'; }?>>Times New Roman</option>
+                        <option value="Arial" <?php if($rs->fields['ref_ts_head3_font']=='Arial'){ print 'selected'; }?>>Arial</option>
+                        <option value="Verdana" <?php if($rs->fields['ref_ts_head3_font']=='Verdana'){ print 'selected'; }?>>Verdana</option>
+                      </select>&nbsp;&nbsp;
+                      Font Style:<select name="ref_ts_head3_fontstyle">
+                        <option value="" <?php if($rs->fields['ref_ts_head3_fontstyle']==''){ print 'selected'; }?>>Normal</option>
+                        <option value="italic" <?php if($rs->fields['ref_ts_head3_fontstyle']=='italic'){ print 'selected'; }?>>italic</option>
+                      </select>&nbsp;&nbsp;
+                      Font Size:<select name="ref_ts_head3_size">
+                        <option value="16px" <?php if($rs->fields['ref_ts_head3_size']=='16px'){ print 'selected'; }?>>16px</option>
+                        <option value="18px" <?php if($rs->fields['ref_ts_head3_size']=='18px'){ print 'selected'; }?>>18px</option>
+                        <option value="20px" <?php if($rs->fields['ref_ts_head3_size']=='20px'){ print 'selected'; }?>>20px</option>
+                        <option value="24px" <?php if($rs->fields['ref_ts_head3_size']=='24px'){ print 'selected'; }?>>24px</option>
+                        <option value="28px" <?php if($rs->fields['ref_ts_head3_size']=='28px'){ print 'selected'; }?>>28px</option>
+                        <option value="32px" <?php if($rs->fields['ref_ts_head3_size']=='32px'){ print 'selected'; }?>>32px</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
 			                <td height="89" align="center">Dengan Ini Disahkan Bahawa<br />
                             Font:<select name="ref_ts_sah_font">
                             	<option value="Times New Roman" <?php if($rs->fields['ref_ts_sah_font']=='Times New Roman'){ print 'selected'; }?>>Times New Roman</option>
@@ -309,7 +314,7 @@ if(!empty($id)){
                             	<option value="42px" <?php if($rs->fields['ref_ts_sah_size']=='42px'){ print 'selected'; }?>>42px</option>
                             	<option value="50px" <?php if($rs->fields['ref_ts_sah_size']=='50px'){ print 'selected'; }?>>50px</option>
                             </select>
-						</tr>
+						      </tr>
                         <tr>
 			                <td height="67" align="center"><b>ALIMAN BIN ABDUL HASSAN</b><br />
 			                  Font:

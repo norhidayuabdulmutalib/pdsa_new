@@ -44,83 +44,92 @@ if(!empty($id_kur_det)){
 	$rs_det = &$conn->Execute($sql_det);
 }
 ?>
+
 <form name="ilim" method="post" enctype="multipart/form-data">
-<table width="100%" align="center" cellpadding="0" cellspacing="0" border="1">
-    <tr>
-    	<td colspan="2" class="table-header" height="25">SELENGGARA MAKLUMAT TAMBAHAN BAGI KURSUS</td>
-    </tr>
-	<tr><td colspan="2">
-    	<table width="90%" cellpadding="4" cellspacing="0" border="0" align="center">
-        	<tr>
-            	<td width="25%" align="right"><b>Kursus</b></td>
-            	<td width="1%" align="center"><b> : </b></td>
-				<td width="74%" align="left"><?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></td>                
-            </tr>
-        	<tr>
-            	<td align="right"><b>Kategori</b></td>
-            	<td align="center"><b> : </b></td>
-				<td align="left"><?php print $rs->fields['categorytype'];?></td>                
-            </tr>
-        	<tr>
-            	<td align="right"><b>Pusat</b></td>
-            	<td align="center"><b> : </b></td>
-				<td align="left"><?php print $rs->fields['SubCategoryNm'];?></td>                
-            </tr>
-        	<tr>
-            	<td align="right"><b>Jenis Maklumat</b></td>
-            	<td align="center"><b> : </b></td>
-				<td align="left">
-					<select name="jenis">
-                    	<option value="">Sila pilih</option>
-                    	<option value="File" <?php if($rs_det->fields['jenis']=='File'){ print 'selected'; }?>> Modul </option>
-                    	<!--<option value="Tool" <?php if($rs_det->fields['jenis']=='Tool'){ print 'selected'; }?>> Modul  </option>-->
-                    	<option value="Nota" <?php if($rs_det->fields['jenis']=='Nota'){ print 'selected'; }?>> Nota Kursus </option>
-                    </select>
-                </td>                
-            </tr>
-        	<tr>
-            	<td align="right"><b>Maklumat</b></td>
-            	<td align="center"><b> : </b></td>
-				<td align="left"><input type="text" size="80" name="maklumat" value="<?php print $rs_det->fields['maklumat'];?>" /></td>                
-            </tr>
-			<tr>
-              	<td valign="top" align="right"><b>Muatnaik Maklumat</b></td>
-            	<td align="center" valign="top"><b> : </b></td>
-            	<td><input type="hidden" name="MAX_FILE_SIZE" value="20000000">
-                <input type="hidden" name="action1" value="1">
-                <input type="file" name="file1" size="50">
-                <br />
-                <!--<input type="radio" name="img_baru" value="Y" />Muatnaik Dokumen &nbsp;&nbsp;&nbsp;
-                <input type="radio" name="img_baru" value="N" checked="checked" />Kekalkan Dokumen                
-                <br />-->
-                <?php if(!empty($rs_det->fields['file_name'])){ ?>
-                --> <?php print $rs_det->fields['file_name'];?>
-                <?php } ?>
-                </td>
-            </tr>
-        	<tr>
-            	<td align="right"><b>Status</b></td>
-            	<td align="center"><b> : </b></td>
-				<td align="left">
-                	<select name="status">
-                    	<option value="1"<?php if($rs_det->fields['status']=='1'){ print 'selected'; }?>>Aktif</option>
-                    	<option value="0"<?php if($rs_det->fields['status']=='0'){ print 'selected'; }?>>Tidak Aktif</option>
-                    </select>
-                </td>                
-            </tr>
-            <tr>
-                <td colspan="3" align="center"><hr />
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <input type="button" value="Tutup" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >
-                    <input type="hidden" name="id" value="<?=$id?>" />
-                    <input type="hidden" name="id_kur_det" value="<?=$id_kur_det?>" />
-                    <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
-                </td>
-            </tr>
-		</table>
-	</td></tr>
-</table>
+	<div class="card">
+	<div class="card-header" >
+		<h4>SELENGGARA MAKLUMAT TAMBAHAN BAGI KURSUS</h4>
+	</div>
+		<div class="card-body">
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kursus :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?>               
+				</div>
+			</div>
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<?php print $rs->fields['categorytype'];?>         
+				</div>
+			</div>
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<?php print $rs->fields['SubCategoryNm'];?>           
+				</div>
+			</div>
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Jenis Maklumat :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<select class="form-control" name="jenis">
+						<option value="">Sila pilih</option>
+						<option value="File" <?php if($rs_det->fields['jenis']=='File'){ print 'selected'; }?>> Modul </option>
+						<!--<option value="Tool" <?php if($rs_det->fields['jenis']=='Tool'){ print 'selected'; }?>> Modul  </option>-->
+						<option value="Nota" <?php if($rs_det->fields['jenis']=='Nota'){ print 'selected'; }?>> Nota Kursus </option>
+					</select>
+				</div>
+			</div>             
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Maklumat :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<input class="form-control" type="text" name="maklumat" value="<?php print $rs_det->fields['maklumat'];?>" />              
+				</div>
+			</div>
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Muatnaik Maklumat :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<input type="hidden" name="MAX_FILE_SIZE" value="20000000">
+					<input type="hidden" name="action1" value="1">
+					<input type="file" name="file1" size="50">
+					<br />
+					<!--<input type="radio" name="img_baru" value="Y" />Muatnaik Dokumen &nbsp;&nbsp;&nbsp;
+					<input type="radio" name="img_baru" value="N" checked="checked" />Kekalkan Dokumen                
+					<br />-->
+					<?php if(!empty($rs_det->fields['file_name'])){ ?>
+					--> <?php print $rs_det->fields['file_name'];?>
+					<?php } ?>
+				</div>
+			</div>
+
+			<div class="form-group row mb-4">
+				<label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Status :</b></label>
+				<div class="col-sm-12 col-md-7">
+					<select class="form-control" name="status">
+						<option value="1"<?php if($rs_det->fields['status']=='1'){ print 'selected'; }?>>Aktif</option>
+						<option value="0"<?php if($rs_det->fields['status']=='0'){ print 'selected'; }?>>Tidak Aktif</option>
+					</select>
+				</div>               
+			</div>
+			<div>
+				<div colspan="3" align="center">
+					<button class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" ><i class="far fa-save"></i><b> Simpan</b></button>
+					<button class="btn btn-secondary" value="Tutup" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >
+					<input type="hidden" name="id" value="<?=$id?>" /><b>Kembali</b></button>
+					<input type="hidden" name="id_kur_det" value="<?=$id_kur_det?>" />
+					<input type="hidden" name="PageNo" value="<?=$PageNo?>" />
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
+
 </body>
 </html>
 <script language="javascript">

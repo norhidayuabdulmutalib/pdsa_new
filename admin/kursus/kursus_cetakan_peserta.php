@@ -59,96 +59,135 @@ $jum_peserta = $rs_det->recordcount();
 $bils=0;
 $kampus_id = $rs->fields['kampus_id'];
 ?>
-<form name="ilim" method="post" action="">
-<table width="100%" align="center" cellpadding="4" cellspacing="0" border="1">
-    <tr><td colspan="3">
-        <table width="96%" cellpadding="4" cellspacing="0" border="0" align="center">
-	        <tr>
-                <td width="20%" align="right"><b>Kursus</b></td>
-                <td width="1%" align="center"><b> : </b></td>
-                <td width="74%" align="left" colspan="2"><?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></td>
-                <td width="5%" rowspan="4" align="center" valign="top">
-                	<input type="button" name="tutup" value="Cetak Sijil" style="cursor:pointer" 
-                    onclick="open_cetak('kursus/kursus_cetakan_sijil.php?id=<?=$id;?>&idpeserta=','Cetak Sijil',1,1)" /><br><br>
-                	<input type="button" name="tutup" value="Tutup" style="cursor:pointer" onclick="close_paparan()" />
-                </td>
-            </tr>
-            <tr>
-                <td align="right"><b>Kategori</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left" colspan="2"><?php print $rs->fields['categorytype'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Pusat</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left" colspan="2"><?php print dlookup("_tbl_kursus_catsub","SubCategoryDesc","id=".tosql($rs->fields['CID']));
-				//pusat_list($rs->fields['CID']); //$rs->fields['SubCategoryNm'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Tarikh Kursus</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left" width="35%"><?php print DisplayDate($rs->fields['startdate']);?> - <?php print DisplayDate($rs->fields['enddate']);?></td>                
-                <td align="left" width="39%"><b>Template : </b>
-                	<?php $sqlsijil = "SELECT * FROM _ref_template_sijil WHERE ref_ts_status=0 AND ref_ts_delete=0"; //$conn->debug=true;
-					$sqlsijil .= " AND kampus_id='{$kampus_id}' ";
-					$rstsijil = &$conn->Execute($sqlsijil); $bil=0;
-					?>
-                	<select name="tsijil">
-                	  <option value="">Sila pilih</option>
-                	  <?php while(!$rstsijil->EOF){ $bil++; ?>
-                	  <?php if(empty($rstsijil->fields['ref_tajuk_sijil'])){ ?>
-                	  <option value="<?php print $rstsijil->fields['ref_ts_id'];?>">Template : <?php print $bil;?></option>
-                	  <?php } else { ?>
-                	  <option value="<?php print $rstsijil->fields['ref_ts_id'];?>"><?php print $rstsijil->fields['ref_tajuk_sijil'];?></option>
-                	  <?php } ?>
-                	  <?php $rstsijil->movenext(); }?>
-              	  </select>
-                	<input type="button" value="Papar" style="cursor:pointer" onclick="do_papar('kursus/ref_template_sijil_form1.php?id=<?=$id;?>&forms=cetak')" />
-                </td>                
-           </tr>
-			<tr>
-                <td align="right"><b>Jumlah Peserta</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left" width="35%" colspan="2"><?php print $jum_peserta;?> Orang Peserta               
-                <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Peserta Hadir : </b>
-				<?php print dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAccepted= 1 AND EventId=".tosql($id));?> Orang Peserta-->
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <b>Cetakan Sijil : </b>
-				<?php print dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAccepted= 1 AND is_sijil=1 AND EventId=".tosql($id));?> Orang Peserta
-                </td>
-            </tr>
-        </table>
-    </td>
-	<tr><td colspan="3">
-        <table width="96%" cellpadding="4" cellspacing="0" border="1" align="center">
 
-            <tr bgcolor="#CCCCCC"><td colspan="5"><b>Senarai peserta bagi kursus : <?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></b></td></tr>
-            <tr bgcolor="#CCCCCC">
-                <td width="5%" align="center"><b>Bil</b></td>
-                <td width="40%" align="center"><b>Nama Peserta</b></td>
-                <td width="40%" align="center"><b>Agensi/Jabatan/Unit</b></td>
-                <td width="10%" align="center"><b>Pilih untuk cetakan</b><br />
-                	<input type="checkbox" onclick="upd_sijil('<?=$id;?>','ALL')" style="cursor:pointer" 
-                    title="Sila klik untuk menandakan semua peserta untuk proses cetakan" />
-                </td>
-                <td width="5%" align="center"><b>Cetak Sijil</b></td>
-            </tr>
-            <?php while(!$rs_det->EOF){ $bils++; ?>
-            <tr>
-                <td align="right"><?php print $bils;?>.&nbsp;</td>
-                <td align="left"><?php print $rs_det->fields['f_peserta_nama'];?>&nbsp;</td>
-                <td align="left"><?php print dlookup("_ref_tempatbertugas","f_tempat_nama","f_tbcode=".tosql($rs_det->fields['BranchCd']));?>&nbsp;</td>
-				<td align="center"><input type="checkbox" name="chk_cetak"<?php if($rs_det->fields['is_sijil']){ print 'checked="checked"'; }?> 
-                	onclick="upd_sijil('<?=$rs_det->fields['InternalStudentId'];?>','<?=$rs_det->fields['is_sijil'];?>')" style="cursor:pointer"/></td> 
-                <td align="center">
-                	<?php if($rs_det->fields['is_sijil']==0){ $disp = 'display:none'; } else { $disp=''; }?>
-                    <img id="print" src="../images/printicon.gif" border="0" style="cursor:pointer;<?=$disp;?>" width="30" height="25" 
-                    onclick="open_cetak('kursus/kursus_cetakan_sijil.php?id=<?=$id;?>&idpeserta=<?=$rs_det->fields['InternalStudentId'];?>','',1,1)" />
-                &nbsp;</td>
-            </tr>
-            <?php $rs_det->movenext(); } ?>
-        </table>
-    </td></tr>
-</table>
-</form>
+<section class="section">
+    <div class="card">
+        <div class="card-header" >
+            <!-- <h4>Carian Maklumat Kursus</h4> -->
+        </div>
+        <div class="card-body">
+
+            <div class="form-group row mb-4">   
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kursus : </b></label>
+                <div class="col-sm-12 col-md-7">
+                    <?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?>
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">   
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori : </b></label>
+                <div class="col-sm-12 col-md-7">
+                    <?php print $rs->fields['categorytype'];?>
+                </div>                
+            </div>
+
+            <div class="form-group row mb-4">   
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat : </b></label>
+                <div class="col-sm-12 col-md-7">
+                    <?php print dlookup("_tbl_kursus_catsub","SubCategoryDesc","id=".tosql($rs->fields['CID']));
+                    //pusat_list($rs->fields['CID']); //$rs->fields['SubCategoryNm'];?>
+                </div>                
+            </div>
+
+            <div class="form-group row mb-4">   
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kursus : </b></label>
+                <div class="col-sm-12 col-md-7">
+                    <?php echo date('d-m-Y', strtotime($rs->fields['startdate'])) ?> - <?php echo date('d-m-Y', strtotime($rs->fields['enddate'])) ?>
+                        <!-- <?php// print DisplayDate($rs->fields['startdate']);?> - <?php //print DisplayDate($rs->fields['enddate']);?></td>     -->
+                </div>
+            </div>
+
+            <div class="form-group row mb-4">   
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Template : </b></label>
+                <div class="col-sm-12 col-md-7">
+                    <?php $sqlsijil = "SELECT * FROM _ref_template_sijil WHERE ref_ts_status=0 AND ref_ts_delete=0"; //$conn->debug=true;
+                    $sqlsijil .= " AND kampus_id='{$kampus_id}' ";
+                    $rstsijil = &$conn->Execute($sqlsijil); $bil=0;
+                    ?>
+                    <select class="form-control" name="tsijil">
+                        <option value="">Sila pilih</option>
+                        <?php while(!$rstsijil->EOF){ $bil++; ?>
+                        <?php if(empty($rstsijil->fields['ref_tajuk_sijil'])){ ?>
+                            <option value="<?php print $rstsijil->fields['ref_ts_id'];?>">Template : <?php print $bil;?></option>
+                        <?php } else { ?>
+                            <option value="<?php print $rstsijil->fields['ref_ts_id'];?>"><?php print $rstsijil->fields['ref_tajuk_sijil'];?></option>
+                        <?php } ?>
+                        <?php $rstsijil->movenext(); }?>
+                    </select>
+                    <div class="col-sm-12 col-md-2">
+                        <input type="button" class="btn btn-warning" value="Papar" style="cursor:pointer" onclick="do_papar('kursus/ref_template_sijil_form1.php?id=<?=$id;?>&forms=cetak')" />
+                    </div>
+                </div>               
+            </div>
+
+            <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Jumlah Peserta :</b></label>
+                <div class="col-sm-12 col-md-4">
+                    <?php print $jum_peserta;?> Orang Peserta               
+                    <!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <b>Peserta Hadir : </b>
+                    <?php //print dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAccepted= 1 AND EventId=".tosql($id));?> Orang Peserta-->
+                </div>
+                <div class="col-sm-12 col-md-5">
+                    <b>Cetakan Sijil : </b>
+                    <?php print dlookup("_tbl_kursus_jadual_peserta","count(*)","InternalStudentAccepted= 1 AND is_sijil=1 AND EventId=".tosql($id));?> Orang Peserta
+                </div>
+            </div>
+            
+            <div class="form-group row mb-4" style="float:right">
+                <div>
+                    <input type="button" class="btn btn-info" name="tutup" value="Cetak Sijil" style="cursor:pointer" 
+                    onclick="open_cetak('kursus/kursus_cetakan_sijil.php?id=<?=$id;?>&idpeserta=','Cetak Sijil',1,1)" />
+                    <input type="button" class="btn btn-secondary"  name="tutup" value="Tutup" style="cursor:pointer" onclick="close_paparan()" />
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"><b>Senarai peserta bagi kursus : <?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></b></th>
+                                </tr>
+                                <tr>
+                                    <th width="5%" align="center"><b>Bil</b></th>
+                                    <th width="40%" align="center"><b>Nama Peserta</b></th>
+                                    <th width="40%" align="center"><b>Agensi/Jabatan/Unit</b></th>
+                                    <th width="10%" align="center"><b>Pilih untuk cetakan</b><br />
+                                        <input type="checkbox" onclick="upd_sijil('<?=$id;?>','ALL')" style="cursor:pointer" 
+                                        title="Sila klik untuk menandakan semua peserta untuk proses cetakan" />
+                                    </th>
+                                    <th width="5%" align="center"><b>Cetak Sijil</b></th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                    <?php while(!$rs_det->EOF){ $bils++; ?>
+                                    <tr>
+                                        <td align="right"><?php print $bils;?>.&nbsp;</td>
+                                        <td align="left"><?php print $rs_det->fields['f_peserta_nama'];?>&nbsp;</td>
+                                        <td align="left"><?php print dlookup("_ref_tempatbertugas","f_tempat_nama","f_tbcode=".tosql($rs_det->fields['BranchCd']));?>&nbsp;</td>
+                                        <td align="center"><input type="checkbox" name="chk_cetak"<?php if($rs_det->fields['is_sijil']){ print 'checked="checked"'; }?> 
+                                            onclick="upd_sijil('<?=$rs_det->fields['InternalStudentId'];?>','<?=$rs_det->fields['is_sijil'];?>')" style="cursor:pointer"/></td> 
+                                        <td align="center">
+                                            <?php if($rs_det->fields['is_sijil']==0){ $disp = 'display:none'; } else { $disp=''; }?>
+                                            <img id="print" src="../images/printicon.gif" border="0" style="cursor:pointer;<?=$disp;?>" width="30" height="25" 
+                                            onclick="open_cetak('kursus/kursus_cetakan_sijil.php?id=<?=$id;?>&idpeserta=<?=$rs_det->fields['InternalStudentId'];?>','',1,1)" />
+                                        &nbsp;</td>
+                                    </tr>
+                                    <?php $rs_det->movenext(); } ?>
+                                </tbody>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

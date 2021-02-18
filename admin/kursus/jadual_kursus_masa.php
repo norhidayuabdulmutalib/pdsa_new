@@ -268,6 +268,7 @@ if(!empty($id)){
 	$kampus_id=isset($_REQUEST["kampus_id"])?$_REQUEST["kampus_id"]:"";
 }
 ?>
+
 <form name="ilim" method="post">
 <table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
     <?php if(!empty($msg)){ ?>
@@ -275,33 +276,36 @@ if(!empty($id)){
         <td width="100%" align="center" colspan="3"><b><i><font color="#FF0000"><?php //print $msg;?></font></i></b></td>
     </tr>
     <?php } ?>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Pusat Latihan @ Tempat Kursus : </b></td> 
-        <td align="left" colspan="2" ><font color="#0033FF" style="font-weight:bold">
-        	<?php print dlookup("_ref_kampus","kampus_nama","kampus_id=".tosql($kampus_id)); ?></font>
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Pusat Latihan @ Tempat Kursus : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <font color="#0033FF" style="font-weight:bold">
+            <?php print dlookup("_ref_kampus","kampus_nama","kampus_id=".tosql($kampus_id)); ?></font>
             <input type="hidden" name="kampus_id" value="<?=$kampus_id;?>" />
-		</td>
-    </tr>
+        </div>
+    </div>
     <!--<tr>
         <td align="right"><b><font color="#FF0000">*</font> Bidang : </b></td> 
         <td align="left" colspan="2" ><font color="#0033FF" style="font-weight:bold">
-        	<?php print dlookup("_ref_kepakaran","f_pakar_nama","f_pakar_code=".tosql($rs->fields['bidang_id'])); ?></font>
+        	<?php //print dlookup("_ref_kepakaran","f_pakar_nama","f_pakar_code=".tosql($rs->fields['bidang_id'])); ?></font>
 		</td>
     </tr>-->
+
     <?php $sqlkk = "SELECT * FROM _tbl_kursus_cat WHERE is_deleted=0 ORDER BY category_code";
         $rskk = &$conn->Execute($sqlkk);
     ?>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Kategori Kursus : </b></td> 
-        <td align="left" colspan="2" >
-            <select name="kategori" onchange="query_data('include/get_kursus_catsub.php')">
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Kategori Kursus : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <select class="form-control" name="kategori" onchange="query_data('include/get_kursus_catsub.php')">
                 <option value="">-- Sila pilih kategori --</option>
                 <?php while(!$rskk->EOF){ ?>
                 <option value="<?php print $rskk->fields['id'];?>" <?php if($rs->fields['category_code']==$rskk->fields['id']){ print 'selected'; }?>><?php print $rskk->fields['categorytype'];?></option>
                 <?php $rskk->movenext(); } ?>
             </select>
-        </td>
-    </tr>
+        </div>
+    </div>
+    
     <?php 
         $sqlkks = "SELECT * FROM _tbl_kursus_catsub WHERE is_deleted=0 AND f_status=0 ";
         if(!empty($rs->fields['category_code'])){ $sqlkks .= " AND f_category_code=".tosql($rs->fields['category_code'],"Number"); }
@@ -310,18 +314,19 @@ if(!empty($id)){
         $sqlkks .= " ORDER BY SubCategoryNm";
         $rskks = $conn->query($sqlkks);
     ?>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Pusat / Unit : </b></td> 
-        <td align="left" colspan="2" >
-            <select name="subkategori"  onchange="query_subjek('include/get_subjek.php')">
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Pusat / Unit : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <select class="form-control" name="subkategori"  onchange="query_subjek('include/get_subjek.php')">
                 <option value="">-- Sila pilih pusat / unit --</option>
                 <?php while(!$rskks->EOF){ ?>
                 <option value="<?php print $rskks->fields['id'];?>" <?php if($rs->fields['subcategory_code']==$rskks->fields['id']){ 
 				print 'selected'; }?>><?php print $rskks->fields['SubCategoryNm'] ." - ".$rskks->fields['SubCategoryDesc'];?></option>
                 <?php $rskks->movenext(); } ?>
             </select>
-        </td>
-    </tr>
+        </div>
+    </div>
+
     <?php 
         $sqlkks = "SELECT A.id, A.courseid, A.coursename FROM _tbl_kursus A, _tbl_kursus_catsub B WHERE A.is_deleted=0 "; //subcategory_code
 		$sqlkks .= " AND A.subcategory_code=B.id AND B.f_status=0 ";
@@ -333,151 +338,162 @@ if(!empty($id)){
 		//$conn->debug=true;
         $rskks = $conn->query($sqlkks);
     ?>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Subjek : </b></td> 
-        <td align="left" colspan="2" >
-            <select name="subjek" onchange="query_data('include/get_kursus.php')">
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Subjek : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <select class="form-control" name="subjek" onchange="query_data('include/get_kursus.php')">
                 <option value="">-- Sila pilih sub-kategori --</option>
                 <?php while(!$rskks->EOF){ ?>
                 <option value="<?php print $rskks->fields['id'];?>" <?php if($rs->fields['courseid']==$rskks->fields['courseid']){ print 'selected'; }?>
                 ><?php print $rskks->fields['courseid'] . " - " . $rskks->fields['coursename'];?></option>
                 <?php $rskks->movenext(); } ?>
             </select>
-        </td>
-	</tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> No. Rujukan Surat : </b></td>
-      	<td align="left" colspan="2">
-            <input type="text" size="30" name="no_rujukan_surat"  value="<?php print $rs->fields['no_rujukan_surat'];?>" maxlength="30"/>
+        </div>
+	</div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>No. Rujukan Surat : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <input class="form-control" type="text" size="30" name="no_rujukan_surat"  value="<?php print $rs->fields['no_rujukan_surat'];?>" maxlength="30"/>
             &nbsp;&nbsp;<i>Cth: JAKIM(19.00)/12/700-1/1-2( )</i>
-        </td>
-    </tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Kos Kursus @ Kos Makan/Minum (RM) : </b></td>
-      	<td align="left" colspan="2"><input type="text" size="20" name="jumkos"  value="<?php print $rs->fields['jumkos'];?>"/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <font color="#FF0000"><b>Kos Sebenar Kursus (RM) : </b><?php print number_format($rs->fields['jumkos_sebenar'],2);?></font>
-        </td>
-    </tr>
-    <tr>
-        <td align="right"><b>Kos Penceramah - <i>Anggaran</i> (RM) : </b></td>
-      	<td align="left" colspan="2"><input type="text" size="20" name="jumkceramah"  value="<?php print $rs->fields['jumkceramah'];?>"/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <font color="#FF0000"><b>Kos Sebenar Penceramah (RM) : </b><?php print number_format($rs->fields['jumkceramah_sebenar'],2);?></font>
-        </td>
-    </tr>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Kos Kursus @ Kos Makan/Minum (RM) : </b></label>
+        <div class="col-sm-12 col-md-7">
+      	    <input class="form-control" type="text" size="20" name="jumkos"  value="<?php print $rs->fields['jumkos'];?>"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <font color="#FF0000"><b>Kos Sebenar Kursus (RM) : </b><?php print number_format($rs->fields['jumkos_sebenar'],2);?></font>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kos Penceramah - <i>Anggaran</i> (RM) : </b></label>
+        <div class="col-sm-12 col-md-7">
+      	    <input class="form-control" type="text" size="20" name="jumkceramah"  value="<?php print $rs->fields['jumkceramah'];?>"/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <font color="#FF0000"><b>Kos Sebenar Penceramah (RM) : </b><?php print number_format($rs->fields['jumkceramah_sebenar'],2);?></font>
+        </div>
+    </div>
     <!--<tr>
         <td align="right"><b>Kos Sebenar Kursus @ Kos Makan/Minum (RM) : </b></td>
-      	<td align="left" colspan="2"><?php print number_format($rs->fields['jumkos_sebenar'],2);?></td>
+      	<td align="left" colspan="2"><?php// print number_format($rs->fields['jumkos_sebenar'],2);?></td>
     </tr>
     <tr>
         <td align="right"><b>Kos Sebenar Penceramah (RM) : </b></td>
-      	<td align="left" colspan="2"><?php print number_format($rs->fields['jumkceramah_sebenar'],2);?></td>
+      	<td align="left" colspan="2"><?php //print number_format($rs->fields['jumkceramah_sebenar'],2);?></td>
     </tr>-->
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Tarikh Kursus : </b></td> 
-        <td align="left">
-            Mula : 
-            <input type="text" size="13" name="tkh_mula" value="<?php echo DisplayDate($rs->fields['startdate']);?>">
-            <img src="../cal/img/screenshot.gif" alt="" width="21" height="22" align="absmiddle" style="cursor:pointer" 
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Tarikh Mula Kursus : </b></label>
+        <div class="col-sm-8 col-md-3">
+            <input class="form-control" type="date" width="40%" name="tkh_mula" value="<?php echo $tkh_mula;?>">
+            <alt="" width="18" height="18" align="absmiddle" style="cursor:pointer" 
                 onclick="displayCalendar(document.forms[0].tkh_mula,'dd/mm/yyyy',this)"/> 
-            &nbsp;&nbsp;&nbsp;Tamat : 
-            <input type="text" size="13" name="tkh_tamat" value="<?php echo DisplayDate($rs->fields['enddate']);?>">
-            <img src="../cal/img/screenshot.gif" alt="" width="21" height="22" align="absmiddle" style="cursor:pointer" 
-                onclick="displayCalendar(document.forms[0].tkh_tamat,'dd/mm/yyyy',this)"/> [dd/mm/yyyy]
-                
-           <input type="hidden" size="13" name="tkh_mula_hidden" value="<?php echo DisplayDate($rs->fields['startdate']);?>">
-           <input type="hidden" size="13" name="tkh_tamat_hidden" value="<?php echo DisplayDate($rs->fields['enddate']);?>">
-        </td>
-    </tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Masa Kursus : </b></td> 
-        <td align="left">
-            Mula:
-            <select name="ddStHour">
-            <option value="00">Jam</option>
-            <?php
-			$mula = explode(":",$rs->fields['timestart']);
-			$varStHour = $mula[0];
-			$varStMinute = $mula[1];
-            $var_i=0;
-            $var_j=0;
-            for($var_i==0;$var_i<=23;$var_i++)
-            {
-				if($var_i<10){ $dvar_i = "0".$var_i; } else { $dvar_i = $var_i; }
-                if($varStHour==$dvar_i)									
-                    echo "<option value=\"".$dvar_i."\" selected>".$dvar_i."</option>";
-                else
-                    echo "<option value=\"".$dvar_i."\">".$dvar_i."</option>";
-            }
-            ?>
+        </div>
+
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-2"><b><font color="#FF0000">*</font>Tarikh Tamat Kursus : </b></label>
+		<div class="col-sm-8 col-md-3">
+            <input class="form-control" type="date" width="40%" name="tkh_tamat" value="<?php echo $tkh_tamat;?>">
+            <alt="" width="18" height="18" align="absmiddle" style="cursor:pointer" 
+                onclick="displayCalendar(document.forms[0].tkh_tamat,'dd/mm/yyyy',this)"/>
+        </div>
+    </div>    
+        <input type="hidden" size="13" name="tkh_mula_hidden" value="<?php echo date(($rs->fields['startdate']));?>">
+        <input type="hidden" size="13" name="tkh_tamat_hidden" value="<?php echo date(($rs->fields['enddate']));?>">
+        
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-5 col-lg-3"><b>Masa Mula Kursus : </b></label>
+        <div class="col-sm-12 col-md-1">
+            <select class="form-control" name="ddStHour">
+                <option value="00">Jam</option>
+                    <?php
+                    $mula = explode(":",$rs->fields['timestart']);
+                    $varStHour = $mula[0];
+                    $varStMinute = $mula[1];
+                    $var_i=0;
+                    $var_j=0;
+                    for($var_i==0;$var_i<=23;$var_i++)
+                    {
+                        if($var_i<10){ $dvar_i = "0".$var_i; } else { $dvar_i = $var_i; }
+                        if($varStHour==$dvar_i)									
+                            echo "<option value=\"".$dvar_i."\" selected>".$dvar_i."</option>";
+                        else
+                            echo "<option value=\"".$dvar_i."\">".$dvar_i."</option>";
+                    }
+                    ?>
             </select>
-            &nbsp;&nbsp;
-            <select name="ddStMinute">
-            <option value="00">Minit</option>
-            <?php
-            for($var_j==15;$var_j<=59;$var_j=$var_j+15)
-            {
-				if($var_j<10){ $dvar_j = "0".$var_j; } else { $dvar_j = $var_j; }
-                if($varStMinute==$dvar_j)									
-                    echo "<option value=\"".$dvar_j."\" selected>".$dvar_j."</option>";
-                else
-                    echo "<option value=\"".$dvar_j."\">".$dvar_j."</option>";
-            }
-            ?>
+        </div>
+        <div class="col-sm-12 col-md-1">
+            <select class="form-control" name="ddStMinute">
+                <option value="00">Minit</option>
+                <?php
+                for($var_j==15;$var_j<=59;$var_j=$var_j+15)
+                {
+                    if($var_j<10){ $dvar_j = "0".$var_j; } else { $dvar_j = $var_j; }
+                    if($varStMinute==$dvar_j)									
+                        echo "<option value=\"".$dvar_j."\" selected>".$dvar_j."</option>";
+                    else
+                        echo "<option value=\"".$dvar_j."\">".$dvar_j."</option>";
+                }
+                ?>
             </select> 
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Tamat :
-            
-            <select name="ddEndHour">
-            <option value="00">Jam</option>
-            <?php
-			$tamat = explode(":",$rs->fields['timeend']);
-			$varEndHour = $tamat[0];
-			$varEndMinute = $tamat[1];
-            $var_k=0;
-            $var_l=0;
-            for($var_k==0;$var_k<=23;$var_k++)
-            {
-				if($var_k<10){ $dvar_k = "0".$var_k; } else { $dvar_k = $var_k; }
-                if($varEndHour==$dvar_k)									
-                    echo "<option value=\"".$dvar_k."\" selected>".$dvar_k."</option>";
-                else
-                    echo "<option value=\"".$dvar_k."\">".$dvar_k."</option>";
-            }
-            ?>
+        </div>
+        <label class="col-form-label text-md-right col-12 col-md-5 col-lg-2"><b>Masa Tamat Kursus : </b></label>
+        <div class="col-sm-12 col-md-1">
+            <select class="form-control" name="ddEndHour">
+                <option value="00">Jam</option>
+                <?php
+                $tamat = explode(":",$rs->fields['timeend']);
+                $varEndHour = $tamat[0];
+                $varEndMinute = $tamat[1];
+                $var_k=0;
+                $var_l=0;
+                for($var_k==0;$var_k<=23;$var_k++)
+                {
+                    if($var_k<10){ $dvar_k = "0".$var_k; } else { $dvar_k = $var_k; }
+                    if($varEndHour==$dvar_k)									
+                        echo "<option value=\"".$dvar_k."\" selected>".$dvar_k."</option>";
+                    else
+                        echo "<option value=\"".$dvar_k."\">".$dvar_k."</option>";
+                }
+                ?>
             </select>
-            &nbsp;&nbsp;
-            <select name="ddEndMinute">
-            <option value="00">Minit</option>
-            <?php
-            for($var_l==0;$var_l<=59;$var_l=$var_l+15)
-            {
-				if($var_l<10){ $dvar_l = "0".$var_l; } else { $dvar_l = $var_l; }
-                if($varEndMinute==$dvar_l)									
-                    echo "<option value=\"".$dvar_l."\" selected>".$dvar_l."</option>";
-                else
-                    echo "<option value=\"".$dvar_l."\">".$dvar_l."</option>";
-            }
-            ?>
+        </div>
+        <div class="col-sm-12 col-md-1">
+            <select class="form-control"name="ddEndMinute">
+                <option value="00">Minit</option>
+                <?php
+                for($var_l==0;$var_l<=59;$var_l=$var_l+15)
+                {
+                    if($var_l<10){ $dvar_l = "0".$var_l; } else { $dvar_l = $var_l; }
+                    if($varEndMinute==$dvar_l)									
+                        echo "<option value=\"".$dvar_l."\" selected>".$dvar_l."</option>";
+                    else
+                        echo "<option value=\"".$dvar_l."\">".$dvar_l."</option>";
+                }
+                ?>
             </select>
-         </td>
-    </tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Masa Pendaftaran : </b></td> 
-        <td align="left">
-        	<input type="text" size="25" name="txt_daftar" value="<?php print $rs->fields['masa_daftar'];?>" /> <i>Cth: 08:00 - :08:30 pagi</i>
-        </td>
-    </tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Masa Taklimat : </b></td> 
-        <td align="left">
-        	<input type="text" size="25" name="txt_taklimat" value="<?php print $rs->fields['masa_taklimat'];?>" /> <i>Cth: 08:30 pagi</i>
-        </td>
-    </tr>
+        </div>
+    </div>
+    
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Masa Pendaftaran : </b></label>
+        <div class="col-sm-12 col-md-7">
+        	<input class="form-control" type="text" size="25" name="txt_daftar" value="<?php print $rs->fields['masa_daftar'];?>" /> <i>Cth: 08:00 - :08:30 pagi</i>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Masa Taklimat : </b></label>
+        <div class="col-sm-12 col-md-7">
+        	<input class="form-control" type="text" size="25" name="txt_taklimat" value="<?php print $rs->fields['masa_taklimat'];?>" /> <i>Cth: 08:30 pagi</i>
+        </div>
+    </div>
    <!-- <tr>
         <td align="right"><b>Tempat : </b></td>
-        <td align="left" colspan="2"><input type="text" size="70" name="tempat"  value="<?php print $rs->fields['class'];?>"/></td>
+        <td align="left" colspan="2"><input type="text" size="70" name="tempat"  value="<?php //print $rs->fields['class'];?>"/></td>
     </tr>-->
     <!--<?php 
         $sqlkks = "SELECT * FROM _tbl_bilikkuliah WHERE is_deleted=0 ";
@@ -494,98 +510,103 @@ if(!empty($id)){
                 <?php $rskks->movenext(); } ?>
             </select> 
             <input type="button" value=" ... " style="cursor:pointer" title="Sila klik untuk pilihan set penilaian" 
-            onclick="open_modal('<?=$href_link_set;?>&kid=<?=$id;?>','Pilih set penilaian',90,90)" />
+            onclick="open_modal('<?//=$href_link_set;?>&kid=<?//=$id;?>','Pilih set penilaian',90,90)" />
         </td>
     </tr>-->
-    <tr>
-        <td align="right"><b>Tempat : </b></td> 
-        <td align="left" colspan="2" >
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tempat : </b></label>
+        <div class="col-sm-12 col-md-7">
         	<?php print dlookup("_tbl_bilikkuliah","f_bilik_nama","f_bilikid=".tosql($rs->fields['bilik_kuliah']));?>
         	<?php $href_bilik = "modal_form.php?win=".base64_encode('kursus/jadual_bilik_kuliah.php;'.$id); ?>
             &nbsp;&nbsp;
-            <input type="button" value=" ... " style="cursor:pointer" title="Sila klik untuk pilihan bilik kuliah" 
+            <input type="button" class="btn btn-light p-2" value=" ... " style="cursor:pointer" title="Sila klik untuk pilihan bilik kuliah" 
             onclick="open_modal('<?=$href_bilik;?>&kid=<?=$id;?>','Pilih bilik kuliah',90,90)" />
             &nbsp;<i>(Sila klik untuk memilih atau membuat pertukaran bilik kuliah)</i>
-        </td>
-    </tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> Nama Penyelaras : </b></td>
-        <td align="left" colspan="2"><input type="text" size="90" name="penyelaras" maxlength="120"  value="<?php print $rs->fields['penyelaras'];?>"/></td>
-    </tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> E-mel Penyelaras : </b></td>
-        <td align="left" colspan="2"><input type="text" size="90" name="penyelaras_email" maxlength="120"  value="<?php print $rs->fields['penyelaras_email'];?>"/></td>
-    </tr>
-    <tr>
-        <td align="right"><b><font color="#FF0000">*</font> No. Tel. Penyelaras : </b></td>
-        <td align="left" colspan="2"><input type="text" size="20" name="penyelaras_notel" maxlength="20"  value="<?php print $rs->fields['penyelaras_notel'];?>"/></td>
-    </tr>
-    <tr>
-        <td align="right"><b>Bilangan Peserta : </b></td>
-        <td align="left" colspan="2">
-        	Lelaki : <input type="text" size="5" name="lelaki"  value="<?php print $rs->fields['lelaki'];?>"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Perempuan : <input type="text" size="5" name="perempuan"  value="<?php print $rs->fields['perempuan'];?>"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            Bilik VIP : <input type="text" size="5" name="vip"  value="<?php print $rs->fields['vip'];?>"/>
-            
-        </td>
-    </tr>
-    <tr>
-        <td align="right"><b>Kemudahan Penginapan Asrama : </b></td>
-        <td align="left" colspan="2">
-            <select name="asrama_perlu">
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Nama Penyelaras : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <input type="text" class="form-control" size="90" name="penyelaras" maxlength="120"  value="<?php print $rs->fields['penyelaras'];?>"/>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>E-mel Penyelaras : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <input type="text" class="form-control" size="90" name="penyelaras_email" maxlength="120"  value="<?php print $rs->fields['penyelaras_email'];?>"/>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>No. Tel. Penyelaras : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <input type="text" class="form-control" size="20" name="penyelaras_notel" maxlength="20"  value="<?php print $rs->fields['penyelaras_notel'];?>"/>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Bilangan Peserta : </b></label>
+        <div class="col-sm-12 col-md-2">
+        	Lelaki : 
+                <input type="text" class="form-control" name="lelaki"  value="<?php print $rs->fields['lelaki'];?>"/>
+        </div>
+        <div class="col-sm-12 col-md-2">
+            Perempuan :
+                <input type="text" class="form-control" name="perempuan"  value="<?php print $rs->fields['perempuan'];?>"/>
+        </div>
+        <div class="col-sm-12 col-md-2">   
+            Bilik VIP : 
+                <input type="text" class="form-control" name="vip"  value="<?php print $rs->fields['vip'];?>"/>
+        </div>
+    </div>
+
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kemudahan Penginapan Asrama : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <select class="form-control" name="asrama_perlu">
                 <option value="TIDAK" <?php if($rs->fields['asrama_perlu']=='TIDAK'){ print 'selected'; }?>>Tidak perlu</option>
                 <option value="ASRAMA" <?php if($rs->fields['asrama_perlu']=='ASRAMA'){ print 'selected'; }?>>Asrama</option>
             </select>
-        </td>
-    </tr>
-    <tr>
-        <td align="right"><b>Status : </b></td>
-        <td align="left" colspan="2">
-            <select name="status">
+        </div>
+    </div>
+    
+    <div class="form-group row mb-4">
+        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Status : </b></label>
+        <div class="col-sm-12 col-md-7">
+            <select class="form-control" name="status">
                 <option value="0" <?php if($rs->fields['status']=='0'){ print 'selected'; }?>>Aktif</option>
                 <option value="1" <?php if($rs->fields['status']=='1'){ print 'selected'; }?>>Tidak Aktif</option>
                 <option value="2" <?php if($rs->fields['status']=='2'){ print 'selected'; }?>>Kursus Dibatalkan</option>
                 <option value="9" <?php if($rs->fields['status']=='9'){ print 'selected'; }?>>Kursus Ditutup</option>
             </select>
-        </td>
-    </tr>
-    <!--<tr>
-        <td align="right" valign="top"><b>Set Penilaian : </b><br />
-        <?php if(!empty($id)){ 
-		$href_link_set = "modal_form.php?win=".base64_encode('penilaian/kursus_set_penilaian.php;'.$id);
-		?>
-        	<input type="button" value=" ... " style="cursor:pointer" title="Sila klik untuk pilihan set penilaian" 
-            onclick="open_modal('<?=$href_link_set;?>&kid=<?=$id;?>','Pilih set penilaian',90,90)" />
-		<?php } ?>  
-        </td>
-        <td align="left" colspan="2" valign="top">
-        <?php print dlookup("_tbl_penilaian_set","pset_tajuk","pset_id=".tosql($rs->fields['set_penilaian']));?>      
-        </td>
-    </tr>-->
+        </div>
+    </div>
     
 	<?php if(!empty($id)){ ?>
-    <tr><td colspan="3"><hr /></td></tr>
-    <tr><td colspan="3"><?php $kid = $rs->fields['id'];?>
+</table>
+    <hr />
+
+    <div colspan="3">
+        <?php $kid = $rs->fields['id'];?>
         <?php include 'kursus_document.php'; ?>
-    </td></tr>
-    <?php } ?>
-    <tr><td colspan="3"><hr /></td></tr>
-    <tr>
-        <td colspan="3" align="center">
-        	<?php //if($btn_display==1){ ?>
-    	        <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-				<?php if(!empty($id) && $_SESSION["s_level"]==99){ ?>
-	                <input type="button" value="Hapus" class="button_disp" title="Sila klik untuk menghapuskan maklumat" onClick="form_hapus('modal_form.php?<?php print $URLs;?>&pro=HAPUS')" >
+
+        <?php } ?>
+
+        <div colspan="3" align="center">
+            <?php //if($btn_display==1){ ?>
+                <button class="btn btn-success" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" ><i class="far fa-save"></i><b> Simpan</b></button>
+                <?php if(!empty($id) && $_SESSION["s_level"]==99){ ?>
+                <button class="btn btn-danger" value="Hapus" class="button_disp" title="Sila klik untuk menghapuskan maklumat" onClick="form_hapus('modal_form.php?<?php print $URLs;?>&pro=HAPUS')" ><i class="fas fa-trash"></i><b> Hapus</b></button>
                 <?php } ?>
             <?php //} ?>
-            <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai" onClick="form_back1()" >
-            <input type="hidden" name="id" value="<?=$id?>" />
-            <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
-        </td>
-    </tr>
-</table>
+                <button class="btn btn-secondary" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai" onClick="form_back1()" ><b>Kembali</b></button>
+                <input type="hidden" name="id" value="<?=$id?>" />
+                <input type="hidden" name="PageNo" value="<?=$PageNo?>" />
+        </div>
+    </div>
+
 </form>
 <script LANGUAGE="JavaScript">
 	document.ilim.kategori.focus();

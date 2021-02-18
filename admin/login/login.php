@@ -92,7 +92,7 @@ if(!empty($varUser) && !empty($varPswd)){
 		$conn->execute($sqli);
 		//$href=base64_encode($_SESSION["s_userid"].';apps/default');
 		$href=base64_encode($_SESSION["s_userid"].';default');
-		//var_dump($href); 
+		var_dump($href); 
 		// var_dump($_SESSION["s_userid"]);
 		print '<script>
 			alert("Anda berjaya log masuk ke dalam sistem.");

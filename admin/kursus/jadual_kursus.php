@@ -82,7 +82,7 @@ function add_new(URL){
 </script>
 
 <?php include_once 'include/list_head.php'; ?>
-<form name="ilim" id="ilim" method="post">
+<!-- <form name="ilim" method="post" action=""> -->
     <section class="section">
         <div class="section-body">
             <div class="row">
@@ -101,7 +101,7 @@ function add_new(URL){
                                 ?>
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat Latihan :</b></label>
-                                    <div class="col-sm-12 col-md-7">
+                                    <div class="col-sm-12 col-md-8">
                                         <select class="form-control" name="kampus_id"  onchange="do_page('<?=$href_search;?>')">
                                             <option value="">-- Sila pilih kampus --</option>
                                             <?php while(!$rskks->EOF){ ?>
@@ -120,7 +120,7 @@ function add_new(URL){
                                 ?>
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori Kursus : </b></label>
-                                    <div class="col-sm-12 col-md-7">
+                                    <div class="col-sm-12 col-md-8">
                                     <select class="form-control" name="kategori" onchange="do_page('<?=$href_search;?>')">
                                         <option value="">-- Sila pilih kategori --</option>
                                         <?php while(!$rskk->EOF){ ?>
@@ -130,10 +130,10 @@ function add_new(URL){
                                     <br>
                                     <label>
                                         <input type="checkbox" name="blaksana" value="1"<?php if($blaksana==1){ print 'checked="checked"'; }?> 
-                                        onchange="do_page('<?=$href_search;?>')"/>Belum dilaksanakan</label>
+                                        onchange="do_page('<?=$href_search;?>')"/> Belum dilaksanakan</label>
                                     <label>
                                         <input type="checkbox" name="tlaksana" value="1"<?php if($tlaksana==1){ print 'checked="checked"'; }?> 
-                                        onchange="do_page('<?=$href_search;?>')"/>Telah dilaksanakan</label>
+                                        onchange="do_page('<?=$href_search;?>')"/> Telah dilaksanakan</label>
                                     </div>
                                 </div>
                                 
@@ -146,7 +146,7 @@ function add_new(URL){
                                 ?>
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat / Unit : </b></label>
-                                    <div class="col-sm-12 col-md-7">
+                                    <div class="col-sm-12 col-md-8">
                                         <select class="form-control" name="subkategori" onchange="do_page('<?=$href_search;?>')">
                                             <option value="">-- Sila pilih sub-kategori --</option>
                                             <?php while(!$rskks->EOF){ 
@@ -163,7 +163,7 @@ function add_new(URL){
 
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Bidang : </b></label>
-                                    <div class="col-sm-12 col-md-7">
+                                    <div class="col-sm-12 col-md-8">
                                         <select class="form-control" name="bidang_id" onchange="do_page('<?=$href_search;?>')">
                                             <option value="">-- Sila pilih bidang --</option>
                                             <?php 
@@ -177,13 +177,14 @@ function add_new(URL){
                                 </div>
     
                                 <div class="form-group row mb-4">
-                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kursus : </b></label>
-                                    <div class="col-sm-12 col-md-7">
-                                        <label> Mula : </label>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Mula Kursus : </b></label>
+                                    <div class="col-sm-12 col-md-3">
                                         <input class="form-control" type="date" width="40%" name="tkh_mula" value="<?php echo $tkh_mula;?>">
                                         <alt="" width="18" height="18" align="absmiddle" style="cursor:pointer" 
                                             onclick="displayCalendar(document.forms[0].tkh_mula,'dd/mm/yyyy',this)"/> 
-                                        <label> Tamat : </label> 
+                                    </div>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-2"><b>Tarikh Tamat Kursus : </b></label>
+                                    <div class="col-sm-12 col-md-3">
                                         <input class="form-control" type="date" width="40%" name="tkh_tamat" value="<?php echo $tkh_tamat;?>">
                                         <alt="" width="18" height="18" align="absmiddle" style="cursor:pointer" 
                                             onclick="displayCalendar(document.forms[0].tkh_tamat,'dd/mm/yyyy',this)"/>
@@ -215,33 +216,33 @@ function add_new(URL){
                             <h4>Senarai Maklumat Kursus (Penjadualan)</h4>
                         </div>
                         <div class="card-body">
-                            <!-- <table width="100%" cellpadding="3" cellspacing="0" border="0"> -->
-                                <!-- <tr class="title" > -->
-                                    <div colspan="3" align="right">
+                            <table width="100%" cellpadding="3" cellspacing="0" border="0">
+                                <tr class="title" >
+                                    <td colspan="3" align="right">
                                         <?php $new_page = "modal_form.php?win=".base64_encode('kursus/jadual_kursus_form.php;');?>
                                             <button class="btn btn-success" title="Sila klik untuk menyimpan maklumat peserta" value="Tambah Maklumat Jadual Kursus" style="cursor:pointer" 
                                             onclick="add_new('<?=$new_page;?>')">&nbsp;&nbsp;
                                             <i class="fas fa-plus"></i> Tambah Maklumat Jadual Kursus </button> 
-                                    </div>
-                                <!-- </tr> -->
+                                    </td>
+                                </tr>
 
                                 <?php include_once 'include/page_list.php'; ?>
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="table_kursusMohonList" name="table_kursusMohonList">
                                         <thead>
                                         <tr>
-                                            <th width="5%" align="center"><b>Bil</b></th>
-                                            <th width="8%" align="center"><b>Kod Kursus</b></th>
-                                            <th width="35%" align="center">
+                                            <th width="2%" align="center"><b>Bil</b></th>
+                                            <th width="3%" align="center"><b>Kod Kursus</b></th>
+                                            <th width="22%" align="center">
                                             <a href="<?php echo $href_search."&sb=coursename&search=$search&tkh_mula=$tkh_mula&tkh_tamat=$tkh_tamat"; ?>"><b>Diskripsi Kursus</b></a>&nbsp;
                                             <?php echo (($varSort=="coursename")?"<img src=\"../images/down_arrow.gif\">":"");?></th>
-                                            <th width="10%" align="center"><b>Bidang</b></th>
-                                            <th width="5%" align="center"><b>Pusat /Unit</b></th>
-                                            <th width="10%" align="center"><a href="<?php echo $href_search."&sb=startdate&tkh_mula=$tkh_mula&tkh_tamat=$tkh_tamat&search=$search"; ?>"><b>Tarikh Mula</b></a>&nbsp;
+                                            <th width="2%" align="center"><b>Bidang</b></th>
+                                            <th width="3%" align="center"><b>Pusat /Unit</b></th>
+                                            <th width="20%" align="center"><a href="<?php echo $href_search."&sb=startdate&tkh_mula=$tkh_mula&tkh_tamat=$tkh_tamat&search=$search"; ?>"><b>Tarikh Mula</b></a>&nbsp;
                                             <?php echo (($varSort=="startdate")?"<img src=\"../images/down_arrow.gif\">":"");?></th>
-                                            <th width="10%" align="center"><a href="<?php echo $href_search."&sb=enddate&tkh_mula=$tkh_mula&tkh_tamat=$tkh_tamat&search=$search"; ?>"><b>Tarikh Tamat</b></a>&nbsp;
+                                            <th width="20%" align="center"><a href="<?php echo $href_search."&sb=enddate&tkh_mula=$tkh_mula&tkh_tamat=$tkh_tamat&search=$search"; ?>"><b>Tarikh Tamat</b></a>&nbsp;
                                             <?php echo (($varSort=="enddate")?"<img src=\"../images/down_arrow.gif\">":"");?></th>
-                                            <th width="10%" align="center"><b>&nbsp;</b></th>
+                                            <th width="30%" align="center"><b>Tindakan</b></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -286,25 +287,31 @@ function add_new(URL){
                                                     &nbsp;</td>
                                                     <td valign="top" align="center"><?php echo stripslashes($bidang);?>&nbsp;</td>
                                                     <td valign="top" align="center"><?php echo stripslashes($unit);?>&nbsp;</td>
-                                                    <td valign="top" align="center"><?php echo DisplayDate($rs->fields['startdate'])?>&nbsp;</td>
-                                                    <td valign="top" align="center"><?php echo DisplayDate($rs->fields['enddate'])?>&nbsp;</td>
+                                                    <td valign="top" align="center"><?php echo date('d-m-Y', strtotime($rs->fields['startdate']))?>&nbsp;</td>
+                                                    <td valign="top" align="center"><?php echo date('d-m-Y', strtotime($rs->fields['enddate']))?>&nbsp;</td>
+                                                    <!-- <td valign="top" align="center"><?//php echo DisplayDate($rs->fields['startdate'])?>&nbsp;</td> -->
+                                                    <!-- <td valign="top" align="center"><?//php echo DisplayDate($rs->fields['enddate'])?>&nbsp;</td> -->
                                                     <td align="center">
                                                         <?php //if(empty($status)){ ?>
                                                             <?php //print $_SESSION["s_jabatan"]."/".$rs->fields['subcategory_code']."/".$_SESSION["s_level"];?>
                                                             <?php if($_SESSION["s_jabatan"]==$rs->fields['subcategory_code'] || 
                                                             $_SESSION["s_level"]==1 || $_SESSION["s_level"]==99){ ?>
-                                                            <img src="../img/icon-info1.gif" width="23" height="23" style="cursor:pointer" title="Sila klik untuk pengemaskinian data" 
-                                                            onclick="open_modal('<?=$href_link;?>','Kemaskini Maklumat Jadual Kursus',1,1)" />
-                                                            &nbsp;
-                                                            <img src="../img/printer_icon4.jpg" width="23" height="23" style="cursor:pointer" title="Sila klik untuk mencetak surat pengesahan kehadiran" 
-                                                            onclick="openModal('<?=$href_surat;?>')" />
+                                                            <button class="btn btn-warning" style="cursor:pointer; padding:8px;" title="Sila klik untuk pengemaskinian data"  
+                                                            onclick="open_modal('<?=$href_link;?>','Kemaskini Maklumat Jadual Kursus',1,1)"><i class="fas fa-edit"></i></button>
+                                                            <button class="btn btn-info" style="cursor:pointer; padding:9px;" title="Sila klik untuk mencetak surat pengesahan kehadiran" 
+                                                            onclick="openModal('<?=$href_surat;?>')" ><i class="fas fa-print"></i></button>
+                                                            <!-- <img src="../img/printer_icon4.jpg" width="23" height="23" style="cursor:pointer" title="Sila klik untuk mencetak surat pengesahan kehadiran" 
+                                                            onclick="openModal('<?//=$href_surat;?>')" /> -->
                                                             <!--&nbsp;
                                                             <img src="../images/cert.gif" width="23" height="23" border="0" style="cursor:pointer" title="Sila klik untuk cetakan buku aturcara" 
                                                             onclick="do_cetak('<?=$rs->fields['id']?>')" />-->
                                                             &nbsp;
-                                                            <img src="../img/printer_icon1.jpg" width="23" height="23" style="cursor:pointer" 
+                                                            <button class="btn btn-secondary" style="cursor:pointer; padding:9px;" 
                                                             title="Sila klik untuk mencetak Cetak surat jemputan kepada Penceramah @ Pensyarah" 
-                                                            onclick="openModal('<?=$href_surat_penceramah;?>&evid=<?=$rs->fields['id'];?>','Cetak surat jemputan kepada Penceramah @ Pensyarah',1,1)" />
+                                                            onclick="openModal('<?=$href_surat_penceramah;?>&evid=<?=$rs->fields['id'];?>','Cetak surat jemputan kepada Penceramah @ Pensyarah',1,1)" ><i class="fas fa-print"></i></button>
+                                                            <!-- <img src="../img/printer_icon1.jpg" width="23" height="23" style="cursor:pointer" 
+                                                            title="Sila klik untuk mencetak Cetak surat jemputan kepada Penceramah @ Pensyarah" 
+                                                            onclick="openModal('<?//=$href_surat_penceramah;?>&evid=<?//=$rs->fields['id'];?>','Cetak surat jemputan kepada Penceramah @ Pensyarah',1,1)" /> -->
                                                             <?php } ?>
                                                         <!--<?php //} else { ?>
                                                             <img src="../img/faq.gif" width="23" height="23" style="cursor:pointer" />
@@ -335,5 +342,5 @@ function add_new(URL){
                 </div>
             </div>
         </div>
-    </section>
-</form>	
+    </section>	
+<!-- </form> -->

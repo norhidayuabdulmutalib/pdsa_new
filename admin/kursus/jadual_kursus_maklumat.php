@@ -28,7 +28,7 @@ $href_link_pro = "modal_form.php?win=".base64_encode('kursus/jadual_penceramah_p
 
 $dir='';
 $pathtoscript='../editor/';
-include_once($dir."../editor/config.inc.php");
+// include_once($dir."../editor/config.inc.php");
 include_once($dir."../editor/FCKeditor/fckeditor.php") ;
 
 $sSQL="SELECT A.courseid, A.coursename, A.kampus_id, B.categorytype, C.SubCategoryNm , D.objektif, D.jadual_masa, 
@@ -53,101 +53,113 @@ function form_back(URL){
 </script>
 
 <form name="ilim" method="post">
-<table width="100%" align="center" cellpadding="4" cellspacing="0" border="1">
-    <tr><td colspan="3">
-        <table width="96%" cellpadding="4" cellspacing="0" border="0" align="center">
-			<tr>
-                <td width="25%" align="right"><b>Pusat Latihan @ Tempat Kursus</b></td>
-                <td width="1%" align="center"><b> : </b></td>
-                <td align="left"><font color="#0033FF" style="font-weight:bold">
-                    <?php print dlookup("_ref_kampus","kampus_nama","kampus_id=".tosql($rs->fields['kampus_id'])); ?></font>
-                </td>	        
-            </tr>
-            <tr>
-                <td width="25%" align="right"><b>Kursus</b></td>
-                <td width="1%" align="center"><b> : </b></td>
-                <td width="74%" align="left"><?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Kategori</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print $rs->fields['categorytype'];?></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Pusat</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print $rs->fields['SubCategoryNm'];?>
-                <div style="float:right">
-                	<?php if($btn_display==1){ ?>
-                    <i>Sila klik <input type="button" value="Proses Surat" style="cursor:pointer" 
-                    onclick="open_modal1('<?php print $href_link_pro;?>','Proses surat jemputan penceramah',1,1)" /></i>
-                	<?php } ?>
-                </div></td>                
-            </tr>
-            <tr>
-                <td align="right"><b>Tarikh Kursus</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left"><?php print DisplayDate($rs->fields['startdate']);?> - <?php print DisplayDate($rs->fields['enddate']);?>
-                <div style="float:right"><i>untuk menjana surat jemputan penceramah.</i></div>
-                </td>                
-            </tr>
-		</table>
-    </td>
-    <tr><td colspan="3">
-        <table width="96%" cellpadding="4" cellspacing="0" border="0" align="center">
-            <tr>
-                <td align="right" width="19%"><b>Jadual Kursus</b></td>
-                <td align="center" width="1%"><b> : </b></td>
-                <td align="left" valign="top" colspan="2" width="80%">
-                <?php include 'kursus/jadual_pensyarah.php'; ?>
-            	</td>
-            </tr>
+<table width="90%" cellpadding="5" cellspacing="1" border="0" align="center">
 
-           <!-- <tr>
-                <td align="right"><b>Objektif</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left" valign="top" colspan="2"> <div class="rte"> 
-                          <?php  if ($wysiwyg===true){ 
-                            $oFCKeditor = new FCKeditor('objektif') ;
-                            $oFCKeditor->BasePath = $pathtoscript.'../editor/FCKeditor/';
-                            $oFCKeditor->Value = $objektif;
-                            $oFCKeditor->Width = "100%";
-                            $oFCKeditor->Height = 350;
-                            $oFCKeditor->Create() ;
-                         } else {
-                          ?>
-                              <textarea name="objektif" cols="60" rows="5"><?php print $objektif; ?></textarea>
-                         <?php }?>
-                            </div>
-            </td></tr>
-            <tr>
-                <td align="right"><b>Kandungan Kursus</b></td>
-                <td align="center"><b> : </b></td>
-                <td align="left" valign="top" colspan="2"> <div class="rte"> 
-                          <?php  if ($wysiwyg===true){ 
-                            $oFCKeditor = new FCKeditor('kandungan') ;
-                            $oFCKeditor->BasePath = $pathtoscript.'../editor/FCKeditor/';
-                            $oFCKeditor->Value = $kandungan;
-                            $oFCKeditor->Width = "100%";
-                            $oFCKeditor->Height = 350;
-                            $oFCKeditor->Create() ;
-                         } else {
-                          ?>
-                              <textarea name="kandungan" cols="60" rows="5"><?php print $kandungan; ?></textarea>
-                         <?php }?>
-                            </div>
-            </td></tr>
-            <tr><td colspan="5"><hr /></td></tr>
-            <tr>
-                <td colspan="5" align="center">
-                	<?php if($btn_display==1){ ?>
-                    <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php print $URLs;?>&pro=SAVE')" >
-                    <?php } ?>
-                    <!--<input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >--1>
-                    <input type="hidden" name="id" value="<?=$id?>" />
-                </td>
-            </tr>-->
-        </table>
-    </td></tr>
+    <div class="card-body">
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b><font color="#FF0000">*</font>Pusat Latihan @ Tempat Kursus : </b></label>
+            <div class="col-sm-12 col-md-7">
+                <font color="#0033FF" style="font-weight:bold">
+                    <?php print dlookup("_ref_kampus","kampus_nama","kampus_id=".tosql($rs->fields['kampus_id'])); ?></font>	        
+            </div>
+        </div>
+
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kursus : </b></label>
+            <div class="col-sm-12 col-md-7">
+                <?php print $rs->fields['courseid'] . " - " .$rs->fields['coursename'];?>             
+            </div>
+        </div>
+
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Kategori : </b></label>
+            <div class="col-sm-12 col-md-7">
+                <?php print $rs->fields['categorytype'];?>
+            </div>                
+        </div>
+
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Pusat : </b></label>
+            <div class="col-sm-12 col-md-7">
+                <?php print $rs->fields['SubCategoryNm'];?>               
+            </div>
+        </div>
+        
+        <div class="form-group row mb-4">
+            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"><b>Tarikh Kursus : </b></label>
+            <div class="col-sm-12 col-md-7">
+                <?php echo date('d-m-Y', strtotime($rs->fields['startdate'])) ?> - <?php echo date('d-m-Y', strtotime($rs->fields['enddate'])) ?>
+                    <!-- <?php //print DisplayDate($rs->fields['startdate']);?> - <?php //print DisplayDate($rs->fields['enddate']);?> -->
+                                
+            </div>
+        </div>
+
+        <div class="form-group row mb-4" style="float:right">
+            <div>
+                <?php if($btn_display==1){ ?>
+                <i>Sila klik <input type="button" class="btn btn-light" value="Proses Surat" style="cursor:pointer" 
+                onclick="open_modal1('<?php print $href_link_pro;?>','Proses surat jemputan penceramah',1,1)" /> untuk menjana surat jemputan penceramah.</i>
+                <?php } ?>
+            </div> 
+        </div>
+        <br>
+
+        <!-- <tr>
+            <td align="right" width="19%"><b>Jadual Kursus</b></td>
+            <td align="center" width="1%"><b> : </b></td>
+            <td align="left" valign="top" colspan="2" width="80%">
+            <?php //include 'kursus/jadual_pensyarah.php'; ?>
+            </td>
+        </tr> -->
+
+        <!-- <tr>
+            <td align="right"><b>Objektif</b></td>
+            <td align="center"><b> : </b></td>
+            <td align="left" valign="top" colspan="2"> <div class="rte"> 
+                        <?php // if ($wysiwyg===true){ 
+                        //$oFCKeditor = new FCKeditor('objektif') ;
+                        //$oFCKeditor->BasePath = $pathtoscript.'../editor/FCKeditor/';
+                        //$oFCKeditor->Value = $objektif;
+                        //$oFCKeditor->Width = "100%";
+                        //$oFCKeditor->Height = 350;
+                        //$oFCKeditor->Create() ;
+                        // } else {
+                        ?>
+                            <textarea name="objektif" cols="60" rows="5"><?php // print $objektif; ?></textarea>
+                        <?php //}?>
+                        </div>
+        </td></tr>
+        <tr>
+            <td align="right"><b>Kandungan Kursus</b></td>
+            <td align="center"><b> : </b></td>
+            <td align="left" valign="top" colspan="2"> <div class="rte"> 
+                        <?php // if ($wysiwyg===true){ 
+                        //$oFCKeditor = new FCKeditor('kandungan') ;
+                        //$oFCKeditor->BasePath = $pathtoscript.'../editor/FCKeditor/';
+                        //$oFCKeditor->Value = $kandungan;
+                        //$oFCKeditor->Width = "100%";
+                        //$oFCKeditor->Height = 350;
+                        //$oFCKeditor->Create() ;
+                        // } else {
+                        ?>
+                            <textarea name="kandungan" cols="60" rows="5"><?php// print $kandungan; ?></textarea>
+                        <?php //}?>
+                        </div>
+        </td></tr>
+        <tr><td colspan="5"><hr /></td></tr>
+        <tr>
+            <td colspan="5" align="center">
+                <?php //if($btn_display==1){ ?>
+                <input type="button" value="Simpan" class="button_disp" title="Sila klik untuk menyimpan maklumat" onClick="form_hantar('modal_form.php?<?php //print $URLs;?>&pro=SAVE')" >
+                <?php //} ?>
+                <input type="button" value="Kembali" class="button_disp" title="Sila klik untuk kembali ke senarai rujukan disiplin" onClick="form_back()" >--1>
+                <input type="hidden" name="id" value="<?=$id?>" />
+            </td>
+        </tr>-->
+    </div>
 </table>
+    <hr/>
+        <div colspan="3">
+            <?php include 'kursus/jadual_pensyarah.php'; ?>
+        </div>
 </form>

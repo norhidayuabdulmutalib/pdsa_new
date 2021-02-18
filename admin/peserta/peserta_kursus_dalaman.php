@@ -24,11 +24,11 @@
 						<thead style="background-color:#f2f2f2;">
 						<tr>
                             <th width="5%" align="center"><strong>Bil</strong></th>
-                            <th width="50%" align="center"><strong>Nama Kursus</strong></th>
+                            <th width="35%" align="center"><strong>Nama Kursus</strong></th>
                             <th width="10%" align="center"><strong>Tempat Kursus</strong></th>
-                            <th width="10%" align="center"><strong>Tarikh Mula</strong></th>
-                            <th width="10%" align="center"><strong>Tarikh Tamat</strong></th>
-                            <th width="15%" align="center"><strong>Status Kehadiran</strong></th>
+                            <th width="15%" align="center"><strong>Tarikh Mula</strong></th>
+                            <th width="15%" align="center"><strong>Tarikh Tamat</strong></th>
+                            <th width="20%" align="center"><strong>Status Kehadiran</strong></th>
 						</tr>
 						</thead>
 						<tbody>
@@ -46,8 +46,10 @@
                                         <td valign="top" align="right"><?=$bil;?>.</td>
                                         <td valign="top" align="left"><?=$rsDataD->fields['coursename'];?>&nbsp;</td>
                                         <td valign="top" align="center"><?=$bilik_kuliah?>&nbsp;</td>
-                                        <td valign="top" align="center"><?= DisplayDate($rsDataD->fields['startdate']);?>&nbsp;</td>
-                                        <td valign="top" align="center"><?= DisplayDate($rsDataD->fields['enddate']);?>&nbsp;</td>
+                                        <td valign="top" align="center"><?php echo date('d-m-Y', strtotime($rs->fields['startdate']))?>&nbsp;</td>
+                                        <td valign="top" align="center"><?php echo date('d-m-Y', strtotime($rs->fields['enddate']))?>&nbsp;</td>
+                                        <!-- <td valign="top" align="center"><?//= DisplayDate($rsDataD->fields['startdate']);?>&nbsp;</td> -->
+                                        <!-- <td valign="top" align="center"><?//= DisplayDate($rsDataD->fields['enddate']);?>&nbsp;</td> -->
                                         <td align="center">
                                         <?php
                                             if($rsDataD->fields['InternalStudentAccepted']=='0'){ print 'Tiada pengesahan'; }

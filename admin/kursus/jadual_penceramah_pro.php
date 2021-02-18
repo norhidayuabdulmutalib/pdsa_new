@@ -125,7 +125,7 @@ if(!empty($proses) && $proses=='PRO'){
 //$conn->debug=true; 
 $dir='';
 $pathtoscript='../editor/';
-include_once($dir."../editor/config.inc.php");
+// include_once($dir."../editor/config.inc.php");
 include_once($dir."../editor/FCKeditor/fckeditor.php") ;
 $href_link_pro = "modal_form.php?win=".base64_encode('kursus/jadual_penceramah_pro.php;'.$id);
 $save=$_GET['act'];
@@ -152,13 +152,15 @@ if(!$rss->EOF){
 ?>
 	<form name="ilim" method="post">
 	<table width="98%" border="1" cellpadding="3" cellspacing="0" align="center">
-		<tr><td height="20px" align="right">
-			<input type="button" value="Proses Surat" style="cursor:pointer" onclick="do_proses('<?=$href_link_pro;?>&proses=PRO')" />&nbsp;&nbsp;
-			<input type="button" value="Simpan" style="cursor:pointer" onclick="do_proses('<?=$href_link_pro;?>&proses=&act=SAVE')" />&nbsp;&nbsp;
-            <input type="button" value="Tutup" style="cursor:pointer" onclick="form_back()" />
-		</td></tr>
+		<tr>
+			<td height="20px" align="center">
+				<button class="btn btn-primary" value="Proses Surat" style="cursor:pointer" onclick="do_proses('<?=$href_link_pro;?>&proses=PRO')"><i class="far fa-paper-plane"></i> Proses Surat</button>
+				<button class="btn btn-success" value="Simpan" style="cursor:pointer" onclick="do_proses('<?=$href_link_pro;?>&proses=&act=SAVE')"><i class="far fa-save"></i> Simpan</button>
+				<input type="button" class="btn btn-secondary" value="Tutup" style="cursor:pointer" onclick="form_back()" />
+			</td>
+		</tr>
         <tr>
-            <td align="left" valign="top"> <div class="rte"> 
+            <td align="center" valign="top"> <div class="rte"> 
               <?php  if ($wysiwyg===true){ 
                     $oFCKeditor = new FCKeditor('surat') ;
                     $oFCKeditor->BasePath = $pathtoscript.'../editor/FCKeditor/';
@@ -168,7 +170,7 @@ if(!$rss->EOF){
                     $oFCKeditor->Create() ;
                  } else {
                   ?>
-                      <textarea name="surat" cols="60" rows="5"><?php print $surat; ?></textarea>
+                      <textarea name="surat" cols="130" rows="100"><?php print $surat; ?></textarea>
                  <?php }?>
                     </div>
                 </td>    

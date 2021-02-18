@@ -80,9 +80,9 @@ function do_hapus(jenis,idh,dir){
 									<thead>
                                     <tr>
                                         <th width="5%" align="center"><b>Bil</b></th>
-                                        <th width="75%" align="center"><b>Maklumat Kategori Blok Bangunan</b></th>
+                                        <th width="70%" align="center"><b>Maklumat Kategori Blok Bangunan</b></th>
                                         <th width="10%" align="center"><b>Status</b></th>
-                                        <th width="10%" align="center"><b>Tindakan</b></th>
+                                        <th width="15%" align="center"><b>Tindakan</b></th>
                                     </tr>
                                     </thead>
                                     <tbody>

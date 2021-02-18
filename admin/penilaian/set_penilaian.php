@@ -98,11 +98,11 @@ $href_search = "index.php?data=".base64_encode($userid.';penilaian/set_penilaian
 									<thead>
                                     <tr>
                                         <th width="5%" align="center"><b>Bil</b></th>
-                                        <th width="55%" align="center"><b>Tajuk Penilaian</b></th>
+                                        <th width="50%" align="center"><b>Tajuk Penilaian</b></th>
                                         <th width="10%" align="center"><b>Pusat Latihan</b></th>
                                         <th width="10%" align="center"><b>Tarikh Jana</b></th>
                                         <th width="10%" align="center"><b>Status</b></th>
-                                        <th width="10%" align="center"><b>Tindakan</b></th>
+                                        <th width="15%" align="center"><b>Tindakan</b></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -118,7 +118,7 @@ $href_search = "index.php?data=".base64_encode($userid.';penilaian/set_penilaian
                                                 <td valign="top" align="right"><?=$bil;?>.</td>
                                                 <td valign="top" align="left"><?php echo stripslashes($rs->fields['pset_tajuk']);?>&nbsp;</td>
                                                 <td valign="top" align="center"><?php echo stripslashes($rs->fields['kampus_kod']);?>&nbsp;</td>
-                                                <td valign="top" align="center"><?php echo stripslashes(DisplayDate($rs->fields['create_dt']));?>&nbsp;</td>
+                                                <td valign="top" align="center"><?//php echo stripslashes(DisplayDate($rs->fields['create_dt']));?>&nbsp;</td>
                                                 <td valign="top" align="center">
                                                     <?php if($rs->fields['pset_status']=='0'){ print 'Aktif'; }
                                                         else if($rs->fields['pset_status']=='1'){ print 'Tidak Aktif'; } 
