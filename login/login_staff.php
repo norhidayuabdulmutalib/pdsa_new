@@ -105,7 +105,7 @@ if(!empty($varUser) && !empty($varPswd)){
 	}
 }
 ?>
-<link href="login-box.css" rel="stylesheet" type="text/css" />
+<link href="login/login-box.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 <!--
 	function do_logs(URL){
