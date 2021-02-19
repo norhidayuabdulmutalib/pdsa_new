@@ -103,12 +103,12 @@ function tosql($value, $type="Text")
       return doubleval($value);
     else
     {
-      if(get_magic_quotes_gpc() == 0)
-      {
-        $value = str_replace("'","''",$value);
-        $value = str_replace("\\","\\\\",$value);
-      }
-      else
+      // if(get_magic_quotes_gpc() == 0)
+      // {
+      //   $value = str_replace("'","''",$value);
+      //   $value = str_replace("\\","\\\\",$value);
+      // }
+      // else
       {
         $value = str_replace("\\'","''",$value);
         $value = str_replace("\\\"","\"",$value);
