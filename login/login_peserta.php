@@ -3,14 +3,11 @@
 $msg='';
 $varUser=isset($_POST["userlog"])?trim($_POST["userlog"]):"";
 $varPswd=isset($_POST["upass"])?trim($_POST["upass"]):"";
-// print $varUser."/".$varPswd;
-if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
+//print $varUser."/".$varPswd;
+if(!empty($varUser) && !empty($varPswd)){	
 	//include 'common.php';
 	//$conn->debug=true;
-	$sql = "SELECT * FROM _tbl_peserta WHERE f_peserta_noic=$varUser AND f_peserta_noic=$varPswd";
-	// var_dump($sql);
-	// $rslogin = $conn->query($sql);
-	// $rslogin = &$conn->Execute($sql);
+	$sql = "SELECT * FROM _tbl_peserta WHERE f_peserta_noic=".tosql($varUser,"Text")." AND f_peserta_noic=".tosql($varPswd,"Text");
 	$rslogin = &$conn->Execute($sql);
 
 	if(!$rslogin->EOF){
@@ -99,23 +96,23 @@ if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
 	}
 }
 ?>
-<link href="login-box.css" rel="stylesheet" type="text/css" />
+<link href="login/login-box.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
-// <!--
-	// function do_logs(URL){
-	// 	if(document.ilim.userlog.value==''){
-	// 		alert("Please enter your login id");
-	// 		document.ilim.userlog.focus();
-	// 	} else if(document.ilim.upass.value==''){
-	// 		alert("Please enter your password");
-	// 		document.ilim.upass.focus();
-	// 	} else {
-	// 		//alert(URL);
-	// 		document.ilim.action=URL;
-	// 		document.ilim.submit();
-	// 	}
-	// }
-// -->
+<!--
+	function do_logs(URL){
+		if(document.ilim.userlog.value==''){
+			alert("Please enter your login id");
+			document.ilim.userlog.focus();
+		} else if(document.ilim.upass.value==''){
+			alert("Please enter your password");
+			document.ilim.upass.focus();
+		} else {
+			//alert(URL);
+			document.ilim.action=URL;
+			document.ilim.submit();
+		}
+	}
+-->
 </script>
 <?php
 $id=isset($_REQUEST["id"])?trim($_REQUEST["id"]):"";
@@ -128,12 +125,11 @@ $id=isset($_REQUEST["id"])?trim($_REQUEST["id"]):"";
 SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(Peserta Kursus)</label> 
 <br>
 Sila masukkan no. kad pengenalan anda.<br>
-<form name="peserta" method="post" action="">
 <table width="80%" cellpadding="5" cellspacing="1" border="0" align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:12px">
 	<tr><td><br></td></tr>
 	<tr>
     	<td align="right"><b>No. KP : </b></td>
-        <td><input type="text" size="20"  name="userlog" id="userlog" maxlength="20" value="<?=$id;?>" /><br><font color="#FFFFFF"><i>Sila masukkan no kp anda sebagai id pegguna</i></td>
+        <td><input type="text" size="20"  name="userlog" maxlength="20" value="<?=$id;?>" /><br><font color="#FFFFFF"><i>Sila masukkan no kp anda sebagai id pegguna</i></td>
     </tr>
 	<tr>
     	<td align="right"><b>Katalaluan : </b></td>
@@ -141,13 +137,10 @@ Sila masukkan no. kad pengenalan anda.<br>
     </tr>
 	<tr><td colspan="2" align="center">
 		<a href="javascript:void(0);" onClick="do_logs('index.php?pages=login_peserta')">
-			<!-- <img src="images/login-btn.png" width="103" height="42" style="cursor:pointer" /> -->
-			<button class="btn btn-md btn-primary">Log Masuk</button></a>
-		</a>
+        <img src="images/login-btn.png" width="103" height="42" style="cursor:pointer" /></a>
     </td>
     </tr>
 </table>
-</form>
 </div>
 </div>
 <br><br>
@@ -155,5 +148,5 @@ Sila masukkan no. kad pengenalan anda.<br>
 <br><br>
 <?php //} ?>
 <script language="javascript" type="text/javascript">
-document.peserta.userlog.focus();
+document.ilim.logid.focus();
 </script>
