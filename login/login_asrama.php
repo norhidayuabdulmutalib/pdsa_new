@@ -104,7 +104,7 @@ if(!empty($varUser) && !empty($varPswd)){
 	}
 }
 ?>
-<link href="login/login-box.css" rel="stylesheet" type="text/css" />
+<link href="login-box.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 <!--
 	function do_logs(URL){
@@ -122,34 +122,46 @@ if(!empty($varUser) && !empty($varPswd)){
 	}
 -->
 </script>
+
+
 <body>
-<div style="padding: 1px 0 0 1px;">
-<div align="center"><?php print $msg;?></div>
-<div id="login-box">
-<label style="font-family:Arial, Helvetica, sans-serif;font-size:20px;font-weight:bold">
-SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(DOMISTIK)</label> 
-<br>
-Sila masukkan no. kad pengenalan anda.<br>
-<table width="80%" cellpadding="5" cellspacing="1" border="0" align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:12px">
-	<tr><td><br></td></tr>
-	<tr>
-    	<td align="right"><b>No. KP : </b></td>
-        <td><input type="text" size="20" name="userlog" maxlength="20" /></td>
-    </tr>
-	<tr>
-    	<td align="right"><b>Katalaluan : </b></td>
-        <td><input type="password" size="20" name="upass" maxlength="20"/></td>
-    </tr>
-	<tr><td colspan="2" align="center">
-		<a href="javascript:void(0);" onClick="do_logs('index.php?pages=login_asrama')">
-        <img src="images/login-btn.png" width="103" height="42" style="cursor:pointer" /></a>
-    </td>
-    </tr>
-</table>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="card-body text-white" style="background-color: rgba(0, 0, 0, 0.39);">
+                    <h3 class="section-heading text-uppercase" style="font-size: 2rem;"><b>SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(DOMISTIK)</b></h3> 
+                    <br><p>Sila masukkan no. kad pengenalan anda.</p><br>
+					
+					<form class="form-signin-centre">
+                        <div class="form-group row align-items-center justify-content-center">
+                            <label for="logid" class="col-sm-2 col-form-label col-form-label-sm">No. KP :</label>
+                            <div class="col-sm-6">
+                                <input style="border-radius: 2rem" type="text" class="form-control form-control-sm p-3" id="logid" placeholder="No Kad Pengenalan">
+                            </div>
+                        </div>
+                        <div class="form-group row align-items-center justify-content-center">
+                            <label for="pass" class="col-sm-2 col-form-label col-form-label-sm">Kata Laluan :</label>
+                            <div class="col-sm-6">
+                                <input style="border-radius: 2rem" type="password" class="form-control form-control-sm p-3" id="pass" placeholder="Kata Laluan">
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <!-- <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Remember password</label>
+                        </div> -->
+						<a href="javascript:void(0);" onClick="do_open('log_systems.php')">
+							<button class="btn btn-warning btn-sm" style="cursor:pointer; font-size: 0.8rem; font-weight:bold";>LOG MASUK</button>
+						</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
-<br><br>
 </body>
+
 <br><br>
 <?php //} ?>
 <script language="javascript" type="text/javascript">
