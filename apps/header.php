@@ -7,7 +7,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 $s_userid = $_SESSION["s_userid"];
 $s_username = $_SESSION["s_username"];
 if(empty($_SESSION["s_userid"])){
-	include '../lout.php';
+	// include '../lout.php';
 	exit();
 } 
 require_once '../common.php';
@@ -77,7 +77,7 @@ if($_SESSION["s_level"]=='99'){
 <SCRIPT type="text/javascript" src="../cal/dhtmlgoodies_calendar2.js"></script>
 <script type="text/javascript" src="../modalwindow/dhtmlwindow.js">
 /***********************************************
-* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* DHTML Window Widget- ï¿½ Dynamic Drive (www.dynamicdrive.com)
 * This notice must stay intact for legal use.
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
