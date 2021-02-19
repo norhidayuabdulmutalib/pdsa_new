@@ -1,4 +1,5 @@
 <?php
+include_once('common.php');
 $msg='';
 $varUser=isset($_REQUEST["up_userid"])?$_REQUEST["up_userid"]:"";
 $varPswd=isset($_REQUEST["up_password"])?$_REQUEST["up_password"]:"";
