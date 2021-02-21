@@ -122,6 +122,54 @@ $id=isset($_REQUEST["id"])?trim($_REQUEST["id"]):"";
 ?>
 
 
+<!--<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />-->
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<!-- General CSS Files -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<!-- Template CSS -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200" rel="stylesheet" type="text/css">
+<!-- <link rel="stylesheet" href="css/bootstrap-overrides.css" type="text/css" /> -->
+<link rel="stylesheet" href="modalwindow/modal.css" type="text/css" />
+<link rel="stylesheet" href="../admin/modalwindow/dhtmlwindow.css" type="text/css" />
+<link type="text/css" rel="stylesheet" href="cal/dhtmlgoodies_calendar.css" media="screen"></LINK>
+
+<!-- Datatable CSS -->
+<link rel="stylesheet" href="include/datatable/datatables.css">
+<link rel="stylesheet" href="include/datatable/datatables.min.css">
+
+
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script src="script.js"></script>
+<SCRIPT type="text/javascript" src="cal/dhtmlgoodies_calendar2.js"></script>
+<script type="text/javascript" src="../admin/modalwindow/dhtmlwindow.js">
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
+
+<!-- General JS Scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="assets/js/stisla.js"></script>
+
+  <!-- Template JS File -->
+  <script src="assets/js/scripts.js"></script>
+  <script src="assets/js/custom.js"></script>
+
+  <!-- Datatable JS -->
+<script src="include/datatable/datatables.js"></script>
+<script src="include/datatable/datatables.min.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,41 +195,42 @@ $id=isset($_REQUEST["id"])?trim($_REQUEST["id"]):"";
 <link rel="stylesheet" type="text/css" href="login/css/main.css">
 
 </head>
-<body>
-	<div class="limiter">
-		<div align="center"><?php print $msg;?></div>
-		<div class="col-10">
-			<div class="card-body text-white" style="background-color: rgba(204, 112, 30, 0.59);">
-					<form class="login100-form validate-form">
-						<!-- <div class="login100-form-avatar">
-							
-						</div> -->
-						<span class="login100-form-title">
-                            <i class="fas fa-user-circle fa-3x pb-3"></i>
-                            <h3 class="section-heading text-uppercase" style="font-size: 1.5em;">SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(PESERTA KURSUS)</h3> <br>
-                            <h6><div class="text-white">Sila masukkan no. kad pengenalan anda.</div></h6><br>
-						</span>
 
-						<div class="wrap-input100 validate-input" data-validate="Sila isi No Kad Pengenalan">
-							<input class="input100" type="text" name="userlog" value="<?=$id;?>" placeholder="No KP : ">
-							<i style="color:white">Sila masukkan no kp anda sebagai id pegguna </i>
-								<span class="focus-input100"></span>
-								<span class="symbol-input100">
-									<i class="fa fa-user pb-3"></i>
-								</span>
+<body style="padding: 120px; background-image: url('http://1.bp.blogspot.com/-YvjSjUd6vXM/Up_JLwVYjFI/AAAAAAAAFVo/jC7XAzevgHE/s1600/IMG_20131127_140832.jpg');">
+    <div class="container">
+	<div align="center"><?php print $msg;?></div>
+		<div class="row justify-content-center">
+            <div class="col-10 text-center my-auto">
+
+				<div class="card-body text-white" style="background-color: rgba(204, 149, 30, 0.59);">
+				<div align="center">
+					<img src="../images/logo_ilim.jpg" style="max-height:150px;max-width:100px" alt="image" class="image_parlimen" /></div>
+				
+
+					<i class="fas fa-user-circle fa-6x pb-3 pt-3"></i>
+						<h3 class="section-heading text-uppercase" style="font-size: 2.5em;"><b>SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(PESERTA KURSUS)</b></h3> 
+						<br><p><div class="text-white">Sila masukkan no. kad pengenalan anda.</div></p><br>	
+
+				<div class="card-body text-center my-auto">
+					<div class="form-group row row align-items-center justify-content-center"">
+						<!-- <label for="logid" class="col-sm-3 col-form-label col-form-label-lg"></label> -->
+						<div class="col-sm-10 ">
+							<input style="border-radius: 2rem" type="text" class="form-control form-control-lg" name="userlog" id="userlog" maxlength="20"  id="userlog" placeholder="No Kad Pengenalan" value="<?=$id;?>">
+							<i>Sila masukkan no kp anda sebagai id pegguna</i>
+						</div>
+					</div>
+
+						<div class="form-group row row align-items-center justify-content-center"">
+							<!-- <label for="logid" class="col-sm-3 col-form-label col-form-label-lg"></label> -->
+							<div class="col-sm-10 ">
+								<input style="border-radius: 2rem" type="password" class="form-control form-control-lg" id="pass"  name="upass" placeholder="Kata Laluan">
+								<i>Sila masukkan no.kp anda sekali lagi untuk pengesahan</i>
+							</div>
 						</div>
 
-						<div class="wrap-input100 validate-input" data-validate="Password is required">
-							<input class="input100" type="password" name="pass" placeholder="Password">
-							<i style="color:white">Sila masukkan no kp anda sebagai id pegguna</i>
-								<span class="focus-input100"></span>
-								<span class="symbol-input100">
-									<i class="fa fa-lock pb-3"></i>
-								</span>
-						</div>
 						<div class="container-login100-form-btn p-t-10">
 							<a href="javascript:void(0);" onClick="do_logs('index.php?pages=login_peserta')">
-                            <button class="btn btn-warning btn-sm" style="cursor:pointer; font-size: 0.8rem; font-weight:bold";>LOG MASUK</button>
+                            <button class="btn btn-warning btn-sm" style="cursor:pointer; font-size: 1rem; font-weight:bold";>LOG MASUK</button>
 							</a>
 						</div>
 						<!-- <div class="text-center w-full p-t-25 p-b-230">

@@ -118,16 +118,22 @@ if(!empty($varUser) && !empty($varPswd)){
 
 <header class="masthead" style="padding: 55px;">
 	<div class="container">
+
 		<div align="center">
 			<img src="../images/logo_ilim.jpg" style="max-height:150px;max-width:100px" alt="image" class="image_parlimen" /></div>
 		</div>
+
 		<div class="masthead-heading text-uppercase" style="margin-bottom:0px;">Sistem Maklumat Latihan  (I-TIS)</div>
 		<b><p>Sistem ini menyimpan semua maklumat berkaitan urusan permohonan latihan dan kursus bagi pusat latihan yang di bawah seliaan Jakim.</p>
         <p>Sebarang pertanyaan atau cadangan bolehlah diajukan kepada <a href="mailto:eparlimen@islam.gov.my" title="Email">kursus_ilim@islam.gov.my</a></p></b>
+		
 		<div class="card float-center" style="background-color: rgba(0, 0, 0, 0.39); width: 750px; margin-left: 180px; margin-right: 180px;">
+
 			<div class="card-body">
+
 				<p class="float-left">Sila log masuk Pengguna ID dan Kata Laluan anda.</p><br><br>
 					<form name="form1" method="post" action="index.php?data=<?php print base64_encode(';login/login');?>" onSubmit="validateForm();return document.returnValue"><br>
+
 					<div class="form-group row">
 						<label for="staticEmail" class="col-sm-2 col-form-label" style="color:#fff;">ID Pengguna</label>
 						<div class="col-sm-10">
