@@ -1,4 +1,6 @@
-<link href="login-box.css" rel="stylesheet" type="text/css" />
+<?php
+?>
+<link href="login/bootstrap.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 <!--
 	function do_open(URL){
@@ -16,7 +18,6 @@
 	}
 -->
 </script>
-
 
 <head>
 <title>Login V12</title>
@@ -144,9 +145,3 @@
 	<!-- <br><br>
 </body> -->
 <br><br>
-
-
-<br><br>
-<script language="javascript" type="text/javascript">
-document.ilim.logid.focus();
-</script>

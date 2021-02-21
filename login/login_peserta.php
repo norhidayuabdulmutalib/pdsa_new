@@ -3,14 +3,11 @@
 $msg='';
 $varUser=isset($_POST["userlog"])?trim($_POST["userlog"]):"";
 $varPswd=isset($_POST["upass"])?trim($_POST["upass"]):"";
-// print $varUser."/".$varPswd;
-if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
+//print $varUser."/".$varPswd;
+if(!empty($varUser) && !empty($varPswd)){	
 	//include 'common.php';
 	//$conn->debug=true;
-	$sql = "SELECT * FROM _tbl_peserta WHERE f_peserta_noic=$varUser AND f_peserta_noic=$varPswd";
-	// var_dump($sql);
-	// $rslogin = $conn->query($sql);
-	// $rslogin = &$conn->Execute($sql);
+	$sql = "SELECT * FROM _tbl_peserta WHERE f_peserta_noic=".tosql($varUser,"Text")." AND f_peserta_noic=".tosql($varPswd,"Text");
 	$rslogin = &$conn->Execute($sql);
 
 	if(!$rslogin->EOF){
@@ -99,28 +96,27 @@ if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
 	}
 }
 ?>
-<link href="login-box.css" rel="stylesheet" type="text/css" />
+<link href="login/bootstrap.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
-// <!--
-	// function do_logs(URL){
-	// 	if(document.ilim.userlog.value==''){
-	// 		alert("Please enter your login id");
-	// 		document.ilim.userlog.focus();
-	// 	} else if(document.ilim.upass.value==''){
-	// 		alert("Please enter your password");
-	// 		document.ilim.upass.focus();
-	// 	} else {
-	// 		//alert(URL);
-	// 		document.ilim.action=URL;
-	// 		document.ilim.submit();
-	// 	}
-	// }
-// -->
+<!--
+	function do_logs(URL){
+		if(document.ilim.userlog.value==''){
+			alert("Please enter your login id");
+			document.ilim.userlog.focus();
+		} else if(document.ilim.upass.value==''){
+			alert("Please enter your password");
+			document.ilim.upass.focus();
+		} else {
+			//alert(URL);
+			document.ilim.action=URL;
+			document.ilim.submit();
+		}
+	}
+-->
 </script>
 <?php
 $id=isset($_REQUEST["id"])?trim($_REQUEST["id"]):"";
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -271,5 +267,5 @@ $id=isset($_REQUEST["id"])?trim($_REQUEST["id"]):"";
 
 <?php //} ?>
 <script language="javascript" type="text/javascript">
-document.peserta.userlog.focus();
+document.ilim.logid.focus();
 </script>

@@ -95,7 +95,7 @@ if(!empty($varUser) && !empty($varPswd)){
 	}
 }
 ?>
-<link href="login-box.css" rel="stylesheet" type="text/css" />
+<link href="login/bootstrap.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 <!--
 	function do_logs(URL){
@@ -180,3 +180,4 @@ if(!empty($varUser) && !empty($varPswd)){
 <script language="javascript" type="text/javascript">
 document.ilim.userlog.focus();
 </script>
+
