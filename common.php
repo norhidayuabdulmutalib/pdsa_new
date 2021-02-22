@@ -14,7 +14,7 @@ $ip = $_SERVER['HTTP_HOST'];
 // ====== START DATABASE CONFIG =======
 //ODBC_MSSQL
 if($ip=='localhost'){
-	$DB_dbtype="mysql"; $DB_hostname="localhost"; $DB_username="root"; $DB_password="root"; $DB_dbname="db_itis";
+	$DB_dbtype="mysql"; $DB_hostname="localhost"; $DB_username="root"; $DB_password=""; $DB_dbname="db_itis";
 } else {
 	$DB_dbtype="mysqli"; $DB_hostname="dbprod"; $DB_username="itis"; $DB_password="kioio&*(6uhwdihui&%hgui908"; $DB_dbname="itis";
 }

@@ -1,17 +1,19 @@
 <?php
 
+include_once('common.php');
+
 $msg='';
 $varUser=isset($_POST["userlog"])?trim($_POST["userlog"]):"";
 $varPswd=isset($_POST["upass"])?trim($_POST["upass"]):"";
 // print $varUser."/".$varPswd;
 if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
 	//include 'common.php';
-	//$conn->debug=true;
+	// $conn->debug=true;
 	$sql = "SELECT * FROM _tbl_peserta WHERE f_peserta_noic=$varUser AND f_peserta_noic=$varPswd";
 	// var_dump($sql);
-	// $rslogin = $conn->query($sql);
+	$rslogin = $conn->query($sql);
 	// $rslogin = &$conn->Execute($sql);
-	$rslogin = &$conn->Execute($sql);
+	// $rslogin = $conn->Execute($sql);
 
 	if(!$rslogin->EOF){
 	
@@ -67,6 +69,8 @@ if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
 		//$conn->execute($sqld);
 		//exit;
 
+		// var_dump($_SESSION["s_userid"]);exit();
+
 		$tout = time()-300;
 		$sqld = "DELETE FROM useronline WHERE timestamp < ".tosql($tout);
 		$conn->execute($sqld);
@@ -75,14 +79,11 @@ if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
 		$sqli = "INSERT INTO useronline(timestamp, ip, user_name) VALUES ('".time()."', '$ip', '$user_name')";
 		$conn->execute($sqli);
 		
-		$mnu = base64_encode('user;apps/default.php');
+		// $mnu = base64_encode('user;apps/default.php');
+		$mnu = base64_encode('user;default_peserta.php;default;default');
 		print '<script>
-			<!--
 			alert("Anda berjaya log masuk ke dalam sistem.");
-			//parent.location.reload();
-			//parent.emailwindow.hide();
-			window.open(\'apps/index.php?data=dXNlcjtkZWZhdWx0X3Blc2VydGEucGhwO2RlZmF1bHQ7ZGVmYXVsdA==\',\'_self\');
-			//-->
+			document.location.href="apps/index.php?data='.$mnu.'";
 			</script>';
 		exit;
 		
@@ -101,223 +102,57 @@ if(!empty($varUser) && !empty($varPswd)){	//echo 'sini';
 ?>
 <link href="login-box.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
-// <!--
-	// function do_logs(URL){
-	// 	if(document.ilim.userlog.value==''){
-	// 		alert("Please enter your login id");
-	// 		document.ilim.userlog.focus();
-	// 	} else if(document.ilim.upass.value==''){
-	// 		alert("Please enter your password");
-	// 		document.ilim.upass.focus();
-	// 	} else {
-	// 		//alert(URL);
-	// 		document.ilim.action=URL;
-	// 		document.ilim.submit();
-	// 	}
-	// }
-// -->
+
+	function do_logs(URL){
+		if(document.ilim.userlog.value==''){
+			alert("Please enter your login id");
+			document.ilim.userlog.focus();
+		} else if(document.ilim.upass.value==''){
+			alert("Please enter your password");
+			document.ilim.upass.focus();
+		} else {
+			//alert(URL);
+			document.ilim.action=URL;
+			document.ilim.submit();
+		}
+	}
 </script>
 <?php
 $id=isset($_REQUEST["id"])?trim($_REQUEST["id"]):"";
 ?>
-
-
-<!--<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />-->
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
-<!-- General CSS Files -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-<!-- Template CSS -->
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-<link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,300,200" rel="stylesheet" type="text/css">
-<!-- <link rel="stylesheet" href="css/bootstrap-overrides.css" type="text/css" /> -->
-<link rel="stylesheet" href="modalwindow/modal.css" type="text/css" />
-<link rel="stylesheet" href="../admin/modalwindow/dhtmlwindow.css" type="text/css" />
-<link type="text/css" rel="stylesheet" href="cal/dhtmlgoodies_calendar.css" media="screen"></LINK>
-
-<!-- Datatable CSS -->
-<link rel="stylesheet" href="include/datatable/datatables.css">
-<link rel="stylesheet" href="include/datatable/datatables.min.css">
-
-
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-<script src="script.js"></script>
-<SCRIPT type="text/javascript" src="cal/dhtmlgoodies_calendar2.js"></script>
-<script type="text/javascript" src="../admin/modalwindow/dhtmlwindow.js">
-/***********************************************
-* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
-* This notice must stay intact for legal use.
-* Visit http://www.dynamicdrive.com/ for full source code
-***********************************************/
-</script>
-
-<!-- General JS Scripts -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-  <script src="assets/js/stisla.js"></script>
-
-  <!-- Template JS File -->
-  <script src="assets/js/scripts.js"></script>
-  <script src="assets/js/custom.js"></script>
-
-  <!-- Datatable JS -->
-<script src="include/datatable/datatables.js"></script>
-<script src="include/datatable/datatables.min.js"></script>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Login V12</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
-
-<link rel="stylesheet" type="text/css" href="login/vendor/bootstrap/css/bootstrap.min.css">
-
-<!-- <link rel="stylesheet" type="text/css" href="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
-
-<link rel="stylesheet" type="text/css" href="login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-
-<link rel="stylesheet" type="text/css" href="login/vendor/animate/animate.css">
-
-<link rel="stylesheet" type="text/css" href="login/vendor/css-hamburgers/hamburgers.min.css">
-
-<link rel="stylesheet" type="text/css" href="login/vendor/select2/select2.min.css">
-
-<link rel="stylesheet" type="text/css" href="login/css/util.css">
-<link rel="stylesheet" type="text/css" href="login/css/main.css">
-
-</head>
-
-<body style="padding: 120px; background-image: url('http://1.bp.blogspot.com/-YvjSjUd6vXM/Up_JLwVYjFI/AAAAAAAAFVo/jC7XAzevgHE/s1600/IMG_20131127_140832.jpg');">
-    <div class="container">
-	<div align="center"><?php print $msg;?></div>
-		<div class="row justify-content-center">
-            <div class="col-10 text-center my-auto">
-
-				<div class="card-body text-white" style="background-color: rgba(204, 149, 30, 0.59);">
-				<div align="center">
-					<img src="../images/logo_ilim.jpg" style="max-height:150px;max-width:100px" alt="image" class="image_parlimen" /></div>
-				
-
-					<i class="fas fa-user-circle fa-6x pb-3 pt-3"></i>
-						<h3 class="section-heading text-uppercase" style="font-size: 2.5em;"><b>SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(PESERTA KURSUS)</b></h3> 
-						<br><p><div class="text-white">Sila masukkan no. kad pengenalan anda.</div></p><br>	
-
-				<div class="card-body text-center my-auto">
-					<div class="form-group row row align-items-center justify-content-center"">
-						<!-- <label for="logid" class="col-sm-3 col-form-label col-form-label-lg"></label> -->
-						<div class="col-sm-10 ">
-							<input style="border-radius: 2rem" type="text" class="form-control form-control-lg" name="userlog" id="userlog" maxlength="20"  id="userlog" placeholder="No Kad Pengenalan" value="<?=$id;?>">
-							<i>Sila masukkan no kp anda sebagai id pegguna</i>
-						</div>
-					</div>
-
-						<div class="form-group row row align-items-center justify-content-center"">
-							<!-- <label for="logid" class="col-sm-3 col-form-label col-form-label-lg"></label> -->
-							<div class="col-sm-10 ">
-								<input style="border-radius: 2rem" type="password" class="form-control form-control-lg" id="pass"  name="upass" placeholder="Kata Laluan">
-								<i>Sila masukkan no.kp anda sekali lagi untuk pengesahan</i>
-							</div>
-						</div>
-
-						<div class="container-login100-form-btn p-t-10">
-							<a href="javascript:void(0);" onClick="do_logs('index.php?pages=login_peserta')">
-                            <button class="btn btn-warning btn-sm" style="cursor:pointer; font-size: 1rem; font-weight:bold";>LOG MASUK</button>
-							</a>
-						</div>
-						<!-- <div class="text-center w-full p-t-25 p-b-230">
-							<a href="#" class="txt1">
-								Forgot Username / Password?
-							</a>
-						</div> -->
-					</form>
-				</div>
-			</div>
-		</div>
-
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-	<script src="vendor/select2/select2.min.js"></script>
-
-	<script src="js/main.js"></script>
-
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-23581568-13');
-	</script>
-</body>
-
-<!-- <body>
-	<div style="padding: 1px 0 0 1px;">
-	<div align="center"><?php print $msg;?></div>
-	<div id="login-box" style="height:320px">
-	<i class="fas fa-user-circle fa-7x"></i>
-	<h1 class="section-heading text-uppercase" style="font-size: 3.25rem;"><b>SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(PESERTA KURSUS)<b></h1> 
-                    <br><h3>Sila masukkan no. kad pengenalan anda.</h3><br> -->
-
-	<!-- <table width="80%" cellpadding="5" cellspacing="1" border="0" align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:12px">
-		<tr><td><br></td></tr>
-		<tr>
-			<td align="right"><b>No. KP : </b></td>
-			<td><input type="text" size="20"  name="userlog" maxlength="20" value="<?=$id;?>" /><br><font color="#FFFFFF"><i>Sila masukkan no kp anda sebagai id pegguna</i></td>
-		</tr>
-		<tr>
-			<td align="right"><b>Katalaluan : </b></td>
-			<td><input type="password" size="20" name="upass" maxlength="20"/><br><font color="#FFFFFF"><i>Sila masukkan no.kp anda sekali lagi untuk pengesahan</i></td>
-		</tr>
-		<tr><td colspan="2" align="center">
-			<a href="javascript:void(0);" onClick="do_logs('index.php?pages=login_peserta')">
-			<img src="images/login-btn.png" width="103" height="42" style="cursor:pointer" /></a>
-		</td>
-		</tr>
-	</table> -->
-
-	<!-- <form class="form-signin">
-		<div class="form-group row">
-			<label for="logid" class="col-sm-3 col-form-label col-form-label-lg">No. KP :</label>
-			<div class="col-sm-6">
-				<input style="border-radius: 2rem" type="text" class="form-control form-control-lg"  name="userlog" value="<?=$id;?>" placeholder="No Kad Pengenalan">
-				<i>Sila masukkan no kp anda sebagai id pegguna</i>
-			</div>
-		</div>
-
-		<div class="form-group row">
-			<label for="pass" class="col-sm-3 col-form-label col-form-label-lg">Kata Laluan :</label>
-			<div class="col-sm-6">
-				<input style="border-radius: 2rem" type="password" class="form-control form-control-lg" name="upass" placeholder="Kata Laluan">
-				<i>Sila masukkan no.kp anda sekali lagi untuk pengesahan</i>
-			</div>
-		</div>
-		<hr class="my-4">
-		<div class="custom-control custom-checkbox mb-3">
-			<input type="checkbox" class="custom-control-input" id="customCheck1">
-			<label class="custom-control-label" for="customCheck1">Remember password</label>
-		</div>
+<body>
+<div style="padding: 1px 0 0 1px;">
+<div align="center"><?php print $msg;?></div>
+<div id="login-box" style="height:320px">
+<label style="font-family:Arial, Helvetica, sans-serif;font-size:20px;font-weight:bold">
+SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)<br>(Peserta Kursus)</label> 
+<br>
+Sila masukkan no. kad pengenalan anda.<br>
+<form name="peserta" method="post" action="">
+<table width="80%" cellpadding="5" cellspacing="1" border="0" align="center" style="font-family:Arial, Helvetica, sans-serif; font-size:12px">
+	<tr><td><br></td></tr>
+	<tr>
+    	<td align="right"><b>No. KP : </b></td>
+        <td><input type="text" size="20"  name="userlog" id="userlog" maxlength="20" value="<?=$id;?>" /><br><font color="#FFFFFF"><i>Sila masukkan no kp anda sebagai id pegguna</i></td>
+    </tr>
+	<tr>
+    	<td align="right"><b>Katalaluan : </b></td>
+        <td><input type="password" size="20" name="upass" maxlength="20"/><br><font color="#FFFFFF"><i>Sila masukkan no.kp anda sekali lagi untuk pengesahan</i></td>
+    </tr>
+	<tr><td colspan="2" align="center">
 		<a href="javascript:void(0);" onClick="do_logs('index.php?pages=login_peserta')">
-			<button class="btn btn-warning btn-lg" style="cursor:pointer; font-size: 1 rem; font-weight:bold";>LOG MASUK</button>
+			<!-- <img src="images/login-btn.png" width="103" height="42" style="cursor:pointer" /> -->
+			<button class="btn btn-md btn-primary">Log Masuk</button></a>
 		</a>
-	</form>
-	</div>
-	</div> -->
-	
-
+    </td>
+    </tr>
+</table>
+</form>
+</div>
+</div>
+<br><br>
 </body>
-
+<br><br>
 <?php //} ?>
 <script language="javascript" type="text/javascript">
 document.peserta.userlog.focus();
