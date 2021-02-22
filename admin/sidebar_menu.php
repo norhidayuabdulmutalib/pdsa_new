@@ -40,7 +40,7 @@
                         $glink = $rs_menud->fields['menu_link'];
                         $ggrp = $rs_menu->fields['grp_kod'];
                         $gsub = $rs_menud->fields['menu_name'];
-                        $urls = $userid.';'.$glink.";".$ggrp .";".$gsub.";";
+                        $urls = $glink.";".$ggrp.";".$gsub.";";
 
                     ?>
 

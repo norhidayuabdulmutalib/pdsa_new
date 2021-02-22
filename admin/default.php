@@ -5,8 +5,6 @@
 		//window.open(URL,'name','height=255,width=250,toolbar=yes,directories=no,status=no,continued from previous linemenubar=no,scrollbars=no,resizable=no ,modal=yes');
 	} 
 </script>
-
-
 	<div class="col-md-12" style="padding:0px;">
 		<div class="card card-statistic-1" style="background-color:#fed136;">
 			<div class="card-wrap">
@@ -222,8 +220,8 @@
 				</div>
 					
 			</div>
-		</div>
-		</div>
+	</div>
+</div>
 
 						
 
