@@ -1,5 +1,5 @@
 <?php
-//$conn->debug=true;
+// $conn->debug=true;
 $search=isset($_REQUEST["search"])?$_REQUEST["search"]:"";
 $kategori=isset($_REQUEST["kategori"])?$_REQUEST["kategori"]:"";
 $subkategori=isset($_REQUEST["subkategori"])?$_REQUEST["subkategori"]:"";
@@ -12,7 +12,7 @@ if(!empty($search)){ $sSQL.=" AND (C.coursename LIKE '%".$search."%' OR C.course
 if(!empty($kategori)){ $sSQL.=" AND C.category_code=".tosql($kategori,"Text"); } 
 if(!empty($subkategori)){ $sSQL.=" AND C.subcategory_code=".tosql($subkategori,"Text"); } 
 $sSQL .= " GROUP BY C.courseid ORDER BY coursename";
-$rs = &$conn->Execute($sSQL);
+$rs = $conn->Execute($sSQL);
 $cnt = $rs->recordcount();
 $conn->debug=false;
 $href_search = "index.php?data=".base64_encode($userid.';kursus/kursus_mohon_list.php;kursus;peserta');
