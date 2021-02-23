@@ -1,4 +1,4 @@
-<?php echo "<font style='padding-left:450px;' color=#fff>PROSES:".$pro.";PAGE:".$page.";MENU:".$menu.";SUBMENU:".$submenu.";ID:".$id.";SUBTAB:".$sub_tab."</font>"; ?>
+
   <nav class="navbar navbar-expand-lg main-navbar" style="padding-top:0px;padding-left:0px;padding-bottom:60px;">
     <form class="form-inline mr-auto">
       <ul class="navbar-nav mr-3">

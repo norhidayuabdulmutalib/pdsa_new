@@ -127,55 +127,26 @@ function do_page(URL){
 
 
 <body>
-  <!-- <nav class="navbar navbar-expand-lg main-navbar" style="padding-top:0px;padding-left:0px;padding-bottom:60px;">
-    <form class="form-inline mr-auto">
-      <ul class="navbar-nav mr-3">
-        <li> 
-          <button class="btn btn-md" style="shadow:0px;background-color:#fed136;">
-            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg">
-              <i class="fas fa-bars" style="color:#000;"></i>
-            </a>
-          </button>
-          
-        </li>
-      </ul>
-      <h2 style="color: #fed136;margin-top: 50px; margin-left:50px;">SISTEM MAKLUMAT LATIHAN ILIM (I-TIS)</h2>
-    </form>
-    <ul class="navbar-nav navbar-right" style="margin-top:50px;">
-      <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-        <img alt="image" src="../admin/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-        <div class="d-sm-none d-lg-inline-block">Admin</div></a>
-        <div class="dropdown-menu dropdown-menu-right" style="padding:0px;">
-          <div class="dropdown-title">Logged in 5 min ago</div>
-          <a href="features-profile.html" class="dropdown-item has-icon">
-            <i class="far fa-user"></i> Profil
-          </a>
-          <a href="index.php?data=<? print base64_encode(';../logout.php');?>" class="dropdown-item has-icon text-danger">
-            <i class="fas fa-sign-out-alt"></i> Logout
-          </a>
-        </div>
-      </li>
-    </ul>
-  </nav> -->
-
-  <div id="app">
-    <div class="main-wrapper">
-        <div class="navbar-bg"></div>
-            <?php include 'header_system.php';
-            
-            if($_SESSION["s_usertype"]=='PESERTA'){ 
-                include 'menu/left_peserta_system.php';
-            } else if($_SESSION["s_usertype"]=='PENSYARAH'){ 
-                include 'menu/left_pensyarah.php';
-            } else { 
-                include 'menu/left_menu.php';
-            } ?>
-			
-			<div class="main-content" id="content">
-				<section class="section">
-					<div class="section-header" style="margin:0px;">
-                        <h1 color="#000000"><?php print $pages; ?></h1>
-                    </div>
+    <div id="wrapper">
+        <div id="app">
+            <div class="main-wrapper">
+                <div class="navbar-bg"></div>
+                <?php include 'header_system.php';
+                    if($_SESSION["s_usertype"]=='PESERTA'){ 
+                        include 'menu/left_peserta_system.php';
+                    } else if($_SESSION["s_usertype"]=='PENSYARAH'){ 
+                        include 'menu/left_pensyarah.php';
+                    } else { 
+                        include 'menu/left_menu.php';
+                    } 
+                ?>
+                
+                <div class="main-content" id="content">
+                    <section class="section">
+                        <div class="section-header" style="margin:0px;">
+                            <h1><?php print $page; ?></h1>
+                        </div>
+                        <?php echo "<font style='padding-left:100px;' color=#000>PROSES:".$pro.";PAGE:".$page.";MENU:".$menu.";SUBMENU:".$submenu.";ID:".$id.";SUBTAB:".$sub_tab."</font>"; ?>
                         <?php
                             if(!empty($page)){ 
                                 include $page; //"utiliti/bahagian.php";s
@@ -183,12 +154,11 @@ function do_page(URL){
                                 include 'default.php';
                             }
                         ?>
-                </section>
+                    </section>
+                </div>
+                <footer class="main-footer">
+                    <?php include_once('footer_system.php'); ?>
+                </footer> 
             </div>
-
-            <footer class="main-footer">';
-			    <?php include_once('footer_system.php'); ?>
-            </footer> 
         </div>
-    </div>
-</div>
+	</div>
